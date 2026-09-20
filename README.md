@@ -1,3 +1,4 @@
+# Portfolio
 # Chinmaya Garnaik — Developer Portfolio & Tech Matrix
 
 An interactive, high-performance developer portfolio website for **Chinmaya Garnaik** (Analyst at Deloitte – Cyber Risk & IAM, Oracle & Claude Certified AI Developer, AWS Solutions Architect & Data Engineer, Mobile & Cross-Platform Specialist).
@@ -81,4 +82,4 @@ Generates optimized static bundles in the `dist/` directory ready for deployment
 - **Motion & 3D**: Framer Motion (3D Transforms, Scroll Hooks, AnimatePresence)
 - **Icons**: Lucide React
 - **Graphics**: GPU-accelerated HTML5 Canvas Engine
-# Portfolio
+
