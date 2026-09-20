@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: #07090e;
+  color: #f1f5f9;
+  overflow-x: hidden;
+}
+
+/* Custom Cyber Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #07090e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0ea5e9;
+}
+
+/* Utilities for hiding scrollbars in tabs while allowing scroll */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Cyber Glow utility classes */
+.cyber-glow-cyan {
+  box-shadow: 0 0 25px rgba(0, 240, 255, 0.25);
+}
+
+.cyber-glow-purple {
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.25);
+}
+
+.cyber-glow-amber {
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.25);
+}
+
