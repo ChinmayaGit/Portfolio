@@ -32,10 +32,11 @@ export const ParticleBackground: React.FC = () => {
     const particles: Particle[] = [];
 
     const colors = [
-      '#00f0ff', // cyan
-      '#38bdf8', // sky
-      '#a855f7', // purple
-      '#10b981', // emerald
+      '#ff4f36', // string neon red
+      '#3687ff', // string electric blue
+      '#ff4f36', // string neon red
+      '#3687ff', // string electric blue
+      '#ffffff', // crisp white
     ];
 
     for (let i = 0; i < particleCount; i++) {
@@ -132,7 +133,7 @@ export const ParticleBackground: React.FC = () => {
 
       // 2. Batched Line Drawing (Single path and single stroke call = 50x faster)
       ctx.beginPath();
-      ctx.strokeStyle = 'rgba(56, 189, 248, 0.12)';
+      ctx.strokeStyle = 'rgba(255, 79, 54, 0.08)';
       ctx.lineWidth = 0.75;
       for (let i = 0; i < particles.length; i++) {
         const p1 = particles[i];

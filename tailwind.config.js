@@ -18,6 +18,20 @@ export default {
           emerald: '#10b981',
           amber: '#f59e0b',
           rose: '#f43f5e',
+        },
+        string: {
+          black: '#101214',
+          dark: '#16191d',
+          card: '#181b20',
+          surface: '#14161a',
+          red: '#ff4f36',
+          'red-hover': '#ff6854',
+          blue: '#3687ff',
+          'blue-hover': '#5297ff',
+          grey: '#544d56',
+          berry: '#c8c2cf',
+          light: '#ded4e6',
+          border: 'rgba(255, 255, 255, 0.08)',
         }
       },
       fontFamily: {

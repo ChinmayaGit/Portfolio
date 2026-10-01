@@ -114,12 +114,12 @@ export const CategoryExplorer: React.FC<CategoryExplorerProps> = ({
     <section id="projects" className="relative py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       {/* Section Header */}
       <div className="text-center max-w-3xl mx-auto mb-12">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-mono mb-3">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#ff4f36]/15 border border-[#ff4f36]/30 text-[#ff4f36] text-xs font-mono mb-3 shadow-[0_0_12px_rgba(255,79,54,0.2)]">
           <Sparkles className="w-3.5 h-3.5" />
-          <span>Interactive Engineering Matrix</span>
+          <span className="font-bold">STRING_TUNE ENGINEERING MATRIX</span>
         </div>
         <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-          Explore by <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Technology Domain</span>
+          Explore by <span className="bg-gradient-to-r from-[#ff4f36] via-[#ffffff] to-[#3687ff] bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(255,79,54,0.4)]">Technology Domain</span>
         </h2>
         <p className="mt-3 text-slate-300 text-sm sm:text-base">
           Categorized showcase of 70+ public repositories spanning cross-platform apps, AI agents, 3D games, cloud infrastructure, and embedded systems.
@@ -137,26 +137,26 @@ export const CategoryExplorer: React.FC<CategoryExplorerProps> = ({
               <button
                 key={cat.id}
                 onClick={() => handleCategorySelect(cat.id)}
-                className={`group relative flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium whitespace-nowrap transition-all duration-200 ${
+                className={`group relative flex items-center gap-2 px-4 py-2.5 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200 ${
                   isActive
-                    ? 'text-white shadow-lg'
-                    : 'text-slate-400 hover:text-slate-200 bg-slate-900/60 hover:bg-slate-800/60 border border-slate-800'
+                    ? 'text-white shadow-xl'
+                    : 'text-slate-400 hover:text-white bg-[#16191d] hover:bg-[#1c2026] border border-white/[0.08]'
                 }`}
               >
                 {isActive && (
                   <motion.div
                     layoutId="categoryActivePill"
-                    className="absolute inset-0 bg-gradient-to-r from-cyan-500/30 via-blue-600/30 to-purple-600/30 border border-cyan-400/50 rounded-xl shadow-cyan-500/10 shadow-lg"
+                    className="absolute inset-0 bg-gradient-to-r from-[#ff4f36]/30 via-[#222832] to-[#3687ff]/30 border border-[#ff4f36]/60 rounded-full shadow-[0_0_20px_rgba(255,79,54,0.3)]"
                     transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                   />
                 )}
-                <span className={`relative z-10 ${isActive ? cat.color : 'text-slate-400 group-hover:text-slate-300'}`}>
+                <span className={`relative z-10 ${isActive ? 'text-[#ff4f36]' : 'text-slate-400 group-hover:text-slate-300'}`}>
                   {ICON_MAP[cat.iconName]}
                 </span>
                 <span className="relative z-10">{cat.label}</span>
                 <span
-                  className={`relative z-10 px-1.5 py-0.2 rounded-full text-[10px] font-mono ${
-                    isActive ? 'bg-white/20 text-white' : 'bg-slate-800 text-slate-400'
+                  className={`relative z-10 px-2 py-0.5 rounded-full text-[10px] font-mono font-bold ${
+                    isActive ? 'bg-[#ff4f36] text-[#101214]' : 'bg-[#101214] text-slate-400 border border-white/5'
                   }`}
                 >
                   {count}
@@ -174,9 +174,9 @@ export const CategoryExplorer: React.FC<CategoryExplorerProps> = ({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 5 }}
             transition={{ duration: 0.2 }}
-            className={`mt-3 p-3.5 rounded-xl bg-slate-900/40 border border-slate-800/80 text-center text-xs sm:text-sm text-slate-300 backdrop-blur-sm max-w-2xl mx-auto flex items-center justify-center gap-2`}
+            className={`mt-3 p-3 rounded-full bg-[#16191d] border border-white/[0.08] text-center text-xs sm:text-sm text-slate-300 backdrop-blur-sm max-w-2xl mx-auto flex items-center justify-center gap-2 shadow-lg`}
           >
-            <span className={activeCategoryInfo.color}>{ICON_MAP[activeCategoryInfo.iconName]}</span>
+            <span className="text-[#ff4f36]">{ICON_MAP[activeCategoryInfo.iconName]}</span>
             <span>{activeCategoryInfo.description}</span>
           </motion.div>
         </AnimatePresence>
@@ -187,18 +187,18 @@ export const CategoryExplorer: React.FC<CategoryExplorerProps> = ({
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
           {/* Live Search Input */}
           <div className="relative w-full sm:w-80">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search projects by tech or name..."
-              className="w-full pl-9 pr-8 py-2 rounded-xl bg-slate-900/80 border border-slate-800 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 text-xs sm:text-sm text-white placeholder-slate-500 font-mono transition-all"
+              className="w-full pl-10 pr-8 py-2.5 rounded-full bg-[#16191d] border border-white/[0.08] focus:border-[#ff4f36] focus:outline-none focus:ring-2 focus:ring-[#ff4f36]/30 text-xs sm:text-sm text-white placeholder-slate-500 font-mono transition-all"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 p-0.5 rounded text-slate-400 hover:text-white"
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-0.5 rounded text-slate-400 hover:text-white"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -208,7 +208,7 @@ export const CategoryExplorer: React.FC<CategoryExplorerProps> = ({
           {/* Quick Filter Tag Pills */}
           <div className="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0 scrollbar-none">
             <span className="text-[11px] font-mono text-slate-400 flex items-center gap-1 shrink-0 mr-1">
-              <Filter className="w-3 h-3 text-cyan-400" /> Filter:
+              <Filter className="w-3 h-3 text-[#ff4f36]" /> Filter:
             </span>
             {POPULAR_TAGS.map((tag) => {
               const isSelected = selectedTag === tag;
@@ -216,10 +216,10 @@ export const CategoryExplorer: React.FC<CategoryExplorerProps> = ({
                 <button
                   key={tag}
                   onClick={() => setSelectedTag(isSelected ? null : tag)}
-                  className={`px-2.5 py-1 rounded-lg text-xs font-mono whitespace-nowrap transition-all ${
+                  className={`px-3 py-1 rounded-full text-xs font-mono font-bold whitespace-nowrap transition-all ${
                     isSelected
-                      ? 'bg-cyan-500 text-slate-950 font-bold shadow-sm shadow-cyan-500/30'
-                      : 'bg-slate-900/70 hover:bg-slate-800 text-slate-400 hover:text-slate-200 border border-slate-800'
+                      ? 'bg-[#ff4f36] text-[#101214] shadow-[0_0_15px_rgba(255,79,54,0.4)]'
+                      : 'bg-[#16191d] hover:bg-[#1c2026] text-slate-300 hover:text-white border border-white/[0.08] hover:border-[#ff4f36]/40'
                   }`}
                 >
                   {tag}
@@ -232,7 +232,7 @@ export const CategoryExplorer: React.FC<CategoryExplorerProps> = ({
                   setSelectedTag(null);
                   setSearchQuery('');
                 }}
-                className="px-2 py-1 rounded-lg text-xs font-mono text-rose-400 hover:bg-rose-500/10 border border-rose-500/20 whitespace-nowrap transition-colors"
+                className="px-3 py-1 rounded-full text-xs font-mono font-bold text-[#ff4f36] hover:bg-[#ff4f36]/15 border border-[#ff4f36]/30 whitespace-nowrap transition-colors"
               >
                 Clear Filters
               </button>
@@ -243,7 +243,7 @@ export const CategoryExplorer: React.FC<CategoryExplorerProps> = ({
         {/* Results Counter Bar */}
         <div className="flex items-center justify-between text-xs font-mono text-slate-400 px-1">
           <span>
-            Showing <span className="text-cyan-400 font-bold">{filteredProjects.length}</span> projects
+            Showing <span className="text-[#ff4f36] font-bold">{filteredProjects.length}</span> projects
             {activeCategory !== 'all' && ` in ${activeCategoryInfo.label}`}
             {selectedTag && ` tagged with "${selectedTag}"`}
           </span>

@@ -98,9 +98,9 @@ export const ElasticStringWave: React.FC<ElasticStringWaveProps> = ({
     const initStrings = () => {
       strings = [];
       const colors = [
-        { stroke: '#00f0ff', glow: '#00f0ff', tension: 0.045, damping: 0.965, thickness: 1.8 },
-        { stroke: '#a855f7', glow: '#a855f7', tension: 0.038, damping: 0.97, thickness: 1.2 },
-        { stroke: '#38bdf8', glow: '#38bdf8', tension: 0.052, damping: 0.96, thickness: 1.0 },
+        { stroke: '#ff4f36', glow: '#ff4f36', tension: 0.048, damping: 0.965, thickness: 2.0 },
+        { stroke: '#3687ff', glow: '#3687ff', tension: 0.040, damping: 0.970, thickness: 1.6 },
+        { stroke: '#ff4f36', glow: '#ff4f36', tension: 0.054, damping: 0.960, thickness: 1.2 },
       ];
 
       for (let s = 0; s < stringCount; s++) {
@@ -239,16 +239,16 @@ export const ElasticStringWave: React.FC<ElasticStringWaveProps> = ({
       <canvas ref={canvasRef} className="w-full h-full block outline-none" />
 
       {/* Micro HUD Labels */}
-      <div className="absolute top-2 left-4 flex items-center gap-2 pointer-events-none text-[9px] font-mono text-slate-500">
-        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-        <span>STRING_TUNE // HARMONIC ELASTIC STRING</span>
-        <span className="text-slate-600 hidden sm:inline">SWEEP CURSOR TO PLUCK</span>
+      <div className="absolute top-2 left-4 flex items-center gap-2 pointer-events-none text-[9px] font-mono text-slate-400">
+        <span className="w-1.5 h-1.5 rounded-full bg-[#ff4f36] animate-pulse" />
+        <span className="text-white font-bold">STRING_TUNE // HARMONIC CHORD</span>
+        <span className="text-slate-500 hidden sm:inline">• SWEEP TO PLUCK RED & BLUE HARMONICS</span>
       </div>
 
-      <div className="absolute bottom-2 right-4 flex items-center gap-2 pointer-events-none text-[9px] font-mono text-slate-600">
-        <span>TENSION: 0.045</span>
+      <div className="absolute bottom-2 right-4 flex items-center gap-2 pointer-events-none text-[9px] font-mono text-slate-500">
+        <span className="text-[#ff4f36]">TENSION: 0.048</span>
         <span>•</span>
-        <span>DAMPING: 0.965</span>
+        <span className="text-[#3687ff]">DAMPING: 0.965</span>
       </div>
     </div>
   );

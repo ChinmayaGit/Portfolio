@@ -78,17 +78,17 @@ export const SystemLoadingScreen: React.FC<SystemLoadingScreenProps> = ({ onComp
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3, ease: 'easeOut' }}
-          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#05070c] text-white px-4 overflow-hidden select-none will-change-[opacity]"
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#101214] text-white px-4 overflow-hidden select-none will-change-[opacity]"
         >
           {/* Ambient Background Radial Glows */}
-          <div className="absolute w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
-          <div className="absolute w-[360px] h-[360px] bg-purple-600/10 rounded-full blur-[100px] pointer-events-none" />
+          <div className="absolute w-[500px] h-[500px] bg-[#ff4f36]/12 rounded-full blur-[120px] pointer-events-none" />
+          <div className="absolute w-[360px] h-[360px] bg-[#3687ff]/12 rounded-full blur-[100px] pointer-events-none" />
 
           {/* Background Grid Accent Lines */}
           <div
             className="absolute inset-0 opacity-[0.03] pointer-events-none"
             style={{
-              backgroundImage: 'radial-gradient(#38bdf8 1px, transparent 1px)',
+              backgroundImage: 'radial-gradient(#ff4f36 1px, transparent 1px)',
               backgroundSize: '32px 32px',
             }}
           />
@@ -100,23 +100,23 @@ export const SystemLoadingScreen: React.FC<SystemLoadingScreenProps> = ({ onComp
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-                className="absolute inset-0 rounded-full border border-dashed border-cyan-400/30"
+                className="absolute inset-0 rounded-full border border-dashed border-[#ff4f36]/40"
               />
 
               {/* Inner Pulsing Gyro Ring */}
               <motion.div
                 animate={{ rotate: -360 }}
                 transition={{ duration: 12, repeat: Infinity, ease: 'linear' }}
-                className="absolute inset-2 rounded-full border border-purple-500/40"
+                className="absolute inset-2 rounded-full border border-[#3687ff]/40"
               />
 
               {/* Central Core Emblem */}
               <motion.div
                 animate={{ scale: [0.96, 1.04, 0.96] }}
                 transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl bg-gradient-to-br from-cyan-500/20 via-slate-900 to-purple-500/20 border border-cyan-400/50 flex flex-col items-center justify-center shadow-lg shadow-cyan-500/20 backdrop-blur-xl"
+                className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl bg-[#14171c] border border-white/[0.12] flex flex-col items-center justify-center shadow-lg shadow-[0_0_20px_rgba(255,79,54,0.3)] backdrop-blur-xl"
               >
-                <span className="font-mono font-black text-xl sm:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-white to-purple-300">
+                <span className="font-mono font-black text-xl sm:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-[#ff4f36] via-[#ffffff] to-[#3687ff]">
                   CG
                 </span>
               </motion.div>
@@ -124,7 +124,7 @@ export const SystemLoadingScreen: React.FC<SystemLoadingScreenProps> = ({ onComp
 
             {/* Brand Title */}
             <div className="space-y-1 mb-6">
-              <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[11px] font-mono tracking-wider">
+              <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-[#ff4f36]/15 border border-[#ff4f36]/30 text-[#ff4f36] text-[11px] font-mono tracking-wider shadow-[0_0_10px_rgba(255,79,54,0.2)]">
                 <Cpu className="w-3 h-3" />
                 <span>CHINMAYA GARNAIK</span>
               </div>
@@ -138,31 +138,31 @@ export const SystemLoadingScreen: React.FC<SystemLoadingScreenProps> = ({ onComp
               {/* Percentage & Progress Header */}
               <div className="flex items-center justify-between text-xs font-mono px-1">
                 <span className="text-slate-400 flex items-center gap-1.5">
-                  <Terminal className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
+                  <Terminal className="w-3.5 h-3.5 text-[#ff4f36] animate-pulse" />
                   <span>INITIALIZING</span>
                 </span>
-                <span className="font-bold text-cyan-300 font-mono tracking-wider text-sm">
+                <span className="font-bold text-[#ff4f36] font-mono tracking-wider text-sm">
                   {progress}%
                 </span>
               </div>
 
               {/* The Glowing Progress Bar Track */}
-              <div className="relative w-full h-2.5 sm:h-3 rounded-full bg-slate-900/90 border border-slate-700/60 p-[2px] overflow-hidden shadow-inner">
+              <div className="relative w-full h-2.5 sm:h-3 rounded-full bg-[#16191d] border border-white/[0.08] p-[2px] overflow-hidden shadow-inner">
                 {/* Fill Bar */}
                 <motion.div
-                  className="h-full rounded-full bg-gradient-to-r from-cyan-400 via-sky-400 to-purple-500 relative"
+                  className="h-full rounded-full bg-gradient-to-r from-[#ff4f36] via-[#ffffff] to-[#3687ff] relative"
                   style={{ width: `${progress}%` }}
                   transition={{ ease: 'linear' }}
                 >
                   {/* Leading Laser Glow / Sparkle */}
-                  <div className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full blur-[3px] shadow-[0_0_12px_#fff]" />
+                  <div className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-[#ff4f36] rounded-full blur-[2px] shadow-[0_0_12px_#ff4f36]" />
                 </motion.div>
               </div>
 
               {/* Live Diagnostic Status Stream */}
               <div className="h-6 flex items-center justify-center">
                 <p className="text-[11px] sm:text-xs font-mono text-slate-400 tracking-wide truncate">
-                  <span className="text-cyan-400 mr-1.5">&gt;</span>
+                  <span className="text-[#ff4f36] mr-1.5">&gt;</span>
                   {statusText}
                 </p>
               </div>
@@ -172,9 +172,9 @@ export const SystemLoadingScreen: React.FC<SystemLoadingScreenProps> = ({ onComp
             <div className="mt-8 flex items-center gap-2">
               <button
                 onClick={handleSkip}
-                className="text-[11px] font-mono text-slate-500 hover:text-cyan-400 transition-colors px-2 py-1 rounded border border-transparent hover:border-slate-800"
+                className="text-[11px] font-mono text-slate-500 hover:text-[#ff4f36] transition-colors px-2 py-1 rounded border border-transparent hover:border-white/[0.08]"
               >
-                Press <span className="text-slate-400 underline">Esc</span> or click to skip intro
+                Press <span className="text-slate-300 underline">Esc</span> or click to skip intro
               </button>
             </div>
           </div>

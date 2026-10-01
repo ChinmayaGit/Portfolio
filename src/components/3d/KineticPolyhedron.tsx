@@ -37,27 +37,27 @@ const POLYHEDRON_NAMES: Record<PolyhedronType, { label: string; desc: string; do
   stellated: {
     label: 'STELLATED QUANTUM STAR',
     desc: '60-Facet Non-Convex Polyhedral Matrix',
-    domainColor: '#a855f7',
+    domainColor: '#ff4f36',
   },
   geodesic: {
     label: 'GEODESIC DODECAHEDRON',
     desc: '32-Vertex Truncated Fullerene Lattice',
-    domainColor: '#00f0ff',
+    domainColor: '#3687ff',
   },
   crystal: {
     label: 'CRYSTALLINE DUAL PRISM',
     desc: '24-Facet Refractive Diamond Bipyramid',
-    domainColor: '#38bdf8',
+    domainColor: '#ff4f36',
   },
   tesseract: {
     label: '4D HYPERCUBE TESSERACT',
     desc: '16-Vertex 4-Dimensional Orthogonal Projection',
-    domainColor: '#10b981',
+    domainColor: '#3687ff',
   },
   torus: {
     label: 'POLYGONAL TORUS KNOT',
     desc: 'Helical Mobius Topology Ribbon',
-    domainColor: '#f59e0b',
+    domainColor: '#ff4f36',
   },
 };
 
@@ -408,7 +408,7 @@ export const KineticPolyhedron: React.FC<KineticPolyhedronProps> = ({
       speed: 0.015 + (i % 4) * 0.005,
       phase: (i * Math.PI * 2) / 14,
       size: 2.2 + (i % 2) * 1.5,
-      color: i % 2 === 0 ? '#00f0ff' : '#a855f7',
+      color: i % 2 === 0 ? '#ff4f36' : '#3687ff',
     }));
 
     const render = () => {
@@ -654,7 +654,7 @@ export const KineticPolyhedron: React.FC<KineticPolyhedronProps> = ({
       {/* Floating HUD Badges & Interactive Controls */}
       {showControls && (
         <div className="absolute -bottom-8 sm:-bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 w-max max-w-full px-2 z-20">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/90 border border-slate-700/80 backdrop-blur-md text-[10px] sm:text-xs font-mono shadow-xl">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#16191d]/90 border border-white/[0.08] backdrop-blur-md text-[10px] sm:text-xs font-mono shadow-2xl">
             <span
               className="w-2 h-2 rounded-full animate-ping"
               style={{ backgroundColor: currentMeta.domainColor }}
@@ -667,7 +667,7 @@ export const KineticPolyhedron: React.FC<KineticPolyhedronProps> = ({
           <div className="flex items-center gap-1.5">
             <button
               onClick={cycleGeometry}
-              className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-cyan-300 text-[10px] font-mono transition-all hover:scale-105 active:scale-95"
+              className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#181b20] hover:bg-[#ff4f36] border border-[#ff4f36]/40 hover:border-[#ff4f36] text-[#ff4f36] hover:text-[#101214] text-[10px] font-mono font-bold transition-all hover:scale-105 active:scale-95 hover:shadow-[0_0_15px_rgba(255,79,54,0.4)]"
             >
               <RefreshCw className="w-2.5 h-2.5 animate-spin-reverse" />
               <span>MORPH (CLICK)</span>
@@ -675,18 +675,18 @@ export const KineticPolyhedron: React.FC<KineticPolyhedronProps> = ({
 
             <button
               onClick={() => setWireframe(!wireframe)}
-              className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg border text-[10px] font-mono transition-all hover:scale-105 active:scale-95 ${
+              className={`inline-flex items-center gap-1 px-3 py-1 rounded-full border text-[10px] font-mono font-bold transition-all hover:scale-105 active:scale-95 ${
                 wireframe
-                  ? 'bg-purple-500/20 border-purple-500/50 text-purple-300'
-                  : 'bg-slate-800/80 border-slate-700 text-slate-400 hover:text-white'
+                  ? 'bg-[#3687ff] border-[#3687ff] text-white shadow-[0_0_15px_rgba(54,135,255,0.4)]'
+                  : 'bg-[#181b20] border-white/10 text-slate-400 hover:text-white hover:border-[#3687ff]'
               }`}
             >
               <Eye className="w-2.5 h-2.5" />
               <span>{wireframe ? 'WIREFRAME' : 'GLASS SOLID'}</span>
             </button>
 
-            <div className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-slate-900/60 border border-slate-800 text-[9px] font-mono text-slate-400">
-              <Move className="w-2.5 h-2.5 text-cyan-400" />
+            <div className="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#14161a] border border-white/5 text-[9px] font-mono text-slate-400">
+              <Move className="w-2.5 h-2.5 text-[#3687ff]" />
               <span>DRAG TO TILT</span>
             </div>
           </div>

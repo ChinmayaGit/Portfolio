@@ -16,6 +16,7 @@ import { SystemLoadingScreen } from './components/SystemLoadingScreen';
 import { SmoothScrollProvider } from './components/smooth-scroll/SmoothScrollProvider';
 import { ElasticStringWave } from './components/3d/ElasticStringWave';
 import { StringTuneHUD } from './components/3d/StringTuneHUD';
+import { StringTuneMarquee } from './components/StringTuneMarquee';
 import { Project, CategoryInfo } from './data/projectsData';
 
 export const App: React.FC = () => {
@@ -26,7 +27,7 @@ export const App: React.FC = () => {
 
   return (
     <SmoothScrollProvider>
-      <div className="relative min-h-screen bg-[#07090e] text-slate-100 selection:bg-cyan-500/30 selection:text-cyan-200">
+      <div className="relative min-h-screen bg-[#101214] text-white selection:bg-[#ff4f36]/30 selection:text-white">
         {/* Initial System Boot & Progressing Loading Bar */}
         {isLoading && (
           <SystemLoadingScreen onComplete={() => setIsLoading(false)} />
@@ -48,6 +49,11 @@ export const App: React.FC = () => {
           {/* StringTune Signature Plucked Elastic String Wave */}
           <div className="max-w-7xl mx-auto px-4 -my-4 relative z-20">
             <ElasticStringWave height={80} stringCount={3} />
+          </div>
+
+          {/* StringTune Kinetic Ribbon Marquee */}
+          <div className="my-8 relative z-20">
+            <StringTuneMarquee />
           </div>
 
           {/* 3D Holographic Cyber-Core Scroll Showcase with Anime.js Disassembly across 6 Tech Domains */}

@@ -49,12 +49,12 @@ const DOMAINS: DomainStory[] = [
     indexString: '01',
     name: 'AI & Agents',
     subtitle: 'Agentic DAGs, LLM Tooling & Autonomous Workflows',
-    accentColor: 'text-purple-400',
-    glowColor: 'shadow-purple-500/30',
-    glowHex: '#a855f7',
-    borderAccent: 'border-purple-500/40',
-    bgGradient: 'from-purple-500/15 via-pink-500/5 to-transparent',
-    icon: <Bot className="w-8 h-8 text-purple-400" />,
+    accentColor: 'text-[#ff4f36]',
+    glowColor: 'shadow-[#ff4f36]/30',
+    glowHex: '#ff4f36',
+    borderAccent: 'border-[#ff4f36]/40',
+    bgGradient: 'from-[#ff4f36]/15 via-red-500/5 to-transparent',
+    icon: <Bot className="w-8 h-8 text-[#ff4f36]" />,
     tagline: 'Oracle & Claude Certified AI Developer',
     description: 'Architecting intelligent autonomous agent builders, cross-platform personal AI daemons, and automated generative workflows. Certified in Oracle Fusion AI Agent Studio Rel 26-2 and Claude Certified Developer.',
     keyHighlights: [
@@ -72,12 +72,12 @@ const DOMAINS: DomainStory[] = [
     indexString: '02',
     name: 'Cloud & Cyber',
     subtitle: 'Enterprise IAM Governance, Zero Trust & AWS Architecture',
-    accentColor: 'text-rose-400',
-    glowColor: 'shadow-rose-500/30',
-    glowHex: '#f43f5e',
-    borderAccent: 'border-rose-500/40',
-    bgGradient: 'from-rose-500/15 via-red-500/5 to-transparent',
-    icon: <ShieldCheck className="w-8 h-8 text-rose-400" />,
+    accentColor: 'text-[#3687ff]',
+    glowColor: 'shadow-[#3687ff]/30',
+    glowHex: '#3687ff',
+    borderAccent: 'border-[#3687ff]/40',
+    bgGradient: 'from-[#3687ff]/15 via-blue-500/5 to-transparent',
+    icon: <ShieldCheck className="w-8 h-8 text-[#3687ff]" />,
     tagline: 'Deloitte Analyst • AWS Solutions Architect & Data Engineer',
     description: 'Deloitte Analyst in Cyber Risk & IAM specializing in SailPoint Identity Security Cloud (ISC), Active Directory federation, Zero Trust security models, and AWS enterprise architectures.',
     keyHighlights: [
@@ -95,12 +95,12 @@ const DOMAINS: DomainStory[] = [
     indexString: '03',
     name: 'Full-Stack Web',
     subtitle: 'Modern Reactive Web Platforms & Fintech Dashboards',
-    accentColor: 'text-sky-400',
-    glowColor: 'shadow-sky-500/30',
-    glowHex: '#38bdf8',
-    borderAccent: 'border-sky-500/40',
-    bgGradient: 'from-sky-500/15 via-blue-500/5 to-transparent',
-    icon: <Globe className="w-8 h-8 text-sky-400" />,
+    accentColor: 'text-[#ff4f36]',
+    glowColor: 'shadow-[#ff4f36]/30',
+    glowHex: '#ff4f36',
+    borderAccent: 'border-[#ff4f36]/40',
+    bgGradient: 'from-[#ff4f36]/15 via-red-500/5 to-transparent',
+    icon: <Globe className="w-8 h-8 text-[#ff4f36]" />,
     tagline: 'React, TypeScript & Enterprise Web Platforms',
     description: 'Developing high-performance responsive web applications, fintech reward trackers, examination platforms, and peer-to-peer streaming tools utilizing React, Next.js, TypeScript, and Tailwind CSS.',
     keyHighlights: [
@@ -118,12 +118,12 @@ const DOMAINS: DomainStory[] = [
     indexString: '04',
     name: 'Mobile & Flutter',
     subtitle: 'Cross-Platform & Native Mobile Architecture',
-    accentColor: 'text-emerald-400',
-    glowColor: 'shadow-emerald-500/30',
-    glowHex: '#10b981',
-    borderAccent: 'border-emerald-500/40',
-    bgGradient: 'from-emerald-500/15 via-teal-500/5 to-transparent',
-    icon: <Smartphone className="w-8 h-8 text-emerald-400" />,
+    accentColor: 'text-[#3687ff]',
+    glowColor: 'shadow-[#3687ff]/30',
+    glowHex: '#3687ff',
+    borderAccent: 'border-[#3687ff]/40',
+    bgGradient: 'from-[#3687ff]/15 via-blue-500/5 to-transparent',
+    icon: <Smartphone className="w-8 h-8 text-[#3687ff]" />,
     tagline: '1,000+ Downloads on Google Play Store',
     description: 'Specializing in production Flutter (Dart) and native Android (Kotlin) / iOS (Swift) engineering. Architect of published devotional, productivity, and offline-first mobile applications with custom canvas rendering and background services.',
     keyHighlights: [
@@ -141,12 +141,12 @@ const DOMAINS: DomainStory[] = [
     indexString: '05',
     name: '3D, Games & AR',
     subtitle: 'Real-Time Multiplayer Combat & Spatial AR Engines',
-    accentColor: 'text-amber-400',
-    glowColor: 'shadow-amber-500/30',
-    glowHex: '#f59e0b',
-    borderAccent: 'border-amber-500/40',
-    bgGradient: 'from-amber-500/15 via-orange-500/5 to-transparent',
-    icon: <Gamepad2 className="w-8 h-8 text-amber-400" />,
+    accentColor: 'text-[#ff4f36]',
+    glowColor: 'shadow-[#ff4f36]/30',
+    glowHex: '#ff4f36',
+    borderAccent: 'border-[#ff4f36]/40',
+    bgGradient: 'from-[#ff4f36]/15 via-red-500/5 to-transparent',
+    icon: <Gamepad2 className="w-8 h-8 text-[#ff4f36]" />,
     tagline: '60 FPS Canvas Loops & WebSocket Multiplayer',
     description: 'Engineering interactive graphics experiences from low-latency WebSocket multiplayer fighting arenas to 360-degree panoramic virtual tours and hardware-accelerated C++ augmented reality model inspectors.',
     keyHighlights: [
@@ -164,12 +164,12 @@ const DOMAINS: DomainStory[] = [
     indexString: '06',
     name: 'Systems & IoT',
     subtitle: 'Bare-Metal Microcontrollers & Low-Level Tooling',
-    accentColor: 'text-teal-400',
-    glowColor: 'shadow-teal-500/30',
-    glowHex: '#14b8a6',
-    borderAccent: 'border-teal-500/40',
-    bgGradient: 'from-teal-500/15 via-cyan-500/5 to-transparent',
-    icon: <Cpu className="w-8 h-8 text-teal-400" />,
+    accentColor: 'text-[#3687ff]',
+    glowColor: 'shadow-[#3687ff]/30',
+    glowHex: '#3687ff',
+    borderAccent: 'border-[#3687ff]/40',
+    bgGradient: 'from-[#3687ff]/15 via-blue-500/5 to-transparent',
+    icon: <Cpu className="w-8 h-8 text-[#3687ff]" />,
     tagline: 'Embedded ESP32 Firmware & Terminal Productivity',
     description: 'Building low-overhead systems, bare-metal C++ firmware for ESP32 microcontrollers, hardware SPI communication drivers, and developer productivity CLI utilities.',
     keyHighlights: [
@@ -178,9 +178,9 @@ const DOMAINS: DomainStory[] = [
       'Automated filesystem icon injection & desktop organizer (Custom-Icon-Folder)',
       'Google Photos batch EXIF synchronization helper in C++'
     ],
-    metrics: 'Bare-Metal C++ • FreeRTOS • Python Automation',
-    coreTech: ['C++', 'ESP32', 'FreeRTOS', 'SPI Protocol', 'Python CLI', 'Hardware IoT'],
-    topProjects: ['ESP32SDReader', 'CLI_Clock', 'Custom-Icon-Folder-Library', 'googleUnlimtedPhotoAlbumApi']
+    metrics: 'Bare-Metal C++ • ESP32 • Low-Latency Drivers',
+    coreTech: ['ESP32', 'Embedded C++', 'SPI Drivers', 'FreeRTOS', 'Linux', 'Bash'],
+    topProjects: ['ESP32SDReader', 'CLI_Clock', 'Custom-Icon-Folder', 'GooglePhotosEXIFSync']
   }
 ];
 
@@ -310,30 +310,30 @@ export const ScrollDomainShowcase: React.FC<ScrollDomainShowcaseProps> = ({
     <div
       ref={containerRef}
       id="domain-showcase"
-      className="relative h-[480vh] bg-[#07090e] text-slate-100"
+      className="relative h-[480vh] bg-[#101214] text-slate-100"
     >
       {/* Sticky Fullscreen 3D Viewport */}
       <div className="sticky top-0 h-screen w-full flex flex-col justify-between p-4 sm:p-8 lg:p-12 overflow-hidden select-none">
         {/* Dynamic Ambient Background Glow that changes color with the active domain */}
         <div
-          className="absolute inset-0 transition-all duration-700 pointer-events-none opacity-40"
+          className="absolute inset-0 transition-all duration-700 pointer-events-none opacity-30"
           style={{
-            background: `radial-gradient(circle 500px at 50% 50%, ${currentDomain.glowHex}25, transparent 70%)`,
+            background: `radial-gradient(circle 500px at 50% 50%, ${currentDomain.glowHex}30, transparent 70%)`,
           }}
         />
 
         {/* Top HUD Status Bar */}
-        <div className="relative z-20 flex items-center justify-between border-b border-slate-800/80 pb-3 backdrop-blur-md">
+        <div className="relative z-20 flex items-center justify-between border-b border-white/[0.08] pb-3 backdrop-blur-md">
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 px-2.5 py-1 rounded-full bg-slate-900 border border-slate-700 text-xs font-mono">
+            <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#16191d] border border-white/10 text-xs font-mono shadow-md">
               <span
                 className="w-2 h-2 rounded-full animate-ping"
                 style={{ backgroundColor: currentDomain.glowHex }}
               />
-              <span className="text-slate-300">CORE_SYNC: ACTIVE</span>
+              <span className="text-white font-bold">CORE_SYNC: ACTIVE</span>
             </div>
-            <span className="hidden md:inline text-xs font-mono text-slate-500">
-              ROTATING 3D QUANTUM CORE // SCROLL TO TRANSFORM
+            <span className="hidden md:inline text-xs font-mono text-slate-400">
+              STRING_TUNE 3D DISASSEMBLY // SCROLL TO TRANSFORM
             </span>
           </div>
 
@@ -348,7 +348,7 @@ export const ScrollDomainShowcase: React.FC<ScrollDomainShowcaseProps> = ({
             {/* Quick Skip to Projects */}
             <button
               onClick={() => handleJumpToProjects(currentDomain.id)}
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 text-xs font-mono transition-colors"
+              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#ff4f36] hover:bg-[#ff6854] text-[#101214] font-bold text-xs font-mono transition-all shadow-[0_0_15px_rgba(255,79,54,0.35)] hover:scale-105 active:scale-95"
             >
               <span>Explore Matrix</span>
               <ArrowRight className="w-3 h-3" />
@@ -370,12 +370,12 @@ export const ScrollDomainShowcase: React.FC<ScrollDomainShowcaseProps> = ({
                 className="space-y-3 sm:space-y-4"
               >
                 {/* Domain Category Pill */}
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-700 text-xs font-mono">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#16191d] border border-white/10 text-xs font-mono shadow-md">
                   <span className={currentDomain.accentColor}>{currentDomain.icon}</span>
-                  <span className="text-slate-400 font-bold uppercase tracking-wider">
+                  <span className="text-white font-bold uppercase tracking-wider">
                     DOMAIN {currentDomain.indexString}
                   </span>
-                  <span className="text-slate-600">•</span>
+                  <span className="text-slate-500">•</span>
                   <span className={currentDomain.accentColor}>{currentDomain.subtitle}</span>
                 </div>
 
@@ -385,7 +385,7 @@ export const ScrollDomainShowcase: React.FC<ScrollDomainShowcaseProps> = ({
                 </h2>
 
                 {/* Tagline Badge */}
-                <div className="inline-block px-3 py-1 rounded-lg bg-slate-900/90 border border-slate-800 text-xs sm:text-sm font-mono text-cyan-300">
+                <div className="inline-block px-3.5 py-1.5 rounded-full bg-[#16191d] border border-white/10 text-xs sm:text-sm font-mono text-white">
                   ⚡ {currentDomain.tagline}
                 </div>
 
@@ -412,7 +412,7 @@ export const ScrollDomainShowcase: React.FC<ScrollDomainShowcaseProps> = ({
                   {currentDomain.coreTech.map((tech) => (
                     <span
                       key={tech}
-                      className="px-2 py-0.5 rounded-md bg-slate-900 border border-slate-800 text-slate-300 text-[11px] font-mono"
+                      className="px-2.5 py-0.5 rounded-full bg-[#16191d] border border-white/[0.08] text-slate-300 text-[11px] font-mono hover:border-white/20 transition-colors"
                     >
                       {tech}
                     </span>
@@ -423,9 +423,9 @@ export const ScrollDomainShowcase: React.FC<ScrollDomainShowcaseProps> = ({
                 <div className="pt-2 flex items-center gap-3">
                   <button
                     onClick={() => handleJumpToProjects(currentDomain.id)}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-slate-950 shadow-lg transition-all hover:scale-105 active:scale-95"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-black text-xs sm:text-sm text-[#101214] shadow-[0_0_25px_rgba(255,79,54,0.35)] transition-all hover:scale-105 active:scale-95"
                     style={{
-                      background: `linear-gradient(to right, ${currentDomain.glowHex}, #00f0ff)`,
+                      background: `linear-gradient(to right, ${currentDomain.glowHex}, #ffffff)`,
                     }}
                   >
                     <span>View {currentDomain.name} Repositories</span>
@@ -439,17 +439,17 @@ export const ScrollDomainShowcase: React.FC<ScrollDomainShowcaseProps> = ({
           {/* Centerpiece: Interactive Anime.js-style 3D Disassembly Stage */}
           <div className="lg:col-span-6 flex flex-col items-center justify-center py-2 relative">
             {/* Interactive HUD Control Deck */}
-            <div className="w-full max-w-md mb-2 px-3 py-1.5 rounded-xl bg-slate-900/80 border border-slate-800/90 backdrop-blur-md flex items-center justify-between gap-3 text-[11px] font-mono shadow-xl z-20">
+            <div className="w-full max-w-md mb-2 px-3.5 py-1.5 rounded-full bg-[#16191d]/90 border border-white/[0.08] backdrop-blur-md flex items-center justify-between gap-3 text-[11px] font-mono shadow-xl z-20">
               <div className="flex items-center gap-2">
                 <span
                   className="w-2 h-2 rounded-full animate-ping"
                   style={{ backgroundColor: currentDomain.glowHex }}
                 />
-                <span className="text-slate-300 font-semibold uppercase tracking-wider">
+                <span className="text-white font-bold uppercase tracking-wider">
                   EXPLODED VIEW
                 </span>
                 <span
-                  className="font-bold px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700"
+                  className="font-bold px-2 py-0.5 rounded-full bg-[#101214] border border-white/10"
                   style={{ color: currentDomain.glowHex }}
                 >
                   {Math.round(currentExplosionProgress * 100)}%
@@ -465,13 +465,13 @@ export const ScrollDomainShowcase: React.FC<ScrollDomainShowcaseProps> = ({
                   step="0.02"
                   value={currentExplosionProgress}
                   onChange={(e) => setManualExplosion(parseFloat(e.target.value))}
-                  className="w-20 sm:w-28 h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-400"
+                  className="w-20 sm:w-28 h-1.5 bg-[#101214] rounded-full appearance-none cursor-pointer accent-[#ff4f36]"
                   title="Scrub Disassembly Degree"
                 />
                 {manualExplosion !== null ? (
                   <button
                     onClick={() => setManualExplosion(null)}
-                    className="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 hover:bg-cyan-500/30 text-[10px] transition-colors"
+                    className="px-2.5 py-0.5 rounded-full bg-[#ff4f36]/20 text-[#ff4f36] border border-[#ff4f36]/40 hover:bg-[#ff4f36]/30 text-[10px] font-bold transition-colors"
                     title="Return to scroll-driven explosion"
                   >
                     SYNC
@@ -479,7 +479,7 @@ export const ScrollDomainShowcase: React.FC<ScrollDomainShowcaseProps> = ({
                 ) : (
                   <button
                     onClick={() => setManualExplosion(currentExplosionProgress > 0.5 ? 0 : 1)}
-                    className="px-2 py-0.5 rounded bg-slate-800 text-slate-400 hover:text-white border border-slate-700 text-[10px] transition-colors"
+                    className="px-2.5 py-0.5 rounded-full bg-[#101214] text-slate-300 hover:text-white border border-white/10 text-[10px] font-bold transition-colors"
                     title="Toggle explode / assemble"
                   >
                     {currentExplosionProgress > 0.5 ? 'FOLD' : 'EXPLODE'}
@@ -514,12 +514,12 @@ export const ScrollDomainShowcase: React.FC<ScrollDomainShowcaseProps> = ({
         </div>
 
         {/* Bottom HUD Bar & Vertical Domain Milestone Scrubber */}
-        <div className="relative z-20 flex flex-col sm:flex-row items-center justify-between pt-3 border-t border-slate-800/80 gap-3">
+        <div className="relative z-20 flex flex-col sm:flex-row items-center justify-between pt-3 border-t border-white/[0.08] gap-3">
           {/* Scroll instruction cue */}
           <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
-            <Activity className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
+            <Activity className="w-3.5 h-3.5 text-[#ff4f36] animate-pulse" />
             <span>SCROLL DOWN TO ADVANCE DOMAINS (01 - 06)</span>
-            <ChevronDown className="w-3.5 h-3.5 text-slate-500 animate-bounce" />
+            <ChevronDown className="w-3.5 h-3.5 text-[#ff4f36] animate-bounce" />
           </div>
 
           {/* Interactive Milestone Indicator Dots */}
@@ -530,10 +530,10 @@ export const ScrollDomainShowcase: React.FC<ScrollDomainShowcaseProps> = ({
                 <button
                   key={d.id}
                   onClick={() => scrollToDomainMilestone(i)}
-                  className={`group flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-mono transition-all ${
+                  className={`group flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono transition-all ${
                     isSelected
-                      ? 'bg-slate-800 border text-white font-bold shadow-md'
-                      : 'text-slate-500 hover:text-slate-300 bg-slate-900/60 border border-slate-800'
+                      ? 'bg-[#181b20] border text-white font-bold shadow-lg'
+                      : 'text-slate-400 hover:text-white bg-[#14161a] border border-white/[0.06]'
                   }`}
                   style={{
                     borderColor: isSelected ? d.glowHex : undefined,
