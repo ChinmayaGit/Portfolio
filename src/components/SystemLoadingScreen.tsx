@@ -76,9 +76,9 @@ export const SystemLoadingScreen: React.FC<SystemLoadingScreenProps> = ({ onComp
       {!isFinished && (
         <motion.div
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, scale: 1.03, filter: 'blur(6px)' }}
-          transition={{ duration: 0.45, ease: 'easeInOut' }}
-          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#05070c] text-white px-4 overflow-hidden select-none"
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3, ease: 'easeOut' }}
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#05070c] text-white px-4 overflow-hidden select-none will-change-[opacity]"
         >
           {/* Ambient Background Radial Glows */}
           <div className="absolute w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />

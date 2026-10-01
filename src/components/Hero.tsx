@@ -7,8 +7,10 @@ import {
   Terminal,
   Linkedin,
   Award,
-  ChevronDown
+  ChevronDown,
+  Sparkles
 } from 'lucide-react';
+import { KineticPolyhedron } from './3d/KineticPolyhedron';
 
 interface HeroProps {
   onOpenCommandPalette: () => void;
@@ -23,8 +25,35 @@ const ROLES = [
   { title: 'Systems & IoT Firmware Engineer', tag: 'Embedded C++ & ESP32', color: 'from-teal-400 to-cyan-500' },
 ];
 
+type NameFont = 'syne' | 'unbounded' | 'space' | 'outfit';
+
+const FONT_MAP: Record<NameFont, { name: string; class: string; letterSpacing: string }> = {
+  syne: { name: 'Syne (Awwwards Avant-Garde)', class: 'font-display', letterSpacing: 'tracking-tight' },
+  unbounded: { name: 'Unbounded (Futuristic Wide)', class: 'font-future', letterSpacing: 'tracking-tight' },
+  space: { name: 'Space Grotesk (Cyber Tech)', class: 'font-cyber', letterSpacing: 'tracking-tight' },
+  outfit: { name: 'Outfit (Modern Bold)', class: 'font-outfit', letterSpacing: 'tracking-tight' },
+};
+
 export const Hero: React.FC<HeroProps> = ({ onOpenCommandPalette }) => {
   const [roleIndex, setRoleIndex] = useState(0);
+  const [nameFont, setNameFont] = useState<NameFont>(() => {
+    try {
+      const saved = localStorage.getItem('portfolio_name_font') as NameFont;
+      if (saved && FONT_MAP[saved]) return saved;
+    } catch {
+      // fallback
+    }
+    return 'syne';
+  });
+
+  const handleFontChange = (newFont: NameFont) => {
+    setNameFont(newFont);
+    try {
+      localStorage.setItem('portfolio_name_font', newFont);
+    } catch {
+      // fallback
+    }
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -45,124 +74,176 @@ export const Hero: React.FC<HeroProps> = ({ onOpenCommandPalette }) => {
       <div className="absolute top-1/3 left-1/4 w-[380px] h-[380px] bg-purple-600/10 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute top-1/2 right-1/4 w-[420px] h-[420px] bg-blue-600/10 rounded-full blur-[110px] pointer-events-none" />
 
-      <div className="relative z-10 max-w-5xl mx-auto text-center">
-        {/* Top Badges / HUD Bar */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="inline-flex flex-wrap items-center justify-center gap-2 p-1.5 px-3 rounded-full bg-slate-900/80 border border-slate-700/70 backdrop-blur-xl shadow-lg mb-8"
-        >
-          <div className="flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            <span>Analyst @ Deloitte</span>
-          </div>
+      <div className="relative z-10 max-w-7xl mx-auto w-full">
+        {/* Main Hero Content: Typography (Left) + Interactive 3D Kinetic Polyhedron (Right) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          {/* Left Column: Headline, Role Ticker, Bio, CTAs */}
+          <div className="lg:col-span-7 text-center lg:text-left space-y-6">
+            {/* Top Badges / HUD Bar */}
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="inline-flex flex-wrap items-center justify-center lg:justify-start gap-2 p-1.5 px-3 rounded-full bg-slate-900/80 border border-slate-700/70 backdrop-blur-xl shadow-lg"
+            >
+              <div className="flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                <span>Analyst @ Deloitte</span>
+              </div>
 
-          <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 text-xs font-mono">
-            <Cloud className="w-3.5 h-3.5 text-cyan-400" />
-            <span>AWS, Oracle & Claude Certified</span>
-          </div>
+              <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 text-xs font-mono">
+                <Cloud className="w-3.5 h-3.5 text-cyan-400" />
+                <span>AWS, Oracle & Claude Certified</span>
+              </div>
 
-          <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs font-mono">
-            <Shield className="w-3.5 h-3.5 text-purple-400" />
-            <span>Cyber & IAM Specialist</span>
-          </div>
-        </motion.div>
+              <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs font-mono">
+                <Shield className="w-3.5 h-3.5 text-purple-400" />
+                <span>Cyber & IAM Specialist</span>
+              </div>
+            </motion.div>
 
-        {/* Hero Main Name Headline */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          className="space-y-3"
-        >
-          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight text-white">
-            CHINMAYA{' '}
-            <span className="bg-gradient-to-r from-cyan-400 via-sky-300 to-purple-400 bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(56,189,248,0.35)]">
-              GARNAIK
-            </span>
-          </h1>
+            {/* Hero Main Name Headline */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="space-y-3"
+            >
+              {/* Interactive Font Style Switcher Pill */}
+              <div className="flex items-center justify-center lg:justify-start gap-1.5 mb-1 text-[11px] font-mono">
+                <span className="text-slate-500 flex items-center gap-1">
+                  <Sparkles className="w-2.5 h-2.5 text-cyan-400" />
+                  <span>FONT:</span>
+                </span>
+                {(['syne', 'unbounded', 'space', 'outfit'] as NameFont[]).map((f) => (
+                  <button
+                    key={f}
+                    onClick={() => handleFontChange(f)}
+                    className={`px-2 py-0.5 rounded-md transition-all text-[10px] ${
+                      nameFont === f
+                        ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-bold shadow-sm'
+                        : 'text-slate-500 hover:text-slate-300 bg-slate-900/60 border border-slate-800'
+                    }`}
+                  >
+                    {f === 'syne' ? 'Syne' : f === 'unbounded' ? 'Unbounded' : f === 'space' ? 'Space' : 'Outfit'}
+                  </button>
+                ))}
+              </div>
 
-          {/* Animated Role Ticker */}
-          <div className="h-16 sm:h-20 flex flex-col items-center justify-center">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentRole.title}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.35 }}
-                className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3"
+              <h1 className={`${FONT_MAP[nameFont].class} ${FONT_MAP[nameFont].letterSpacing} text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-white leading-none tracking-tight transition-all duration-300`}>
+                CHINMAYA{' '}
+                <span className="bg-gradient-to-r from-cyan-300 via-sky-200 to-purple-400 bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(56,189,248,0.4)]">
+                  GARNAIK
+                </span>
+              </h1>
+
+              {/* Animated Role Ticker */}
+              <div className="h-14 sm:h-16 flex flex-col items-center lg:items-start justify-center">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentRole.title}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -15 }}
+                    transition={{ duration: 0.35 }}
+                    className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3"
+                  >
+                    <span
+                      className={`text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r ${currentRole.color} bg-clip-text text-transparent`}
+                    >
+                      {currentRole.title}
+                    </span>
+                    <span className="px-2.5 py-0.5 rounded-full text-xs font-mono bg-slate-800 text-slate-300 border border-slate-700">
+                      {currentRole.tag}
+                    </span>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </motion.div>
+
+            {/* Impact Bio Summary */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.25 }}
+              className="max-w-2xl mx-auto lg:mx-0 text-base sm:text-lg text-slate-300 leading-relaxed font-normal"
+            >
+              Bridging enterprise identity security at <span className="text-white font-medium">Deloitte</span> with cloud
+              architectures and cross-platform mobile engineering. Creator of{' '}
+              <span className="text-cyan-300 font-semibold font-mono">70+ open-source repositories</span>, Google Play
+              Store applications with thousands of downloads, and interactive real-time systems.
+            </motion.p>
+
+            {/* Interactive CTA Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.35 }}
+              className="flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-2"
+            >
+              <a
+                href="#projects"
+                className="group relative inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold text-sm tracking-wide shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all"
               >
-                <span
-                  className={`text-xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r ${currentRole.color} bg-clip-text text-transparent`}
-                >
-                  {currentRole.title}
-                </span>
-                <span className="px-2.5 py-0.5 rounded-full text-xs font-mono bg-slate-800 text-slate-300 border border-slate-700">
-                  {currentRole.tag}
-                </span>
-              </motion.div>
-            </AnimatePresence>
+                <span>Explore Project Matrix</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </a>
+
+              <a
+                href="#certifications"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800/90 border border-slate-700/80 hover:border-cyan-500/50 text-white font-semibold text-sm transition-all shadow-md hover:scale-[1.02] active:scale-[0.98]"
+              >
+                <Award className="w-4 h-4 text-amber-400" />
+                <span>AWS & Deloitte Certifications</span>
+              </a>
+
+              <a
+                href="https://www.linkedin.com/in/chinmaya-garnaik-a093a21b5/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-3.5 rounded-xl bg-slate-900/70 hover:bg-[#0077B5]/20 border border-slate-800 hover:border-[#0077B5]/50 text-slate-300 hover:text-white font-medium text-sm transition-all"
+                title="LinkedIn Profile"
+              >
+                <Linkedin className="w-4 h-4 text-[#0077B5]" />
+                <span className="hidden sm:inline">LinkedIn</span>
+              </a>
+
+              <button
+                onClick={onOpenCommandPalette}
+                className="inline-flex items-center gap-2 px-4 py-3.5 rounded-xl bg-slate-900/70 hover:bg-slate-800 border border-slate-800 hover:border-cyan-500/40 text-slate-400 hover:text-cyan-300 font-mono text-xs transition-all"
+                title="Press Cmd+K to search anything"
+              >
+                <Terminal className="w-4 h-4 text-cyan-400" />
+                <span>⌘K</span>
+              </button>
+            </motion.div>
           </div>
-        </motion.div>
 
-        {/* Impact Bio Summary */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.25 }}
-          className="mt-4 max-w-3xl mx-auto text-base sm:text-lg text-slate-300 leading-relaxed font-normal"
-        >
-          Bridging enterprise identity security at <span className="text-white font-medium">Deloitte</span> with cloud
-          architectures and cross-platform mobile engineering. Creator of{' '}
-          <span className="text-cyan-300 font-semibold font-mono">70+ open-source repositories</span>, Google Play
-          Store applications with thousands of downloads, and interactive real-time systems.
-        </motion.p>
-
-        {/* Interactive CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.35 }}
-          className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4"
-        >
-          <a
-            href="#projects"
-            className="group relative inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold text-sm tracking-wide shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all"
+          {/* Right Column: 3D Kinetic Polyhedron Stage (StringTune Style) */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="lg:col-span-5 flex flex-col items-center justify-center relative py-4"
           >
-            <span>Explore Project Matrix</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </a>
+            {/* Ambient Holographic Radial Glow */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 via-purple-500/10 to-transparent rounded-full blur-3xl pointer-events-none" />
 
-          <a
-            href="#certifications"
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800/90 border border-slate-700/80 hover:border-cyan-500/50 text-white font-semibold text-sm transition-all shadow-md hover:scale-[1.02] active:scale-[0.98]"
-          >
-            <Award className="w-4 h-4 text-amber-400" />
-            <span>AWS & Deloitte Certifications</span>
-          </a>
+            {/* Interactive 3D Mathematical Polyhedron */}
+            <KineticPolyhedron
+              size={360}
+              glowColor="#00f0ff"
+              showControls={true}
+              className="z-10"
+            />
 
-          <a
-            href="https://www.linkedin.com/in/chinmaya-garnaik-a093a21b5/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-3.5 rounded-xl bg-slate-900/70 hover:bg-[#0077B5]/20 border border-slate-800 hover:border-[#0077B5]/50 text-slate-300 hover:text-white font-medium text-sm transition-all"
-            title="LinkedIn Profile"
-          >
-            <Linkedin className="w-4 h-4 text-[#0077B5]" />
-            <span className="hidden sm:inline">LinkedIn</span>
-          </a>
-
-          <button
-            onClick={onOpenCommandPalette}
-            className="inline-flex items-center gap-2 px-4 py-3.5 rounded-xl bg-slate-900/70 hover:bg-slate-800 border border-slate-800 hover:border-cyan-500/40 text-slate-400 hover:text-cyan-300 font-mono text-xs transition-all"
-            title="Press Cmd+K to search anything"
-          >
-            <Terminal className="w-4 h-4 text-cyan-400" />
-            <span>⌘K</span>
-          </button>
-        </motion.div>
+            {/* Micro Interaction Cue */}
+            <div className="mt-12 text-center flex items-center gap-1.5 text-[10px] font-mono text-slate-400">
+              <Sparkles className="w-3 h-3 text-cyan-400" />
+              <span>Interactive 3D Geometry • Drag to tilt • Scroll to spin</span>
+            </div>
+          </motion.div>
+        </div>
 
         {/* Live Metrics HUD */}
         <motion.div

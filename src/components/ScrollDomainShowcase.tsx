@@ -11,9 +11,17 @@ import {
   ChevronDown,
   Activity
 } from 'lucide-react';
+import { AIBotDisassembly } from './disassembly/AIBotDisassembly';
+import { CloudCyberDisassembly } from './disassembly/CloudCyberDisassembly';
+import { FullStackDisassembly } from './disassembly/FullStackDisassembly';
+import { MobileDisassembly } from './disassembly/MobileDisassembly';
+import { Games3DDisassembly } from './disassembly/Games3DDisassembly';
+import { SystemsIoTDisassembly } from './disassembly/SystemsIoTDisassembly';
+import { Project, PROJECTS } from '../data/projectsData';
 
 interface ScrollDomainShowcaseProps {
   onSelectCategory: (categoryId: 'all' | 'mobile' | 'ai' | 'games3d' | 'fullstack' | 'cloud' | 'systems') => void;
+  onSelectProject?: (project: Project) => void;
 }
 
 interface DomainStory {
@@ -176,7 +184,10 @@ const DOMAINS: DomainStory[] = [
   }
 ];
 
-export const ScrollDomainShowcase: React.FC<ScrollDomainShowcaseProps> = ({ onSelectCategory }) => {
+export const ScrollDomainShowcase: React.FC<ScrollDomainShowcaseProps> = ({
+  onSelectCategory,
+  onSelectProject
+}) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -185,10 +196,26 @@ export const ScrollDomainShowcase: React.FC<ScrollDomainShowcaseProps> = ({ onSe
     offset: ['start start', 'end end'],
   });
 
-  // Calculate 3D rotations based on scroll progress
-  const rotateY = useTransform(scrollYProgress, [0, 1], [0, 720]);
-  const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [15, -25, 15]);
-  const rotateZ = useTransform(scrollYProgress, [0, 1], [0, 360]);
+  // Intra-domain scroll explosion progress (0 = Assembled, 1 = Fully Exploded)
+  const domainLocalProgress = useTransform(scrollYProgress, (v) => {
+    const step = 1 / 6;
+    const local = (v % step) / step;
+    if (local < 0.2) return local / 0.2;
+    if (local < 0.8) return 1.0;
+    return 1.0 - (local - 0.8) / 0.2;
+  });
+
+  const [manualExplosion, setManualExplosion] = useState<number | null>(null);
+  const [scrollExplosion, setScrollExplosion] = useState<number>(0);
+
+  useEffect(() => {
+    const unsubscribe = domainLocalProgress.on('change', (val) => {
+      setScrollExplosion(val);
+    });
+    return () => unsubscribe();
+  }, [domainLocalProgress]);
+
+  const currentExplosionProgress = manualExplosion !== null ? manualExplosion : scrollExplosion;
 
   // Update active domain index based on scroll position
   useEffect(() => {
@@ -213,6 +240,70 @@ export const ScrollDomainShowcase: React.FC<ScrollDomainShowcaseProps> = ({ onSe
     const containerHeight = containerRef.current.offsetHeight;
     const targetScroll = containerTop + (index / 5.8) * (containerHeight - window.innerHeight);
     window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+  };
+
+  const handleProjectBadgeClick = (id: string) => {
+    if (onSelectProject) {
+      const proj = PROJECTS.find((p) => p.id === id);
+      if (proj) {
+        onSelectProject(proj);
+      }
+    }
+  };
+
+  const renderDisassemblyStage = () => {
+    switch (currentDomain.id) {
+      case 'ai':
+        return (
+          <AIBotDisassembly
+            progress={currentExplosionProgress}
+            glowHex={currentDomain.glowHex}
+            onProjectClick={handleProjectBadgeClick}
+          />
+        );
+      case 'cloud':
+        return (
+          <CloudCyberDisassembly
+            progress={currentExplosionProgress}
+            glowHex={currentDomain.glowHex}
+            onProjectClick={handleProjectBadgeClick}
+          />
+        );
+      case 'fullstack':
+        return (
+          <FullStackDisassembly
+            progress={currentExplosionProgress}
+            glowHex={currentDomain.glowHex}
+            onProjectClick={handleProjectBadgeClick}
+          />
+        );
+      case 'mobile':
+        return (
+          <MobileDisassembly
+            progress={currentExplosionProgress}
+            glowHex={currentDomain.glowHex}
+            onProjectClick={handleProjectBadgeClick}
+          />
+        );
+      case 'games3d':
+        return (
+          <Games3DDisassembly
+            progress={currentExplosionProgress}
+            glowHex={currentDomain.glowHex}
+            onProjectClick={handleProjectBadgeClick}
+          />
+        );
+      case 'systems':
+        return (
+          <SystemsIoTDisassembly
+            progress={currentExplosionProgress}
+            glowHex={currentDomain.glowHex}
+            onProjectClick={handleProjectBadgeClick}
+          />
+        );
+      default:
+        return null;
+    }
   };
 
   return (
@@ -345,92 +436,79 @@ export const ScrollDomainShowcase: React.FC<ScrollDomainShowcaseProps> = ({ onSe
             </AnimatePresence>
           </div>
 
-          {/* Centerpiece: Futuristic 3D Holographic Quantum Core (Replaces Iron Man) */}
-          <div className="lg:col-span-6 flex items-center justify-center py-4 relative">
-            <div className="relative w-[280px] h-[280px] sm:w-[360px] sm:h-[360px] flex items-center justify-center [perspective:1000px]">
-              {/* Outer Rotating Gyroscope Ring with Degree Tick Marks */}
-              <motion.div
-                style={{
-                  rotateZ,
-                  rotateX,
-                  borderColor: currentDomain.glowHex,
-                }}
-                className="absolute inset-0 rounded-full border-2 border-dashed opacity-40 transition-colors duration-500"
-              />
-
-              {/* Middle Angled Elliptical Orbit Ring */}
-              <motion.div
-                style={{
-                  rotateY,
-                  rotateX,
-                  borderColor: currentDomain.glowHex,
-                }}
-                className="absolute inset-4 rounded-full border border-double opacity-60 transition-colors duration-500 shadow-2xl"
-              />
-
-              {/* Reverse Counter-Rotating High-Flux Ring */}
-              <motion.div
-                style={{
-                  rotateZ: useTransform(scrollYProgress, [0, 1], [360, 0]),
-                  rotateY,
-                }}
-                className="absolute inset-10 rounded-full border border-cyan-400/50 border-dotted opacity-70"
-              />
-
-              {/* 3D Holographic Faceted Polyhedron Core */}
-              <motion.div
-                style={{
-                  rotateY,
-                  rotateX,
-                  boxShadow: `0 0 45px ${currentDomain.glowHex}40, inset 0 0 35px ${currentDomain.glowHex}30`,
-                }}
-                className="relative w-32 h-32 sm:w-44 sm:h-44 rounded-3xl bg-slate-900/90 border-2 transition-colors duration-500 flex flex-col items-center justify-center [transform-style:preserve-3d] backdrop-blur-2xl"
-              >
-                {/* Holographic Glowing Icon of the Active Domain */}
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={currentDomain.id}
-                    initial={{ scale: 0.5, opacity: 0, rotate: -45 }}
-                    animate={{ scale: 1, opacity: 1, rotate: 0 }}
-                    exit={{ scale: 0.5, opacity: 0, rotate: 45 }}
-                    transition={{ type: 'spring', damping: 15 }}
-                    className="flex flex-col items-center justify-center text-center p-2"
-                  >
-                    <div
-                      className="p-4 rounded-2xl bg-slate-950/80 border transition-colors duration-500 shadow-xl"
-                      style={{ borderColor: `${currentDomain.glowHex}60` }}
-                    >
-                      {currentDomain.icon}
-                    </div>
-                    <span className="mt-2 text-[10px] font-mono text-slate-300 font-bold uppercase tracking-wider">
-                      DOMAIN {currentDomain.indexString}
-                    </span>
-                  </motion.div>
-                </AnimatePresence>
-
-                {/* Crosshair Wireframe HUD Overlay */}
-                <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-30">
-                  <div className="w-full h-[1px] bg-cyan-400" />
-                  <div className="h-full w-[1px] bg-cyan-400 absolute" />
-                </div>
-              </motion.div>
-
-              {/* Floating Orbiting Satellite Nodes */}
-              <motion.div
-                style={{ rotateY, rotateZ }}
-                className="absolute w-full h-full pointer-events-none"
-              >
-                <div
-                  className="absolute top-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full shadow-lg"
-                  style={{
-                    backgroundColor: currentDomain.glowHex,
-                    boxShadow: `0 0 15px ${currentDomain.glowHex}`,
-                  }}
+          {/* Centerpiece: Interactive Anime.js-style 3D Disassembly Stage */}
+          <div className="lg:col-span-6 flex flex-col items-center justify-center py-2 relative">
+            {/* Interactive HUD Control Deck */}
+            <div className="w-full max-w-md mb-2 px-3 py-1.5 rounded-xl bg-slate-900/80 border border-slate-800/90 backdrop-blur-md flex items-center justify-between gap-3 text-[11px] font-mono shadow-xl z-20">
+              <div className="flex items-center gap-2">
+                <span
+                  className="w-2 h-2 rounded-full animate-ping"
+                  style={{ backgroundColor: currentDomain.glowHex }}
                 />
-                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-cyan-400 shadow-lg shadow-cyan-400/50" />
-                <div className="absolute left-2 top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-purple-400" />
-                <div className="absolute right-2 top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-amber-400" />
-              </motion.div>
+                <span className="text-slate-300 font-semibold uppercase tracking-wider">
+                  EXPLODED VIEW
+                </span>
+                <span
+                  className="font-bold px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700"
+                  style={{ color: currentDomain.glowHex }}
+                >
+                  {Math.round(currentExplosionProgress * 100)}%
+                </span>
+              </div>
+
+              {/* Interactive Scrubber & Auto Sync Toggle */}
+              <div className="flex items-center gap-2">
+                <input
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.02"
+                  value={currentExplosionProgress}
+                  onChange={(e) => setManualExplosion(parseFloat(e.target.value))}
+                  className="w-20 sm:w-28 h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-400"
+                  title="Scrub Disassembly Degree"
+                />
+                {manualExplosion !== null ? (
+                  <button
+                    onClick={() => setManualExplosion(null)}
+                    className="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 hover:bg-cyan-500/30 text-[10px] transition-colors"
+                    title="Return to scroll-driven explosion"
+                  >
+                    SYNC
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => setManualExplosion(currentExplosionProgress > 0.5 ? 0 : 1)}
+                    className="px-2 py-0.5 rounded bg-slate-800 text-slate-400 hover:text-white border border-slate-700 text-[10px] transition-colors"
+                    title="Toggle explode / assemble"
+                  >
+                    {currentExplosionProgress > 0.5 ? 'FOLD' : 'EXPLODE'}
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* 3D Disassembly Viewport with AnimatePresence across domain transitions */}
+            <div className="relative w-full flex items-center justify-center">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentDomain.id}
+                  initial={{ opacity: 0, scale: 0.88, y: 20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.88, y: -20 }}
+                  transition={{ duration: 0.45, ease: 'easeOut' }}
+                  className="w-full flex items-center justify-center"
+                >
+                  {renderDisassemblyStage()}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Interactive Project Callout Hint */}
+            <div className="mt-1 text-center">
+              <span className="text-[11px] font-mono text-slate-400">
+                💡 Tip: Click highlighted schematic badges to inspect project architecture
+              </span>
             </div>
           </div>
         </div>

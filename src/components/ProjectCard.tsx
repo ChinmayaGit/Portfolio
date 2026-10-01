@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { motion } from 'framer-motion';
 import { Github, ExternalLink, Star, GitFork, ArrowUpRight, Sparkles } from 'lucide-react';
 import { Project } from '../data/projectsData';
@@ -30,7 +30,7 @@ const CATEGORY_COLORS: Record<string, { bg: string; text: string; border: string
   systems: { bg: 'bg-teal-500/10', text: 'text-teal-400', border: 'border-teal-500/20' },
 };
 
-export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) => {
+export const ProjectCard: React.FC<ProjectCardProps> = memo(({ project, onSelect }) => {
   const catColor = CATEGORY_COLORS[project.category] || CATEGORY_COLORS.fullstack;
   const langBadge = LANGUAGE_COLORS[project.language] || 'bg-slate-700/50 text-slate-300 border-slate-600';
 
@@ -40,8 +40,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) =
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9 }}
-      transition={{ duration: 0.3 }}
-      className="group relative flex flex-col justify-between rounded-2xl bg-[#0c101a]/80 hover:bg-[#101524]/90 border border-slate-800 hover:border-cyan-500/40 p-5 sm:p-6 backdrop-blur-xl transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1 overflow-hidden"
+      transition={{ duration: 0.25 }}
+      className="group relative flex flex-col justify-between rounded-2xl bg-[#0c101a]/95 hover:bg-[#101524] border border-slate-800/90 hover:border-cyan-500/40 p-5 sm:p-6 transition-all duration-200 hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1 overflow-hidden"
     >
       {/* Top Ambient Glow on Card Hover */}
       <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-cyan-500/5 to-purple-500/0 rounded-full blur-2xl group-hover:from-cyan-500/15 transition-all pointer-events-none" />
@@ -160,4 +160,6 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) =
       </div>
     </motion.div>
   );
-};
+});
+
+ProjectCard.displayName = 'ProjectCard';
