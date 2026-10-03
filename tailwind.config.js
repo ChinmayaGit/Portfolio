@@ -8,6 +8,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        accent: '#d4a22f',
         cyber: {
           dark: '#0a0d14',
           card: 'rgba(17, 24, 39, 0.75)',
@@ -37,6 +38,7 @@ export default {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+        telma: ['Telma', 'cursive', 'sans-serif'],
         display: ['Syne', 'sans-serif'],
         cyber: ['Space Grotesk', 'sans-serif'],
         future: ['Unbounded', 'sans-serif'],

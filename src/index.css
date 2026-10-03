@@ -2,41 +2,88 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Telma Font (Fontshare / Indian Type Foundry) */
+@font-face {
+  font-family: 'Telma';
+  src: url('https://cdn.fontshare.com/wf/UGIEST3H5PU4CG5IWQF2XDV4BQ4NHM55/MUA7JLTLK6QSMAPQJ4FACPICTYF4RSH5/ROMAJ4X7PNUGL2RNPOEGBQDZXD4WTUYJ.woff2') format('woff2');
+  font-weight: 300;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Telma';
+  src: url('https://cdn.fontshare.com/wf/Q4HSPVDYTOUBPOAOZYHPZVC7O2PGIO7Y/SO2ISBDOPZJKRB2HKMZUFXEIBL7Y7II5/5OD6IX4HNMWQSDBVZMNWTXDCHJXE3VSI.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Telma';
+  src: url('https://cdn.fontshare.com/wf/5ZMY77XGX2TH2CZM4E5UML63QT425DC2/7XE5EXFOMF6YMHIPYY7ZL5M6GZCLRZJL/5P62Q5DLXFO236H3ENSXAF6IHACL2BRG.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Telma';
+  src: url('https://cdn.fontshare.com/wf/NKBYZM3FLGWOHDM7WOIMZMHCI5D2TUUS/X3ZSFROUQWHD465VZRJEVARXK2DNN4JW/AI3UKUGMCTKRJM6W6ADNUKZAB4SUTBHO.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Telma';
+  src: url('https://cdn.fontshare.com/wf/VQ57ZNBQ2K2YXQRCHK4QWNGTWWZYXGAV/4Y7INNLAI24BUKOGEQ6RSJZ2YQKOYCAN/OCZ75D7DJT3RZ3HASTXXIJQUT64HOFCT.woff2') format('woff2');
+  font-weight: 900;
+  font-display: swap;
+  font-style: normal;
+}
+
 :root {
+  --background: #0a0a0b;
+  --foreground: #e4e4e7;
+  --muted: #71717a;
+  --accent: #d4a22f;
+  --accent-soft: rgba(212, 162, 47, 0.14);
+  --card-bg: rgba(24, 24, 27, 0.55);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --hud-line: rgba(255, 255, 255, 0.1);
   color-scheme: dark;
 }
 
+html,
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  background-color: #101214;
-  color: #f1f5f9;
-  overflow-x: hidden;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #0a0a0b;
+  color: #e4e4e7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-  background-color: #ff4f36;
-  color: #ffffff;
+  background-color: #d4a22f;
+  color: #000000;
 }
 
-/* StringTune Custom Scrollbar */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #101214;
+  background: #0a0a0b;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #23272e;
+  background: #27272a;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #ff4f36;
+  background: #d4a22f;
 }
 
 /* Utilities for hiding scrollbars in tabs while allowing scroll */
@@ -48,36 +95,43 @@ body {
   scrollbar-width: none;
 }
 
-/* StringTune Popping & Glow utility classes */
-.pop-red {
-  transition: all 0.25s cubic-bezier(0.35, 0.35, 0, 1);
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
 }
-.pop-red:hover {
-  border-color: #ff4f36 !important;
-  box-shadow: 0 0 25px rgba(255, 79, 54, 0.4) !important;
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
 }
-
-.pop-blue {
-  transition: all 0.25s cubic-bezier(0.35, 0.35, 0, 1);
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
 }
-.pop-blue:hover {
-  border-color: #3687ff !important;
-  box-shadow: 0 0 25px rgba(54, 135, 255, 0.4) !important;
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #d4a22f;
 }
 
-.string-guide-line {
-  box-shadow: inset 1px 0 0 0 rgba(255, 255, 255, 0.08);
+.card-surface {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.04) inset,
+    0 20px 40px -20px rgba(0, 0, 0, 0.6);
 }
 
-.cyber-glow-cyan {
-  box-shadow: 0 0 25px rgba(0, 240, 255, 0.25);
+.scroll-animation {
+  height: 400vh;
 }
 
-.cyber-glow-purple {
-  box-shadow: 0 0 25px rgba(168, 85, 247, 0.25);
+@media (max-width: 1024px) {
+  .scroll-animation {
+    height: 350vh;
+  }
 }
 
-.cyber-glow-amber {
-  box-shadow: 0 0 25px rgba(245, 158, 11, 0.25);
+@media (max-width: 768px) {
+  .scroll-animation {
+    height: 300vh;
+  }
 }
-

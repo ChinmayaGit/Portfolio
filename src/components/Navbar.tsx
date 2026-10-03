@@ -63,8 +63,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="font-display font-extrabold text-sm tracking-wide text-white group-hover:text-[#ff4f36] transition-colors">
-                CHINMAYA GARNAIK
+              <span className="font-telma font-bold text-base tracking-normal text-white group-hover:text-[#ff4f36] transition-colors">
+                Chinmaya Garnaik
               </span>
               <Sparkles className="w-3.5 h-3.5 text-[#ff4f36] opacity-90" />
             </div>

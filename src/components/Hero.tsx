@@ -25,9 +25,10 @@ const ROLES = [
   { title: 'Systems & IoT Firmware Engineer', tag: 'Embedded C++ & ESP32', color: 'from-[#3687ff] to-[#78afff]' },
 ];
 
-type NameFont = 'syne' | 'unbounded' | 'space' | 'outfit';
+type NameFont = 'telma' | 'syne' | 'unbounded' | 'space' | 'outfit';
 
 const FONT_MAP: Record<NameFont, { name: string; class: string; letterSpacing: string }> = {
+  telma: { name: 'Telma (Expressive Script)', class: 'font-telma', letterSpacing: 'tracking-normal' },
   syne: { name: 'Syne (Awwwards Avant-Garde)', class: 'font-display', letterSpacing: 'tracking-tight' },
   unbounded: { name: 'Unbounded (Futuristic Wide)', class: 'font-future', letterSpacing: 'tracking-tight' },
   space: { name: 'Space Grotesk (Cyber Tech)', class: 'font-cyber', letterSpacing: 'tracking-tight' },
@@ -43,7 +44,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenCommandPalette }) => {
     } catch {
       // fallback
     }
-    return 'syne';
+    return 'telma';
   });
 
   const handleFontChange = (newFont: NameFont) => {
@@ -115,7 +116,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenCommandPalette }) => {
                   <Sparkles className="w-2.5 h-2.5 text-[#ff4f36]" />
                   <span>FONT:</span>
                 </span>
-                {(['syne', 'unbounded', 'space', 'outfit'] as NameFont[]).map((f) => (
+                {(['telma', 'syne', 'unbounded', 'space', 'outfit'] as NameFont[]).map((f) => (
                   <button
                     key={f}
                     onClick={() => handleFontChange(f)}
@@ -125,15 +126,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenCommandPalette }) => {
                         : 'text-slate-400 hover:text-white bg-[#181b20] border border-white/[0.08]'
                     }`}
                   >
-                    {f === 'syne' ? 'Syne' : f === 'unbounded' ? 'Unbounded' : f === 'space' ? 'Space' : 'Outfit'}
+                    {f === 'telma' ? 'Telma' : f === 'syne' ? 'Syne' : f === 'unbounded' ? 'Unbounded' : f === 'space' ? 'Space' : 'Outfit'}
                   </button>
                 ))}
               </div>
 
-              <h1 className={`${FONT_MAP[nameFont].class} ${FONT_MAP[nameFont].letterSpacing} text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-white leading-none tracking-tight transition-all duration-300`}>
-                CHINMAYA{' '}
+              <h1 className={`${FONT_MAP[nameFont].class} ${FONT_MAP[nameFont].letterSpacing} text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-white leading-tight tracking-normal transition-all duration-300 py-1`}>
+                Chinmaya{' '}
                 <span className="bg-gradient-to-r from-[#ff4f36] via-[#ffffff] to-[#3687ff] bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(255,79,54,0.45)]">
-                  GARNAIK
+                  Garnaik
                 </span>
               </h1>
 

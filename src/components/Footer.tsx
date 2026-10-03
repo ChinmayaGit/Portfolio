@@ -15,8 +15,8 @@ export const Footer: React.FC = () => {
         {/* Brand & Tagline */}
         <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
           <div className="flex items-center gap-2">
-            <span className="font-display font-extrabold text-base text-white tracking-wider">
-              CHINMAYA GARNAIK
+            <span className="font-telma font-bold text-lg text-white tracking-normal">
+              Chinmaya Garnaik
             </span>
             <span className="text-[#ff4f36] font-mono text-xs">/ dev matrix</span>
           </div>

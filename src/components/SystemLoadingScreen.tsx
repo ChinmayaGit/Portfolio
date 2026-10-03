@@ -126,7 +126,7 @@ export const SystemLoadingScreen: React.FC<SystemLoadingScreenProps> = ({ onComp
             <div className="space-y-1 mb-6">
               <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-[#ff4f36]/15 border border-[#ff4f36]/30 text-[#ff4f36] text-[11px] font-mono tracking-wider shadow-[0_0_10px_rgba(255,79,54,0.2)]">
                 <Cpu className="w-3 h-3" />
-                <span>CHINMAYA GARNAIK</span>
+                <span className="font-telma font-bold text-xs tracking-normal">Chinmaya Garnaik</span>
               </div>
               <h2 className="text-xl sm:text-2xl font-black tracking-tight text-white font-mono">
                 DEVELOPER MATRIX

@@ -1,101 +1,75 @@
-import React, { useState } from 'react';
-import { ParticleBackground } from './components/ParticleBackground';
-import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { CategoryExplorer } from './components/CategoryExplorer';
-import { ScrollDomainShowcase } from './components/ScrollDomainShowcase';
-import { CertificationsSection } from './components/CertificationsSection';
-import { SkillsSection } from './components/SkillsSection';
-import { ExperienceSection } from './components/ExperienceSection';
-import { ContactSection } from './components/ContactSection';
-import { Footer } from './components/Footer';
-import { CommandPalette } from './components/CommandPalette';
-import { ProjectModal } from './components/ProjectModal';
-import { TopProgressBar } from './components/TopProgressBar';
-import { SystemLoadingScreen } from './components/SystemLoadingScreen';
-import { SmoothScrollProvider } from './components/smooth-scroll/SmoothScrollProvider';
-import { ElasticStringWave } from './components/3d/ElasticStringWave';
-import { StringTuneHUD } from './components/3d/StringTuneHUD';
-import { StringTuneMarquee } from './components/StringTuneMarquee';
-import { Project, CategoryInfo } from './data/projectsData';
+import React, { useState } from "react";
+import { Navbar } from "./components/ui/Navbar";
+import { Hero } from "./components/sections/Hero";
+import { SystemsNominal } from "./components/sections/SystemsNominal";
+import { Footer } from "./components/sections/Footer";
+import { ProjectsTabModal } from "./components/modals/ProjectsTabModal";
+import { CertificationsTabModal } from "./components/modals/CertificationsTabModal";
+import { ContactTabModal } from "./components/modals/ContactTabModal";
 
 export const App: React.FC = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
-  const [activeProjectModal, setActiveProjectModal] = useState<Project | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<CategoryInfo['id']>('all');
+  const [activeModal, setActiveModal] = useState<
+    "projects" | "certifications" | "contact" | null
+  >(null);
+
+  const handleOpenProjects = () => setActiveModal("projects");
+  const handleOpenCertifications = () => setActiveModal("certifications");
+  const handleOpenContact = () => setActiveModal("contact");
+  const handleCloseModal = () => setActiveModal(null);
 
   return (
-    <SmoothScrollProvider>
-      <div className="relative min-h-screen bg-[#101214] text-white selection:bg-[#ff4f36]/30 selection:text-white">
-        {/* Initial System Boot & Progressing Loading Bar */}
-        {isLoading && (
-          <SystemLoadingScreen onComplete={() => setIsLoading(false)} />
-        )}
+    <div className="relative min-h-screen bg-[#0a0a0b] text-[#e4e4e7] selection:bg-[#d4a22f] selection:text-black">
+      {/* Sleek Top Navigation Bar */}
+      <Navbar
+        onOpenProjects={handleOpenProjects}
+        onOpenCertifications={handleOpenCertifications}
+        onOpenContact={handleOpenContact}
+      />
 
-        {/* Viewport Top Reading & Scroll Progressing Bar */}
-        <TopProgressBar />
+      {/* Main Cinematic Scroll Sequence */}
+      <main>
+        {/* 
+          1st page: Chinmaya Garnaik (Telma font, CamelCase) + Full Stack Developer 
+          2nd scroll: Cloud Developer 
+          3rd scroll: Network Engineer 
+        */}
+        <Hero />
 
-        {/* 60 FPS Interactive Particle Constellation Background */}
-        <ParticleBackground />
-
-        {/* Navigation */}
-        <Navbar onOpenCommandPalette={() => setCommandPaletteOpen(true)} />
-
-        {/* Main Content Sections */}
-        <main className="relative z-10">
-          <Hero onOpenCommandPalette={() => setCommandPaletteOpen(true)} />
-
-          {/* StringTune Signature Plucked Elastic String Wave */}
-          <div className="max-w-7xl mx-auto px-4 -my-4 relative z-20">
-            <ElasticStringWave height={80} stringCount={3} />
-          </div>
-
-          {/* StringTune Kinetic Ribbon Marquee */}
-          <div className="my-8 relative z-20">
-            <StringTuneMarquee />
-          </div>
-
-          {/* 3D Holographic Cyber-Core Scroll Showcase with Anime.js Disassembly across 6 Tech Domains */}
-          <ScrollDomainShowcase
-            onSelectCategory={(catId) => setSelectedCategory(catId)}
-            onSelectProject={(project) => setActiveProjectModal(project)}
-          />
-
-          {/* Interactive Categorized Project Matrix */}
-          <CategoryExplorer
-            externalCategory={selectedCategory}
-            onCategoryChange={(catId) => setSelectedCategory(catId)}
-          />
-
-          <CertificationsSection />
-          <SkillsSection />
-          <ExperienceSection />
-          <ContactSection />
-        </main>
-
-        {/* Footer */}
-        <Footer />
-
-        {/* StringTune Telemetry & Performance HUD */}
-        <StringTuneHUD />
-
-        {/* Global Command Palette (Cmd + K) */}
-        <CommandPalette
-          isOpen={commandPaletteOpen}
-          onClose={() => setCommandPaletteOpen(false)}
-          onSelectProject={(project) => setActiveProjectModal(project)}
+        {/* 
+          Last section: Systems Nominal ("And I... am... Systems Architect") 
+          + Docked bottom-right interactive tabs for Projects, Certifications, Contact
+        */}
+        <SystemsNominal
+          onOpenProjects={handleOpenProjects}
+          onOpenCertifications={handleOpenCertifications}
+          onOpenContact={handleOpenContact}
         />
+      </main>
 
-        {/* Project Deep Dive Modal (from Command Palette) */}
-        <ProjectModal
-          project={activeProjectModal}
-          onClose={() => setActiveProjectModal(null)}
-        />
-      </div>
-    </SmoothScrollProvider>
+      {/* Minimal Iron Man Footer */}
+      <Footer
+        onOpenProjects={handleOpenProjects}
+        onOpenCertifications={handleOpenCertifications}
+        onOpenContact={handleOpenContact}
+      />
+
+      {/* Interactive Clean Modals */}
+      <ProjectsTabModal
+        isOpen={activeModal === "projects"}
+        onClose={handleCloseModal}
+      />
+
+      <CertificationsTabModal
+        isOpen={activeModal === "certifications"}
+        onClose={handleCloseModal}
+      />
+
+      <ContactTabModal
+        isOpen={activeModal === "contact"}
+        onClose={handleCloseModal}
+      />
+    </div>
   );
 };
 
 export default App;
-
