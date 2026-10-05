@@ -1,35 +1,22 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import {
   Mail,
   Linkedin,
   Github,
   MapPin,
   Send,
-  CheckCircle2,
   Copy,
+  CheckCircle2,
   ExternalLink,
-  MessageSquare
 } from 'lucide-react';
 
 export const ContactSection: React.FC = () => {
   const [copiedEmail, setCopiedEmail] = useState(false);
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText('cgarnaik09@gmail.com');
     setCopiedEmail(true);
     setTimeout(() => setCopiedEmail(false), 2500);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) return;
-    setFormSubmitted(true);
-    setTimeout(() => {
-      setFormData({ name: '', email: '', message: '' });
-    }, 1000);
   };
 
   return (
@@ -133,90 +120,59 @@ export const ContactSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Right Column: Direct Message Form */}
+        {/* Right Column: Direct Recruiter Dispatch */}
         <div className="lg:col-span-7">
-          <div className="p-6 sm:p-8 rounded-2xl bg-[#14171c] border border-white/[0.08] backdrop-blur-xl shadow-2xl">
-            <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-2">
-              <MessageSquare className="w-4 h-4 text-[#ff4f36]" />
-              <span>Send a Direct Message</span>
-            </h3>
-            <p className="text-xs text-slate-400 mb-6 font-mono">
-              Have an idea, project, or career inquiry? Drop a line below.
-            </p>
+          <div className="p-6 sm:p-8 rounded-2xl bg-[#14171c] border border-white/[0.08] backdrop-blur-xl shadow-2xl space-y-6">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#3687ff]/15 border border-[#3687ff]/30 text-[#3687ff] text-xs font-mono mb-2">
+                <Send className="w-3.5 h-3.5" />
+                <span>DIRECT RECRUITER CHANNEL</span>
+              </div>
+              <h3 className="text-xl font-bold text-white">
+                Connect Directly &mdash; No Forms Needed
+              </h3>
+              <p className="text-xs text-slate-400 mt-1 font-mono">
+                Click any direct channel below to immediately reach my personal inbox or network.
+              </p>
+            </div>
 
-            {formSubmitted ? (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="py-12 text-center space-y-3"
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <a
+                href="mailto:cgarnaik09@gmail.com?subject=Interview%20Invitation%20-%20Chinmaya%20Garnaik"
+                className="p-4 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 hover:border-[#3687ff] transition-all group"
               >
-                <div className="inline-flex p-3 rounded-full bg-[#ff4f36]/15 text-[#ff4f36] border border-[#ff4f36]/30 shadow-[0_0_15px_rgba(255,79,54,0.3)]">
-                  <CheckCircle2 className="w-8 h-8" />
+                <div className="text-xs font-mono text-[#3687ff] mb-1">Interviews &amp; Hiring</div>
+                <div className="text-sm font-bold text-white group-hover:text-[#3687ff] transition-colors flex items-center justify-between">
+                  <span>Schedule Interview</span>
+                  <ExternalLink className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100" />
                 </div>
-                <h4 className="text-lg font-bold text-white">Message Received!</h4>
-                <p className="text-xs text-slate-400 max-w-xs mx-auto">
-                  Thank you for reaching out. Chinmaya will connect with you promptly.
-                </p>
-                <button
-                  onClick={() => setFormSubmitted(false)}
-                  className="mt-4 px-5 py-2 rounded-full bg-[#101214] hover:bg-[#1a1e26] border border-white/[0.1] text-slate-300 hover:text-white text-xs font-mono transition-colors"
-                >
-                  Send Another Message
-                </button>
-              </motion.div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-xs font-mono text-slate-400 mb-1.5">
-                    Your Name
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="e.g. Alex Morgan"
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#101214] border border-white/[0.1] focus:border-[#ff4f36] focus:outline-none focus:ring-1 focus:ring-[#ff4f36] text-xs sm:text-sm text-white placeholder-slate-600 font-mono transition-all"
-                  />
-                </div>
+              </a>
 
-                <div>
-                  <label className="block text-xs font-mono text-slate-400 mb-1.5">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="name@organization.com"
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#101214] border border-white/[0.1] focus:border-[#ff4f36] focus:outline-none focus:ring-1 focus:ring-[#ff4f36] text-xs sm:text-sm text-white placeholder-slate-600 font-mono transition-all"
-                  />
+              <a
+                href="mailto:cgarnaik09@gmail.com?subject=Opportunity%20Inquiry%20-%20Chinmaya%20Garnaik"
+                className="p-4 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 hover:border-[#ff4f36] transition-all group"
+              >
+                <div className="text-xs font-mono text-[#ff4f36] mb-1">Full-Time / Hybrid</div>
+                <div className="text-sm font-bold text-white group-hover:text-[#ff4f36] transition-colors flex items-center justify-between">
+                  <span>Discuss Roles</span>
+                  <ExternalLink className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100" />
                 </div>
+              </a>
+            </div>
 
-                <div>
-                  <label className="block text-xs font-mono text-slate-400 mb-1.5">
-                    Message
-                  </label>
-                  <textarea
-                    required
-                    rows={4}
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="Describe your inquiry, project scope, or opportunity..."
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#101214] border border-white/[0.1] focus:border-[#ff4f36] focus:outline-none focus:ring-1 focus:ring-[#ff4f36] text-xs sm:text-sm text-white placeholder-slate-600 font-mono transition-all resize-none"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#ff4f36] hover:bg-[#ff6852] text-[#101214] font-black text-xs sm:text-sm tracking-wide shadow-[0_0_25px_rgba(255,79,54,0.35)] transition-all hover:scale-[1.01] active:scale-[0.99]"
-                >
-                  <span>Dispatch Message</span>
-                  <Send className="w-4 h-4" />
-                </button>
-              </form>
-            )}
+            <div className="p-4 rounded-xl bg-[#101214] border border-white/[0.06] flex flex-col sm:flex-row sm:items-center justify-between gap-3 font-mono text-xs text-slate-300">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span>Currently Active &amp; Responding within 24 Hours</span>
+              </div>
+              <a
+                href="mailto:cgarnaik09@gmail.com"
+                className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg bg-[#3687ff] hover:bg-[#2f75dd] text-white font-bold text-xs transition-colors"
+              >
+                <Mail className="w-3.5 h-3.5" />
+                <span>Open Mailbox</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
