@@ -111,7 +111,7 @@ export const ContactSection: React.FC = () => {
               <span>Base of Operations</span>
             </div>
             <div className="text-sm font-semibold text-white">
-              Bhubaneswar, Odisha, India
+              Hyderabad, Telangana, India
             </div>
             <div className="flex items-center gap-2 text-[11px] font-mono text-[#ff4f36] mt-2">
               <span className="w-2 h-2 rounded-full bg-[#ff4f36] animate-pulse" />

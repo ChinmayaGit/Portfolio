@@ -14,7 +14,7 @@ const telemetry = [
   { label: "Security & IAM", value: "Zero Trust", note: "Deloitte Analyst · SailPoint ISC · Governance" },
   { label: "Projects Shipped", value: "71+", note: "Full stack platforms, cloud tools, and APIs" },
   { label: "Verified Credentials", value: "15+", note: "Oracle AI, Anthropic Claude, AWS, SailPoint" },
-  { label: "Transmission Status", value: "Online", note: "Bangalore, India · Available for high-impact roles" },
+  { label: "Transmission Status", value: "Online", note: "Hyderabad, India · Available for high-impact roles" },
 ];
 
 export const SystemsNominal: React.FC<SystemsNominalProps> = ({

@@ -12,7 +12,8 @@ import {
   Clock,
   ArrowUpRight,
   Briefcase,
-  Sparkles,
+  Send,
+  MessageSquare,
 } from "lucide-react";
 
 interface ContactTabModalProps {
@@ -22,6 +23,8 @@ interface ContactTabModalProps {
 
 export const ContactTabModal: React.FC<ContactTabModalProps> = ({ isOpen, onClose }) => {
   const [copied, setCopied] = useState(false);
+  const [message, setMessage] = useState("");
+  const [sent, setSent] = useState(false);
 
   if (!isOpen) return null;
 
@@ -35,23 +38,17 @@ export const ContactTabModal: React.FC<ContactTabModalProps> = ({ isOpen, onClos
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const recruiterTemplates = [
-    {
-      title: "Schedule Technical Interview",
-      subject: "Interview Invitation: Full-Stack / Cloud AI Engineer - Chinmaya Garnaik",
-      body: "Hi Chinmaya,\n\nWe came across your portfolio and background in Cloud Architecture, AI Agents, and Full-Stack Engineering. We'd love to schedule a technical discussion regarding an opportunity at our organization.\n\nBest regards,\n[Your Name / Company]",
-    },
-    {
-      title: "Discuss Full-Time Role",
-      subject: "Full-Time Opportunity Discussion - Chinmaya Garnaik",
-      body: "Hi Chinmaya,\n\nI am reaching out regarding a Full-Stack AI Engineer / Cloud Architect position that matches your technical profile and credentials.\n\nBest regards,\n[Your Name / Company]",
-    },
-    {
-      title: "Architecture Advisory / Contract",
-      subject: "Architecture Advisory / Consulting Inquiry - Chinmaya Garnaik",
-      body: "Hi Chinmaya,\n\nWe have an upcoming project requiring expertise in scalable systems, AI workflow integration, and cloud infrastructure. We'd like to discuss an engagement.\n\nBest regards,\n[Your Name / Company]",
-    },
-  ];
+  const handleSendMessage = (e: React.FormEvent) => {
+    e.preventDefault();
+    const mailtoUrl = `mailto:${emailAddress}?subject=${encodeURIComponent(
+      "Recruiter / Opportunity Inquiry - Chinmaya Garnaik"
+    )}&body=${encodeURIComponent(message)}`;
+    window.location.href = mailtoUrl;
+    setSent(true);
+    setTimeout(() => {
+      setSent(false);
+    }, 2500);
+  };
 
   return (
     <AnimatePresence>
@@ -81,7 +78,7 @@ export const ContactTabModal: React.FC<ContactTabModalProps> = ({ isOpen, onClos
                   Direct Recruiter Frequency
                 </h3>
                 <p className="text-xs font-mono text-zinc-400">
-                  Direct channels to connect with Chinmaya Garnaik &mdash; No forms required
+                  Direct channels to connect with Chinmaya Garnaik
                 </p>
               </div>
             </div>
@@ -95,7 +92,7 @@ export const ContactTabModal: React.FC<ContactTabModalProps> = ({ isOpen, onClos
             </button>
           </div>
 
-          <div className="flex-1 overflow-y-auto pr-1 py-5 space-y-6 custom-scrollbar">
+          <div className="flex-1 overflow-y-auto pr-1 py-5 space-y-5 custom-scrollbar">
             {/* Primary Action: Direct Email Card */}
             <div className="p-5 rounded-2xl bg-gradient-to-br from-white/[0.05] to-white/[0.02] border border-[#d4a22f]/30 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-[#d4a22f]/10 rounded-full blur-3xl pointer-events-none" />
@@ -111,7 +108,7 @@ export const ContactTabModal: React.FC<ContactTabModalProps> = ({ isOpen, onClos
                 </span>
               </div>
 
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1 pb-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1 pb-2">
                 <div>
                   <a
                     href={`mailto:${emailAddress}`}
@@ -230,7 +227,7 @@ export const ContactTabModal: React.FC<ContactTabModalProps> = ({ isOpen, onClos
                 <div className="flex items-start justify-between border-b border-white/5 pb-2 sm:border-b-0 sm:pb-0">
                   <span>Base Location:</span>
                   <span className="text-white flex items-center gap-1">
-                    <MapPin size={11} className="text-[#d4a22f]" /> Bengaluru, IN / Remote
+                    <MapPin size={11} className="text-[#d4a22f]" /> Hyderabad, Telangana, India
                   </span>
                 </div>
                 <div className="flex items-start justify-between">
@@ -242,31 +239,44 @@ export const ContactTabModal: React.FC<ContactTabModalProps> = ({ isOpen, onClos
               </div>
             </div>
 
-            {/* 1-Click Pre-filled Email Templates for Recruiters */}
-            <div className="space-y-2">
-              <div className="flex items-center gap-2 text-[11px] font-mono text-zinc-400 uppercase tracking-wider">
-                <Sparkles size={12} className="text-[#d4a22f]" />
-                <span>1-Click Email Starter for Recruiters</span>
+            {/* Direct Message Box */}
+            <form onSubmit={handleSendMessage} className="space-y-3 pt-1">
+              <div>
+                <label className="block text-[11px] font-mono text-zinc-400 mb-1.5 uppercase tracking-wider flex items-center justify-between">
+                  <span className="flex items-center gap-1.5 text-[#d4a22f] font-semibold">
+                    <MessageSquare size={13} />
+                    Message Box
+                  </span>
+                  <span className="text-[10px] text-zinc-500 font-normal">
+                    Direct to Chinmaya's Inbox
+                  </span>
+                </label>
+                <textarea
+                  rows={4}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder="Type your message, opportunity details, or interview schedule here..."
+                  className="w-full px-4 py-3 rounded-2xl bg-white/[0.04] border border-white/10 text-white placeholder-zinc-600 text-xs sm:text-sm font-sans focus:outline-none focus:border-[#d4a22f]/60 transition-all resize-none"
+                />
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                {recruiterTemplates.map((template) => (
-                  <a
-                    key={template.title}
-                    href={`mailto:${emailAddress}?subject=${encodeURIComponent(
-                      template.subject
-                    )}&body=${encodeURIComponent(template.body)}`}
-                    className="p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 hover:border-[#d4a22f]/50 text-left transition-all duration-200 group flex flex-col justify-between"
-                  >
-                    <span className="font-sans text-xs font-semibold text-white group-hover:text-[#d4a22f] transition-colors">
-                      {template.title}
-                    </span>
-                    <span className="font-mono text-[10px] text-zinc-500 mt-2 flex items-center gap-1">
-                      Compose <ArrowUpRight size={10} />
-                    </span>
-                  </a>
-                ))}
-              </div>
-            </div>
+
+              <button
+                type="submit"
+                className="w-full py-3 rounded-xl bg-[#d4a22f] hover:bg-[#e5b33d] text-black font-mono text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(212,162,47,0.25)] transition-all duration-200 active:scale-[0.99]"
+              >
+                {sent ? (
+                  <>
+                    <Check size={15} />
+                    <span>Dispatched to Email App</span>
+                  </>
+                ) : (
+                  <>
+                    <Send size={15} />
+                    <span>Send Message &rarr;</span>
+                  </>
+                )}
+              </button>
+            </form>
           </div>
 
           {/* Footer note */}
