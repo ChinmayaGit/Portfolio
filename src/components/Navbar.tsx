@@ -126,7 +126,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
           </a>
 
           <a
-            href="https://www.linkedin.com/in/chinmaya-garnaik-a093a21b5/"
+            href="https://linkedin.com/in/chinmaya-garnaik-a093a21b5"
             target="_blank"
             rel="noopener noreferrer"
             className="p-2 rounded-full bg-[#16191d] hover:bg-[#3687ff]/15 border border-white/[0.08] hover:border-[#3687ff]/40 text-slate-400 hover:text-[#3687ff] transition-all hover:shadow-[0_0_12px_rgba(54,135,255,0.3)]"
@@ -186,7 +186,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
                     <Github className="w-4 h-4" /> GitHub
                   </a>
                   <a
-                    href="https://www.linkedin.com/in/chinmaya-garnaik-a093a21b5/"
+                    href="https://linkedin.com/in/chinmaya-garnaik-a093a21b5"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-1.5 text-xs text-blue-400 hover:text-blue-300"

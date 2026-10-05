@@ -30,7 +30,7 @@ export const ContactTabModal: React.FC<ContactTabModalProps> = ({ isOpen, onClos
 
   if (!isOpen) return null;
 
-  const emailAddress = "chinugarnaiklabs@gmail.com";
+  const emailAddress = "cgarnaik09@gmail.com";
 
   const handleCopy = () => {
     navigator.clipboard.writeText(emailAddress);
@@ -156,7 +156,7 @@ export const ContactTabModal: React.FC<ContactTabModalProps> = ({ isOpen, onClos
             {/* Social Network Channels */}
             <div className="flex items-center gap-3">
               <a
-                href="https://github.com/Chinmayagarnaik"
+                href="https://github.com/ChinmayaGit"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-[#d4a22f]/50 flex items-center justify-center gap-2 text-xs font-mono text-zinc-300 hover:text-white transition-all duration-200"
@@ -165,7 +165,7 @@ export const ContactTabModal: React.FC<ContactTabModalProps> = ({ isOpen, onClos
                 <span>GitHub Archive</span>
               </a>
               <a
-                href="https://www.linkedin.com/in/chinmayagarnaik"
+                href="https://linkedin.com/in/chinmaya-garnaik-a093a21b5"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-[#d4a22f]/50 flex items-center justify-center gap-2 text-xs font-mono text-zinc-300 hover:text-white transition-all duration-200"

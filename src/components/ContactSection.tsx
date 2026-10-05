@@ -18,7 +18,7 @@ export const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
 
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText('chinugarnaiklabs@gmail.com');
+    navigator.clipboard.writeText('cgarnaik09@gmail.com');
     setCopiedEmail(true);
     setTimeout(() => setCopiedEmail(false), 2500);
   };
@@ -54,7 +54,7 @@ export const ContactSection: React.FC = () => {
           <div className="space-y-4">
             {/* LinkedIn Card */}
             <a
-              href="https://www.linkedin.com/in/chinmaya-garnaik-a093a21b5/"
+              href="https://linkedin.com/in/chinmaya-garnaik-a093a21b5"
               target="_blank"
               rel="noopener noreferrer"
               className="group p-5 rounded-2xl bg-[#14171c] border border-white/[0.08] hover:border-[#3687ff] backdrop-blur-xl transition-all duration-300 hover:shadow-[0_0_25px_rgba(54,135,255,0.25)] hover:-translate-y-1 flex items-center justify-between"
@@ -75,7 +75,7 @@ export const ContactSection: React.FC = () => {
 
             {/* GitHub Card */}
             <a
-              href="https://github.com/ChinmayaGit?tab=repositories"
+              href="https://github.com/ChinmayaGit"
               target="_blank"
               rel="noopener noreferrer"
               className="group p-5 rounded-2xl bg-[#14171c] border border-white/[0.08] hover:border-[#ff4f36] backdrop-blur-xl transition-all duration-300 hover:shadow-[0_0_25px_rgba(255,79,54,0.25)] hover:-translate-y-1 flex items-center justify-between"
@@ -103,7 +103,7 @@ export const ContactSection: React.FC = () => {
                 <div>
                   <div className="text-xs font-mono text-slate-400">Direct Email</div>
                   <div className="text-sm font-bold text-white font-mono">
-                    chinugarnaiklabs@gmail.com
+                    cgarnaik09@gmail.com
                   </div>
                 </div>
               </div>

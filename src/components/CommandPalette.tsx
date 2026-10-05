@@ -66,7 +66,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
   }, [isOpen, onClose]);
 
   const copyEmail = () => {
-    navigator.clipboard.writeText('chinugarnaiklabs@gmail.com');
+    navigator.clipboard.writeText('cgarnaik09@gmail.com');
     setCopiedEmail(true);
     setTimeout(() => setCopiedEmail(false), 2000);
   };
@@ -152,14 +152,14 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
       title: 'Open GitHub Profile (@ChinmayaGit)',
       category: 'Social',
       icon: <Github className="w-4 h-4 text-white" />,
-      action: () => window.open('https://github.com/ChinmayaGit?tab=repositories', '_blank'),
+      action: () => window.open('https://github.com/ChinmayaGit', '_blank'),
     },
     {
       id: 'link-linkedin',
       title: 'Open LinkedIn Profile (Chinmaya Garnaik)',
       category: 'Social',
       icon: <Linkedin className="w-4 h-4 text-[#3687ff]" />,
-      action: () => window.open('https://www.linkedin.com/in/chinmaya-garnaik-a093a21b5/', '_blank'),
+      action: () => window.open('https://linkedin.com/in/chinmaya-garnaik-a093a21b5', '_blank'),
     },
     {
       id: 'link-linkedin-certs',

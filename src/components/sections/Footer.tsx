@@ -84,7 +84,7 @@ export const Footer: React.FC<FooterProps> = ({
             </button>
 
             <a
-              href="https://github.com/Chinmayagarnaik"
+              href="https://github.com/ChinmayaGit"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex flex-col gap-1"
@@ -102,7 +102,7 @@ export const Footer: React.FC<FooterProps> = ({
             </a>
 
             <a
-              href="https://www.linkedin.com/in/chinmayagarnaik"
+              href="https://linkedin.com/in/chinmaya-garnaik-a093a21b5"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex flex-col gap-1"
@@ -120,7 +120,7 @@ export const Footer: React.FC<FooterProps> = ({
             </a>
 
             <a
-              href="mailto:chinugarnaiklabs@gmail.com"
+              href="mailto:cgarnaik09@gmail.com"
               className="group flex flex-col gap-1"
             >
               <span className="font-sans text-[13px] font-medium text-white transition-colors group-hover:text-[#d4a22f]">
@@ -131,7 +131,7 @@ export const Footer: React.FC<FooterProps> = ({
                 />
               </span>
               <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500">
-                chinugarnaiklabs
+                cgarnaik09@gmail.com
               </span>
             </a>
           </nav>
