@@ -103,30 +103,39 @@ export const Phase3Network: React.FC = () => {
 
     if (!img || !img.complete || !img.naturalWidth) return;
 
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
+
     const cw = canvas.width;
     const ch = canvas.height;
     const imgRatio = img.naturalWidth / img.naturalHeight;
     const canvasRatio = cw / ch;
 
+    const isMobile = window.innerWidth <= 768;
+    // Zoom out so 1280x720 frames stay crisp without pixelation or stretching
+    const zoomFactor = isMobile ? 0.90 : 0.80;
+
     let drawW: number;
     let drawH: number;
     if (canvasRatio > imgRatio) {
-      drawW = cw;
-      drawH = cw / imgRatio;
+      drawH = ch * zoomFactor;
+      drawW = drawH * imgRatio;
     } else {
-      drawH = ch;
-      drawW = ch * imgRatio;
+      drawW = cw * zoomFactor;
+      drawH = drawW / imgRatio;
     }
 
-    if (window.innerWidth <= 768) {
-      drawW *= 1.25;
-      drawH *= 1.25;
+    const maxDrawW = img.naturalWidth * (window.devicePixelRatio || 1) * 1.2;
+    if (drawW > maxDrawW && !isMobile) {
+      drawW = maxDrawW;
+      drawH = drawW / imgRatio;
     }
 
     const drawX = (cw - drawW) / 2;
     const drawY = (ch - drawH) / 2;
 
-    ctx.clearRect(0, 0, cw, ch);
+    ctx.fillStyle = "#000000";
+    ctx.fillRect(0, 0, cw, ch);
     ctx.drawImage(img, drawX, drawY, drawW, drawH);
   }, []);
 
@@ -227,12 +236,12 @@ export const Phase3Network: React.FC = () => {
   return (
     <section id="network" ref={sectionRef} className="phase-scroll relative">
       <div
-        className="sticky top-0 h-[100dvh] w-full overflow-hidden bg-[#0a0a0b]"
+        className="sticky top-0 h-[100dvh] w-full overflow-hidden bg-black"
         style={{ willChange: "transform", transform: "translateZ(0)" }}
       >
         <canvas
           ref={canvasRef}
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full"
           style={{ willChange: "contents", transform: "translateZ(0)" }}
         />
 
@@ -240,7 +249,7 @@ export const Phase3Network: React.FC = () => {
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "radial-gradient(120% 80% at 50% 10%, transparent 30%, rgba(10,10,11,0.45) 70%, rgba(10,10,11,0.85) 100%)",
+              "radial-gradient(120% 85% at 50% 45%, transparent 35%, rgba(0,0,0,0.35) 65%, #000000 100%)",
           }}
         />
 
