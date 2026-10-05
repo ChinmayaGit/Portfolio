@@ -3,9 +3,9 @@ import { EyebrowBadge } from "../ui/EyebrowBadge";
 import { HudFrame } from "../ui/HudFrame";
 import { ArrowDown } from "lucide-react";
 
-export const FRAME_COUNT = 150;
+export const FRAME_COUNT = 100;
 export const framePath = (n: number) =>
-  `/frames/frame-${String(n).padStart(3, "0")}.jpg`;
+  `/frames/ezgif-frame-${String(n).padStart(3, "0")}.jpg`;
 
 export const Phase1Intro: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
