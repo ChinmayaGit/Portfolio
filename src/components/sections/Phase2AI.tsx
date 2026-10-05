@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { EyebrowBadge } from "../ui/EyebrowBadge";
 import { HudFrame } from "../ui/HudFrame";
-import { Sparkles, Bot, CheckCircle2 } from "lucide-react";
+import { Sparkles, Bot } from "lucide-react";
 
 export const FRAME_COUNT = 150;
 export const framePath = (n: number) =>
@@ -262,7 +262,7 @@ export const Phase2AI: React.FC = () => {
         <div className="pointer-events-none absolute left-6 top-20 z-10 flex items-center gap-2 md:left-10 md:top-24">
           <div className="h-px w-8 bg-[#d4a22f]/60" />
           <span className="font-mono text-[10px] uppercase tracking-[0.32em] text-zinc-400">
-            Phase 02 // Neural &amp; Agent Core &mdash; Live
+            Phase 02 // Applied AI Systems &mdash; Live
           </span>
         </div>
 
@@ -309,7 +309,7 @@ export const Phase2AI: React.FC = () => {
             <div className="flex items-center justify-between">
               <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#d4a22f] flex items-center gap-1.5">
                 <Sparkles size={14} />
-                PHASE 02 // AUTONOMOUS AI
+                PHASE 02 // APPLIED AI SYSTEMS
               </span>
               <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#d4a22f]/15 text-[#d4a22f] border border-[#d4a22f]/30">
                 ACTIVE
@@ -322,27 +322,27 @@ export const Phase2AI: React.FC = () => {
             </h2>
 
             <p className="text-zinc-300 text-xs md:text-sm leading-relaxed">
-              Architecting autonomous multi-agent pipelines, custom tool-calling systems, and fine-tuned LLM interfaces integrated with enterprise backend architectures.
+              Building intelligent systems including AI-powered log monitoring and alerting, RAG pipelines, budget intelligence, and recommendation systems for enterprise workflows.
             </p>
 
-            <div className="space-y-2 pt-2 border-t border-white/10 font-mono text-xs">
-              <div className="flex items-center justify-between text-zinc-400">
-                <span>Agent Studio</span>
-                <span className="text-white font-medium flex items-center gap-1">
-                  <CheckCircle2 size={12} className="text-[#d4a22f]" />
-                  Oracle Fusion AI Agent Developer
+            <div className="space-y-2.5 pt-2.5 border-t border-white/10 font-mono text-xs">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                <span className="text-zinc-400 font-semibold text-[11px] uppercase tracking-wider">AI Systems</span>
+                <span className="text-white font-medium text-[11px] sm:text-right">
+                  RAG &bull; LLMs &bull; AI Agents
                 </span>
               </div>
-              <div className="flex items-center justify-between text-zinc-400">
-                <span>LLM Architectures</span>
-                <span className="text-white font-medium flex items-center gap-1">
-                  <CheckCircle2 size={12} className="text-[#d4a22f]" />
-                  Claude Certified Developer
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                <span className="text-zinc-400 font-semibold text-[11px] uppercase tracking-wider">Intelligent Automation</span>
+                <span className="text-[#d4a22f] font-medium text-[11px] sm:text-right">
+                  Log Monitoring &bull; AI Alerting &bull; Anomaly Detection
                 </span>
               </div>
-              <div className="flex items-center justify-between text-zinc-400">
-                <span>AI Stack</span>
-                <span className="text-[#d4a22f] font-semibold">Claude &bull; Gemini &bull; LangChain</span>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                <span className="text-zinc-400 font-semibold text-[11px] uppercase tracking-wider">Enterprise AI</span>
+                <span className="text-white font-medium text-[11px] sm:text-right">
+                  Budget Intelligence &bull; Recommendations &bull; Automation
+                </span>
               </div>
             </div>
 
@@ -364,7 +364,7 @@ export const Phase2AI: React.FC = () => {
           </div>
           <div className="mx-6 flex items-center justify-between pb-4 font-mono text-[10px] uppercase tracking-[0.28em] text-zinc-500 md:mx-10">
             <span ref={seqReadoutRef}>SEQ 001 / {FRAME_COUNT}</span>
-            <span>PHASE 02 // AI AGENT PIPELINE</span>
+            <span>PHASE 02 // APPLIED AI SYSTEMS</span>
             <span>Scroll &darr;</span>
           </div>
         </div>
