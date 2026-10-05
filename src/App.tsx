@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Navbar } from "./components/ui/Navbar";
-import { Hero } from "./components/sections/Hero";
+import { Phase1Intro } from "./components/sections/Phase1Intro";
+import { Phase2AI } from "./components/sections/Phase2AI";
+import { Phase3Network } from "./components/sections/Phase3Network";
+import { Phase4Cloud } from "./components/sections/Phase4Cloud";
 import { SystemsNominal } from "./components/sections/SystemsNominal";
 import { Footer } from "./components/sections/Footer";
 import { ProjectsTabModal } from "./components/modals/ProjectsTabModal";
@@ -26,19 +29,21 @@ export const App: React.FC = () => {
         onOpenContact={handleOpenContact}
       />
 
-      {/* Main Cinematic Scroll Sequence */}
+      {/* 5-Phase Cinematic Architecture */}
       <main>
-        {/* 
-          1st page: Chinmaya Garnaik (Telma font, CamelCase) + Full Stack Developer 
-          2nd scroll: Cloud Developer 
-          3rd scroll: Network Engineer 
-        */}
-        <Hero />
+        {/* Phase 1: Intro (Full Stack Dev / Chinmaya Garnaik in Telma font) */}
+        <Phase1Intro />
 
-        {/* 
-          Last section: Systems Nominal ("And I... am... Systems Architect") 
-          + Docked bottom-right interactive tabs for Projects, Certifications, Contact
-        */}
+        {/* Phase 2: AI (Full-Stack AI Engineer / Agent Systems / Claude & Oracle Certified) */}
+        <Phase2AI />
+
+        {/* Phase 3: Network (Network Engineer / Cyber Risk & IAM @ Deloitte / Zero Trust) */}
+        <Phase3Network />
+
+        {/* Phase 4: Cloud (Cloud Developer / AWS Solutions Architect / OCI & Azure) */}
+        <Phase4Cloud />
+
+        {/* Phase 5: Systems Nominal ("And I... am... Systems Architect" + bottom-right tabs) */}
         <SystemsNominal
           onOpenProjects={handleOpenProjects}
           onOpenCertifications={handleOpenCertifications}

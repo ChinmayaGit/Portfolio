@@ -14,11 +14,15 @@ echo "========================================================"
 echo "🚀 Starting Deployment to Oracle Cloud Infrastructure"
 echo "========================================================"
 
-# Step 1: Compile optimized production build locally
-echo "📦 Step 1: Compiling production build on Mac..."
+# Step 1: Push latest commits to GitHub
+echo "🐙 Step 1: Pushing latest commits to GitHub..."
+git push origin main || echo "Git push skipped or already up to date"
+
+# Step 2: Compile optimized production build locally
+echo "📦 Step 2: Compiling production build on Mac..."
 npm run build
 
-# Step 2: Ensure SSH key exists and has correct permissions
+# Step 3: Ensure SSH key exists and has correct permissions
 if [ -f "$KEY_PATH" ]; then
   chmod 400 "$KEY_PATH"
 else
@@ -26,18 +30,18 @@ else
   echo "Please verify the path to your OCI private key."
 fi
 
-# Step 3: Sync git repository on the remote server
-echo "🔄 Step 2: Syncing latest git commits on Oracle Cloud server..."
-ssh -i "$KEY_PATH" "$SERVER_USER@$SERVER_IP" "cd $REMOTE_DIR && git fetch origin main && git reset --hard origin/main"
+# Step 4: Sync git repository on the remote server
+echo "🔄 Step 3: Syncing latest git commits on Oracle Cloud server..."
+ssh -i "$KEY_PATH" -o StrictHostKeyChecking=no "$SERVER_USER@$SERVER_IP" "cd $REMOTE_DIR && git fetch origin main && git reset --hard origin/main"
 
-# Step 4: Upload freshly compiled dist folder directly
-echo "📤 Step 3: Uploading compiled production assets to $REMOTE_DIR/dist..."
-ssh -i "$KEY_PATH" "$SERVER_USER@$SERVER_IP" "mkdir -p $REMOTE_DIR/dist"
-scp -i "$KEY_PATH" -r dist/* "$SERVER_USER@$SERVER_IP:$REMOTE_DIR/dist/"
+# Step 5: Upload freshly compiled dist folder directly
+echo "📤 Step 4: Uploading compiled production assets to $REMOTE_DIR/dist..."
+ssh -i "$KEY_PATH" -o StrictHostKeyChecking=no "$SERVER_USER@$SERVER_IP" "mkdir -p $REMOTE_DIR/dist"
+rsync -avz --delete -e "ssh -i $KEY_PATH -o StrictHostKeyChecking=no" dist/ "$SERVER_USER@$SERVER_IP:$REMOTE_DIR/dist/" || scp -i "$KEY_PATH" -r dist/* "$SERVER_USER@$SERVER_IP:$REMOTE_DIR/dist/"
 
-# Step 5: Fix permissions and reload Nginx
-echo "⚙️ Step 4: Enforcing Nginx permissions and reloading..."
-ssh -i "$KEY_PATH" "$SERVER_USER@$SERVER_IP" "sudo chown -R ubuntu:www-data $REMOTE_DIR && sudo chmod -R 755 $REMOTE_DIR && sudo systemctl reload nginx"
+# Step 6: Fix permissions and reload Nginx
+echo "⚙️ Step 5: Enforcing Nginx permissions and reloading..."
+ssh -i "$KEY_PATH" -o StrictHostKeyChecking=no "$SERVER_USER@$SERVER_IP" "sudo chown -R ubuntu:www-data $REMOTE_DIR && sudo chmod -R 755 $REMOTE_DIR && sudo systemctl reload nginx"
 
 echo "========================================================"
 echo "🎉 DEPLOYMENT COMPLETE! Portfolio is live at:"
