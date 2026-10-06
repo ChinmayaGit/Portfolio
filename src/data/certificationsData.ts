@@ -8,6 +8,8 @@ export interface CertificationItem {
   credentialUrl?: string;
   category: 'ai' | 'cloud' | 'security' | 'engineering';
   categoryLabel: string;
+  kind: 'license' | 'normal';
+  subcategory: 'google' | 'sailpoint' | 'anthropic' | 'engineering' | 'aws' | 'oracle' | 'other';
   featured?: boolean;
   skills: string[];
 }
@@ -21,6 +23,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     issueDate: 'Aug 2026',
     category: 'ai',
     categoryLabel: 'AI & Agents',
+    kind: 'license',
+    subcategory: 'oracle',
     featured: true,
     credentialUrl: 'https://catalog-education.oracle.com/pls/certview/sharebadge?id=7C08B401E74C98A76EE353B55D7622271FC002A7B68C15FDEEECF47DE01E42E8',
     skills: ['AI Agent Studio', 'Autonomous AI Workflows', 'Oracle Fusion AI', 'Enterprise Tool Calling']
@@ -35,6 +39,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://www.credly.com/badges/627a1223-637f-411a-b676-0077ad40de9c/linked_in_profile',
     category: 'ai',
     categoryLabel: 'AI & Agents',
+    kind: 'license',
+    subcategory: 'anthropic',
     featured: true,
     skills: ['Agent Development', 'Application Security', 'Prompt Engineering', 'Claude API']
   },
@@ -47,6 +53,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://verify.skilljar.com/c/f5jki6k9tngh',
     category: 'ai',
     categoryLabel: 'AI & Agents',
+    kind: 'normal',
+    subcategory: 'anthropic',
     featured: true,
     skills: ['Artificial Intelligence (AI)', 'AI Use Case Development', 'Model Alignment', 'LLM Architectures']
   },
@@ -59,6 +67,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://verify.skilljar.com/c/t7nm62cebeyc',
     category: 'ai',
     categoryLabel: 'AI & Agents',
+    kind: 'normal',
+    subcategory: 'anthropic',
     featured: true,
     skills: ['Agentic AI Workflows', 'GitHub Actions / CI Automation', 'Autonomous Coding', 'Tool Integration']
   },
@@ -71,6 +81,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://verify.skilljar.com/c/o64kgvoe2iqg',
     category: 'ai',
     categoryLabel: 'AI & Agents',
+    kind: 'normal',
+    subcategory: 'anthropic',
     featured: false,
     skills: ['Generative AI', 'Claude Artifacts', 'Context Window Mastery']
   },
@@ -83,6 +95,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://catalog-education.oracle.com/pls/certview/sharebadge?id=D987A4FFAE23BA3AA4E677EFE1DAC66D600E92876ED03428641142AB82AD4DDE',
     category: 'ai',
     categoryLabel: 'AI & Agents',
+    kind: 'license',
+    subcategory: 'oracle',
     featured: true,
     skills: ['OCI Generative AI', 'Machine Learning', 'Vector Databases', 'OCI AI Services']
   },
@@ -94,6 +108,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://catalog-education.oracle.com/pls/certview/sharebadge?id=5621AC3AF1D332F05205F391F8F40600BC62FB0BC519B950D2D45873A913EB38',
     category: 'ai',
     categoryLabel: 'AI & Agents',
+    kind: 'license',
+    subcategory: 'oracle',
     featured: false,
     skills: ['AI Agent Studio', 'Fusion Cloud', 'Enterprise Agents']
   },
@@ -106,18 +122,22 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://www.credly.com/badges/6e8183e1-0c64-4800-9ee6-3d604d35ef9e/linked_in_profile',
     category: 'ai',
     categoryLabel: 'AI & Agents',
+    kind: 'license',
+    subcategory: 'aws',
     featured: true,
     skills: ['Artificial Intelligence (AI)', 'Amazon Bedrock', 'SageMaker', 'Responsible AI', 'Foundation Models']
   },
   {
     id: 'tech-trek-testing-llms',
-    title: 'Tech Trek Testing and Evaluation LLMs',
+    title: "Tech Trek Testing and Evaluation LLM's",
     issuer: 'ROI Training',
     issueDate: 'Mar 2025',
     credentialId: '138634869',
     credentialUrl: 'https://www.credential.net/742cddd0-35fe-403a-b91c-d30805a5238a',
     category: 'ai',
     categoryLabel: 'AI & Agents',
+    kind: 'normal',
+    subcategory: 'anthropic',
     featured: false,
     skills: ['LLM Evaluation', 'Benchmark Testing', 'Prompt Robustness', 'Hallucination Mitigation']
   },
@@ -130,6 +150,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://www.cloudskillsboost.google/public_profiles/e65ccae1-3942-4e11-a2c9-6b7745813725/badges/6074786',
     category: 'ai',
     categoryLabel: 'AI & Agents',
+    kind: 'normal',
+    subcategory: 'google',
     featured: false,
     skills: ['Large Language Models (LLM)', 'Transformer Architectures', 'Google Cloud']
   },
@@ -142,6 +164,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://www.cloudskillsboost.google/public_profiles/e65ccae1-3942-4e11-a2c9-6b7745813725/badges/6075060',
     category: 'ai',
     categoryLabel: 'AI & Agents',
+    kind: 'normal',
+    subcategory: 'google',
     featured: false,
     skills: ['Artificial Intelligence (AI)', 'Generative Models', 'Prompt Engineering']
   },
@@ -154,6 +178,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://www.cloudskillsboost.google/public_profiles/e65ccae1-3942-4e11-a2c9-6b7745813725/badges/6084039',
     category: 'ai',
     categoryLabel: 'AI & Agents',
+    kind: 'normal',
+    subcategory: 'google',
     featured: false,
     skills: ['Responsible AI', 'AI Ethics', 'Bias Detection', 'Explainable AI']
   },
@@ -169,6 +195,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://www.credly.com/badges/7ebf4313-a5cb-4419-85ad-721c724f29be/linked_in_profile',
     category: 'cloud',
     categoryLabel: 'Cloud & Data',
+    kind: 'license',
+    subcategory: 'aws',
     featured: true,
     skills: ['AWS Glue ETL', 'Amazon Redshift', 'Amazon Kinesis', 'AWS Lake Formation', 'Athena', 'Data Pipelines']
   },
@@ -181,6 +209,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://www.credly.com/badges/f3167b1d-00c9-45a5-839f-03031e91015d/linked_in_profile',
     category: 'cloud',
     categoryLabel: 'Cloud & Data',
+    kind: 'license',
+    subcategory: 'aws',
     featured: true,
     skills: ['Multi-tier VPC', 'High Availability', 'S3 & EBS Storage', 'IAM Least Privilege', 'Cost Optimization']
   },
@@ -193,6 +223,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://www.cloudskillsboost.google/public_profiles/e65ccae1-3942-4e11-a2c9-6b7745813725/badges/6084458',
     category: 'cloud',
     categoryLabel: 'Cloud & Data',
+    kind: 'normal',
+    subcategory: 'google',
     featured: false,
     skills: ['Google Cloud Strategy', 'Modernization', 'Enterprise Cloud Adoption']
   },
@@ -205,6 +237,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://www.cloudskillsboost.google/public_profiles/e65ccae1-3942-4e11-a2c9-6b7745813725/badges/6084665',
     category: 'cloud',
     categoryLabel: 'Cloud & Data',
+    kind: 'normal',
+    subcategory: 'google',
     featured: false,
     skills: ['Google Cloud', 'BigQuery', 'Data Governance', 'Analytics Engine']
   },
@@ -217,6 +251,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://www.cloudskillsboost.google/public_profiles/e65ccae1-3942-4e11-a2c9-6b7745813725/badges/6084804',
     category: 'cloud',
     categoryLabel: 'Cloud & Data',
+    kind: 'normal',
+    subcategory: 'google',
     featured: false,
     skills: ['GKE & Containers', 'Cloud Run', 'Hybrid Infrastructure', 'Microservices']
   },
@@ -229,6 +265,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://courses.edx.org/certificates/150e07c4196d405483a09d592144d237',
     category: 'cloud',
     categoryLabel: 'Cloud & Data',
+    kind: 'normal',
+    subcategory: 'other',
     featured: false,
     skills: ['Linux Kernel & Shell', 'File Permissions', 'Process Management', 'System Administration']
   },
@@ -239,10 +277,13 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     title: 'SailPoint Identity Security Professional Credential',
     issuer: 'SailPoint',
     issueDate: 'Feb 2025',
+    expiryDate: 'Feb 2026',
     credentialId: '67bab2565f9b5c3e1e91e2e1',
     credentialUrl: 'https://api.badgr.io/public/assertions/E809Q901TFmKcXL_funpCw',
     category: 'security',
     categoryLabel: 'Cybersecurity & IAM',
+    kind: 'license',
+    subcategory: 'sailpoint',
     featured: true,
     skills: ['Cloud Security', 'SailPoint ISC', 'Identity Governance', 'Access Control', 'Compliance Audits']
   },
@@ -251,10 +292,13 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     title: 'SailPoint Identity Security Leader Credential',
     issuer: 'SailPoint',
     issueDate: 'Oct 2024',
+    expiryDate: 'Oct 2025',
     credentialId: 'va5owna7372e',
     credentialUrl: 'https://verify.skilljar.com/c/va5owna7372e',
     category: 'security',
     categoryLabel: 'Cybersecurity & IAM',
+    kind: 'normal',
+    subcategory: 'sailpoint',
     featured: true,
     skills: ['Identity Security Strategy', 'Executive Governance', 'Zero Trust IAM']
   },
@@ -267,6 +311,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://verify.skilljar.com/c/6n27ojytccao',
     category: 'security',
     categoryLabel: 'Cybersecurity & IAM',
+    kind: 'normal',
+    subcategory: 'sailpoint',
     featured: false,
     skills: ['Identity Architecture', 'Program Roadmaps', 'Security Posture']
   },
@@ -279,6 +325,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://verify.skilljar.com/c/av6wsw6s2v4s',
     category: 'security',
     categoryLabel: 'Cybersecurity & IAM',
+    kind: 'normal',
+    subcategory: 'sailpoint',
     featured: false,
     skills: ['SailPoint Delivery', 'System Connectors', 'Lifecycle Rules']
   },
@@ -291,6 +339,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://verify.skilljar.com/c/ope3sz9ui9qy',
     category: 'security',
     categoryLabel: 'Cybersecurity & IAM',
+    kind: 'normal',
+    subcategory: 'sailpoint',
     featured: false,
     skills: ['Access Certification', 'SoD Enforcement', 'Audit Readiness']
   },
@@ -303,6 +353,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://verify.skilljar.com/c/i6q333to256q',
     category: 'security',
     categoryLabel: 'Cybersecurity & IAM',
+    kind: 'normal',
+    subcategory: 'sailpoint',
     featured: false,
     skills: ['Identity Analytics', 'Telemetry', 'Privilege Risk Scoring']
   },
@@ -315,6 +367,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://verify.skilljar.com/c/gwzhndir6qku',
     category: 'security',
     categoryLabel: 'Cybersecurity & IAM',
+    kind: 'normal',
+    subcategory: 'sailpoint',
     featured: false,
     skills: ['Role-Based Access Control (RBAC)', 'Role Mining', 'Entitlement Management']
   },
@@ -327,6 +381,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://verify.skilljar.com/c/2y2sgvdf4fxv',
     category: 'security',
     categoryLabel: 'Cybersecurity & IAM',
+    kind: 'normal',
+    subcategory: 'sailpoint',
     featured: false,
     skills: ['Compliance Campaigns', 'Certification Schedules', 'Policy Audits']
   },
@@ -339,6 +395,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://verify.skilljar.com/c/chq5tbc43udu',
     category: 'security',
     categoryLabel: 'Cybersecurity & IAM',
+    kind: 'normal',
+    subcategory: 'sailpoint',
     featured: false,
     skills: ['Automated Provisioning', 'Deprovisioning', 'Birthright Entitlements']
   },
@@ -351,18 +409,22 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://verify.skilljar.com/c/ouj9b3e4zrvi',
     category: 'security',
     categoryLabel: 'Cybersecurity & IAM',
+    kind: 'normal',
+    subcategory: 'sailpoint',
     featured: false,
     skills: ['Identity Profiles', 'Source Integration', 'Attribute Mapping']
   },
   {
     id: 'sailpoint-ciem-essentials',
-    title: 'CIEM Essentials (Cloud Infrastructure Entitlement Management)',
+    title: 'CIEM Essentials',
     issuer: 'SailPoint',
     issueDate: 'Mar 2025',
     credentialId: '87imqhxuj5hf',
     credentialUrl: 'https://verify.skilljar.com/c/87imqhxuj5hf',
     category: 'security',
     categoryLabel: 'Cybersecurity & IAM',
+    kind: 'normal',
+    subcategory: 'sailpoint',
     featured: true,
     skills: ['CIEM', 'Multi-Cloud Permissions', 'AWS IAM Auditing', 'Excessive Privilege Mitigation']
   },
@@ -375,6 +437,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://verify.skilljar.com/c/q74fj5jmum9k',
     category: 'security',
     categoryLabel: 'Cybersecurity & IAM',
+    kind: 'normal',
+    subcategory: 'sailpoint',
     featured: false,
     skills: ['Identity Governance', 'Access Hierarchy', 'Zero Trust']
   },
@@ -387,6 +451,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://www.credential.net/2b6cdb12-a4c5-489c-8382-59712b5489a3',
     category: 'security',
     categoryLabel: 'Cybersecurity & IAM',
+    kind: 'normal',
+    subcategory: 'google',
     featured: true,
     skills: ['Cloud IAM', 'Workload Identity Federation', 'Service Accounts', 'Conditional Policies']
   },
@@ -399,6 +465,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://www.credential.net/0bce1fd5-7e8a-4f1c-8e8d-a1ca0dd084a0',
     category: 'security',
     categoryLabel: 'Cybersecurity & IAM',
+    kind: 'normal',
+    subcategory: 'google',
     featured: false,
     skills: ['Cloud Armor', 'WAF Rules', 'API Gateway Security', 'SSL/TLS Policies']
   },
@@ -411,6 +479,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://www.credential.net/275e4801-22e0-4ffd-850d-4529f06a7008',
     category: 'security',
     categoryLabel: 'Cybersecurity & IAM',
+    kind: 'normal',
+    subcategory: 'google',
     featured: false,
     skills: ['Cloud KMS', 'Data Loss Prevention (DLP)', 'Envelope Encryption', 'Data Masking']
   },
@@ -423,18 +493,22 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://www.cloudskillsboost.google/public_profiles/e65ccae1-3942-4e11-a2c9-6b7745813725/badges/6085113',
     category: 'security',
     categoryLabel: 'Cybersecurity & IAM',
+    kind: 'normal',
+    subcategory: 'google',
     featured: false,
     skills: ['Cloud Security', 'Chronicle SIEM', 'Security Command Center (SCC)']
   },
   {
     id: 'google-cybersecurity-professional',
-    title: 'Google Cybersecurity Professional Certificate',
+    title: 'Foundations of Cybersecurity',
     issuer: 'Google Career Certificates',
     issueDate: 'Jul 2023',
     credentialId: 'LBMN83USZYJL',
     credentialUrl: 'https://www.coursera.org/account/accomplishments/certificate/LBMN83USZYJL',
     category: 'security',
     categoryLabel: 'Cybersecurity & IAM',
+    kind: 'normal',
+    subcategory: 'google',
     featured: true,
     skills: ['Cybersecurity Foundations', 'Network Security', 'Linux Command Line', 'Python for Security', 'SIEM & IDS/IPS']
   },
@@ -446,18 +520,22 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://www.credly.com/badges/de99efd9-ea29-4210-b669-954cf6013825/linked_in_profile',
     category: 'security',
     categoryLabel: 'Cybersecurity & IAM',
+    kind: 'normal',
+    subcategory: 'other',
     featured: true,
     skills: ['Cybersecurity', 'Security Operations Center (SOC)', 'Packet Analysis', 'Threat Hunting', 'Incident Response']
   },
   {
     id: 'ethical-hacking-internshala',
-    title: 'Ethical Hacking Certificate',
+    title: 'Ethical Hacking',
     issuer: 'Internshala',
     issueDate: 'Feb 2021',
     credentialId: '1C2743A6-E26C-6177-E8F6-CDDDC6511959',
     credentialUrl: 'https://trainings.internshala.com/verify_certificate',
     category: 'security',
     categoryLabel: 'Cybersecurity & IAM',
+    kind: 'normal',
+    subcategory: 'other',
     featured: false,
     skills: ['Penetration Testing', 'Vulnerability Assessment', 'OWASP Top 10', 'Web Security']
   },
@@ -465,12 +543,14 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
   // --- ENGINEERING, MOBILE & RESEARCH ---
   {
     id: 'flutter-development-appbrewery',
-    title: 'Flutter & Dart Development Bootcamp',
+    title: 'Flutter Development',
     issuer: 'The App Brewery',
     issueDate: 'Aug 2020',
     credentialId: 'cert_qxxvmdhq',
     category: 'engineering',
     categoryLabel: 'Specialized & Systems',
+    kind: 'normal',
+    subcategory: 'other',
     featured: true,
     skills: ['Flutter', 'Dart', 'Android Development', 'iOS Development', 'State Management']
   },
@@ -483,6 +563,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://coursera.org/verify/D3RG28C7N4BY',
     category: 'engineering',
     categoryLabel: 'Specialized & Systems',
+    kind: 'normal',
+    subcategory: 'other',
     featured: true,
     skills: ['C++', 'Object-Oriented Programming', 'Memory Pointers', 'STL Algorithms']
   },
@@ -495,6 +577,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://certificate.iirs.gov.in',
     category: 'engineering',
     categoryLabel: 'Specialized & Systems',
+    kind: 'normal',
+    subcategory: 'other',
     featured: true,
     skills: ['Python', 'Geospatial Analytics', 'Remote Sensing (ISRO)', 'GIS Data Modeling']
   },
@@ -507,6 +591,8 @@ export const ALL_CERTIFICATIONS: CertificationItem[] = [
     credentialUrl: 'https://certificate.iirs.gov.in',
     category: 'engineering',
     categoryLabel: 'Specialized & Systems',
+    kind: 'normal',
+    subcategory: 'other',
     featured: true,
     skills: ['Radar Remote Sensing', 'Satellite Interferometry', 'Signal Processing', 'ISRO Research']
   }

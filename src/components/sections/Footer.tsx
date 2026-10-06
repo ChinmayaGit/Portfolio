@@ -63,7 +63,7 @@ export const Footer: React.FC<FooterProps> = ({
                 />
               </span>
               <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500">
-                15+ Credentials
+                40+ Credentials
               </span>
             </button>
 

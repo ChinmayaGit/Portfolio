@@ -1,3 +1,19 @@
+export type ProjectTab = 'main' | 'exploring';
+export type ProjectSubgroup =
+  | 'web'
+  | 'mobile'
+  | 'ai'
+  | 'cloud'
+  | 'networking'
+  | 'games'
+  | '3d'
+  | 'iot'
+  | 'hardware'
+  | 'academic'
+  | 'archives'
+  | 'games3d'
+  | 'other';
+
 export interface Project {
   id: string;
   title: string;
@@ -5,6 +21,8 @@ export interface Project {
   description: string;
   category: 'mobile' | 'ai' | 'games3d' | 'fullstack' | 'cloud' | 'systems';
   categoryLabel: string;
+  tab?: ProjectTab;
+  subgroup?: ProjectSubgroup;
   language: string;
   tags: string[];
   stars: number;
@@ -16,6 +34,45 @@ export interface Project {
   highlights: string[];
   architecture?: string;
 }
+
+export const getProjectTab = (project: Project): ProjectTab => {
+  if (project.tab) return project.tab;
+  if (project.category === 'games3d' || project.category === 'systems') return 'exploring';
+  return 'main';
+};
+
+export const getProjectSubgroup = (project: Project): ProjectSubgroup => {
+  if (project.subgroup) {
+    if (project.subgroup === 'games3d') {
+      if (['ar-view', 'ar-expo', '360-tour', 'lastevidence-demo', 'owcp', 'dice'].includes(project.id)) {
+        return '3d';
+      }
+      return 'games';
+    }
+    if (project.subgroup === 'other') return 'academic';
+    return project.subgroup;
+  }
+  if (project.category === 'fullstack') return 'web';
+  if (project.category === 'mobile') return 'mobile';
+  if (project.category === 'ai') return 'ai';
+  if (project.category === 'cloud') {
+    if (project.id === 'employee-management-system' || project.id === 'deloitte-labs') return 'networking';
+    return 'cloud';
+  }
+  if (project.category === 'games3d') {
+    if (['ar-view', 'ar-expo', '360-tour', 'lastevidence-demo', 'owcp', 'dice'].includes(project.id)) {
+      return '3d';
+    }
+    return 'games';
+  }
+  if (project.category === 'systems') {
+    if (['esp32-sd-reader', 'cli-clock', 'custom-icon-folder-library', 'folderikon', 'collage-mit-inventory'].includes(project.id)) {
+      return 'hardware';
+    }
+    return 'iot';
+  }
+  return 'academic';
+};
 
 export interface CategoryInfo {
   id: 'all' | 'mobile' | 'ai' | 'games3d' | 'fullstack' | 'cloud' | 'systems';
@@ -532,6 +589,8 @@ export const PROJECTS: Project[] = [
     description: 'An adrenaline-fueled multiplayer 2D fighting arena game featuring precise hitbox detection, character combo systems, responsive movement physics, and real-time state synchronization over WebSockets.',
     category: 'games3d',
     categoryLabel: '3D, Games & AR',
+    tab: 'exploring',
+    subgroup: 'games',
     language: 'TypeScript',
     tags: ['TypeScript', 'Canvas API', 'WebSockets', 'Multiplayer', 'Physics Engine', 'Game Dev'],
     stars: 0,
@@ -551,6 +610,8 @@ export const PROJECTS: Project[] = [
     description: 'C++ augmented reality application enabling real-time 3D object rendering, spatial positioning, surface detection, and model manipulation in physical spaces.',
     category: 'games3d',
     categoryLabel: '3D, Games & AR',
+    tab: 'exploring',
+    subgroup: '3d',
     language: 'C++',
     tags: ['C++', 'Augmented Reality', 'OpenGL', 'Computer Vision', '3D Graphics'],
     stars: 0,
@@ -569,6 +630,8 @@ export const PROJECTS: Project[] = [
     description: 'C++ 3D showcase engine engineered for digital expositions, allowing users to interact with high-detail virtual exhibits placed into physical real-world environments.',
     category: 'games3d',
     categoryLabel: '3D, Games & AR',
+    tab: 'exploring',
+    subgroup: '3d',
     language: 'C++',
     tags: ['C++', 'AR', 'Spatial Computing', '3D Rendering', 'Matrix Math'],
     stars: 0,
@@ -583,6 +646,8 @@ export const PROJECTS: Project[] = [
     description: 'Web-based immersive panoramic viewer supporting spherical projection, interactive hotspots, spatial audio narration, and frictionless scene transitions.',
     category: 'games3d',
     categoryLabel: '3D, Games & AR',
+    tab: 'exploring',
+    subgroup: '3d',
     language: 'JavaScript',
     tags: ['JavaScript', 'WebGL', 'Three.js', 'Panoramic 360', 'Virtual Tour'],
     stars: 0,
@@ -601,6 +666,8 @@ export const PROJECTS: Project[] = [
     description: 'Dynamic browser arcade game featuring character abilities, projectile physics, arena boundaries, and escalating enemy waves.',
     category: 'games3d',
     categoryLabel: '3D, Games & AR',
+    tab: 'exploring',
+    subgroup: 'games',
     language: 'JavaScript',
     tags: ['JavaScript', 'HTML5 Canvas', 'Game Loop', 'Particle Effects'],
     stars: 0,
@@ -615,6 +682,8 @@ export const PROJECTS: Project[] = [
     description: 'An interactive survival story game with atmospheric soundscapes, dynamic decision trees, inventory management, and suspense-driven progression.',
     category: 'games3d',
     categoryLabel: '3D, Games & AR',
+    tab: 'exploring',
+    subgroup: 'games',
     language: 'JavaScript',
     tags: ['JavaScript', 'Story Engine', 'State Tree', 'Audio Design'],
     stars: 0,
@@ -629,6 +698,8 @@ export const PROJECTS: Project[] = [
     description: 'A curated collection of responsive mini-games built with vanilla web technologies, testing reflexes, memory, and strategy.',
     category: 'games3d',
     categoryLabel: '3D, Games & AR',
+    tab: 'exploring',
+    subgroup: 'games',
     language: 'HTML',
     tags: ['HTML5', 'CSS3', 'JavaScript', 'Arcade Games'],
     stars: 0,
@@ -645,6 +716,8 @@ export const PROJECTS: Project[] = [
     description: 'Embedded C++ firmware for the ESP32 microcontroller enabling high-speed SPI communication with SD cards, continuous sensor logging, and resilient file indexing.',
     category: 'systems',
     categoryLabel: 'Systems & IoT',
+    tab: 'exploring',
+    subgroup: 'hardware',
     language: 'C++',
     tags: ['C++', 'ESP32', 'IoT', 'Embedded Systems', 'SPI Protocol', 'Hardware'],
     stars: 0,
@@ -664,6 +737,8 @@ export const PROJECTS: Project[] = [
     description: 'A customizable command-line interface clock, pomodoro timer, and stopwatch built for software engineers who live in the terminal. Features custom ANSI color schemes and low CPU overhead.',
     category: 'systems',
     categoryLabel: 'Systems & IoT',
+    tab: 'exploring',
+    subgroup: 'hardware',
     language: 'Python',
     tags: ['Python', 'CLI', 'Terminal', 'ANSI Graphics', 'Productivity'],
     stars: 0,
@@ -681,6 +756,8 @@ export const PROJECTS: Project[] = [
     description: 'Python automation tool that parses developer projects, downloads thematic icons, and injects customized OS directory icons to maintain visually organized workspaces.',
     category: 'systems',
     categoryLabel: 'Systems & IoT',
+    tab: 'exploring',
+    subgroup: 'hardware',
     language: 'Python',
     tags: ['Python', 'Automation', 'Filesystem', 'OS Shell API', 'DevTools'],
     stars: 0,
@@ -695,6 +772,8 @@ export const PROJECTS: Project[] = [
     description: 'C++ utility engineered to correct image metadata and programmatically generate organized cloud albums when transferring photos across custom ROMs and pixelified Android devices.',
     category: 'systems',
     categoryLabel: 'Systems & IoT',
+    tab: 'exploring',
+    subgroup: 'iot',
     language: 'C++',
     tags: ['C++', 'Android Customization', 'EXIF Metadata', 'Automation'],
     stars: 0,
@@ -702,5 +781,567 @@ export const PROJECTS: Project[] = [
     githubUrl: 'https://github.com/ChinmayaGit/googleUnlimtedPhotoAlbumApi',
     highlights: ['Batch EXIF timestamp preservation and automated album creation.']
   },
-];
 
+  // --- NEWLY SYNCHRONIZED GITHUB REPOSITORIES (ALL 71 REPOS) ---
+  {
+    id: "openclaw",
+    title: "OpenClaw Assistant",
+    tagline: "Cross-Platform Autonomous AI Assistant Framework",
+    description: "Your own personal AI assistant. Any OS. Any platform. The lobster way. Features multimodal reasoning, tool orchestration, and local system automation.",
+    category: "ai",
+    categoryLabel: "AI & Agents",
+    tab: "main",
+    subgroup: "ai",
+    language: "TypeScript",
+    tags: ["AI Assistant","Autonomous Agents","LLM","Cross-Platform","TypeScript"],
+    stars: 0,
+    featured: true,
+    githubUrl: "https://github.com/ChinmayaGit/openclaw",
+    highlights: ["Multi-platform daemon architecture executing local and cloud tool requests","Extensible skill extension engine with sandboxed execution"]
+  },
+  {
+    id: "portfolio",
+    title: "Cinematic 3D Portfolio",
+    tagline: "Three.js Canvas Frame Orchestration & Reactive Architecture",
+    description: "High-performance interactive developer portfolio featuring canvas scroll-scrubbed frame sequences, dark titanium aesthetics, responsive modals, and verified telemetry.",
+    category: "fullstack",
+    categoryLabel: "Full-Stack Web",
+    tab: "main",
+    subgroup: "web",
+    language: "TypeScript",
+    tags: ["React","TypeScript","Tailwind CSS","Vite","Framer Motion"],
+    stars: 0,
+    featured: true,
+    githubUrl: "https://github.com/ChinmayaGit/Portfolio",
+    demoUrl: "https://chinmayagit.github.io/Portfolio",
+    highlights: ["Pre-rendered frame sequence scrubbing with zero scroll jitter","Dual-modal architecture with real-time multi-criteria filtering and sorting"]
+  },
+  {
+    id: "clipdownloader",
+    title: "ClipDownloader",
+    tagline: "High-Speed Media & Video Downloader Engine",
+    description: "Modern web and Node.js utility for fetching and extracting video/audio streams with format conversion, progress telemetry, and metadata parsing.",
+    category: "fullstack",
+    categoryLabel: "Full-Stack Web",
+    tab: "main",
+    subgroup: "web",
+    language: "JavaScript",
+    tags: ["JavaScript","Node.js","Media Tools","Streams","Web APIs"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/ClipDownloader",
+    highlights: ["Asynchronous chunk streaming for large media payloads","Clean reactive web client with real-time download status"]
+  },
+  {
+    id: "icon-pack",
+    title: "Android Custom Icon Pack",
+    tagline: "Dynamic Vector Icon Engine for Android Launchers",
+    description: "Native Android launcher icon pack featuring adaptive vector drawables, dynamic calendar hooks, and high-DPI icon assets for third-party launchers.",
+    category: "mobile",
+    categoryLabel: "Mobile & Flutter",
+    tab: "main",
+    subgroup: "mobile",
+    language: "Kotlin",
+    tags: ["Android","Kotlin","Icons","UI/UX","Mobile"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/Icon_pack",
+    highlights: ["Adaptive vector icon XML definitions compatible with Nova, Lawnchair, and Niagara launchers."]
+  },
+  {
+    id: "flutter-html",
+    title: "Flutter HTML Renderer",
+    tagline: "Static HTML-to-Widget Tree Rendering Engine",
+    description: "Advanced Flutter library parsing and compiling over 80 static HTML tags directly into native Flutter widget trees with custom stylers and inline renderers.",
+    category: "mobile",
+    categoryLabel: "Mobile & Flutter",
+    tab: "main",
+    subgroup: "mobile",
+    language: "Dart",
+    tags: ["Flutter","Dart","HTML Parser","Widgets","Mobile"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/flutter_html",
+    highlights: ["Deep DOM AST parser mapping HTML tags to performant Flutter RenderObjects."]
+  },
+  {
+    id: "flutter-custom-animation-grocery-app",
+    title: "Animated Grocery Experience",
+    tagline: "Complex Motion Design & Micro-Interactions in Flutter",
+    description: "Interactive shopping UI demonstrating advanced choreography, custom bezier transitions, hero animations, and fluid cart state management.",
+    category: "mobile",
+    categoryLabel: "Mobile & Flutter",
+    tab: "main",
+    subgroup: "mobile",
+    language: "Dart",
+    tags: ["Flutter","Dart","Animations","E-Commerce","UI/UX"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/Flutter-Custom-Animation-Grocery-App",
+    highlights: ["Physics-based gesture animations and fluid item transition cards."]
+  },
+  {
+    id: "the-gorgeous-login",
+    title: "The Gorgeous Login",
+    tagline: "Modern Polished Authentication Interface",
+    description: "Production-ready sign-in and registration screen with clean tab transitions, animated gradient backgrounds, and form validation.",
+    category: "mobile",
+    categoryLabel: "Mobile & Flutter",
+    tab: "main",
+    subgroup: "mobile",
+    language: "Dart",
+    tags: ["Flutter","Dart","Authentication","UI Design"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/TheGorgeousLogin",
+    highlights: ["Sleek custom sliding indicator tab controller with smooth page routing."]
+  },
+  {
+    id: "autologin",
+    title: "AutoLogin Null-Safety Client",
+    tagline: "Persistent Token & Session Management for Mobile",
+    description: "Flutter authentication helper managing null-safe session caches, biometric checks, and automated token refreshes with secure storage.",
+    category: "mobile",
+    categoryLabel: "Mobile & Flutter",
+    tab: "main",
+    subgroup: "mobile",
+    language: "Dart",
+    tags: ["Flutter","Dart","Null Safety","Security","Auth"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/autologin",
+    highlights: ["Cryptographically secure device keychain token persistence with auto-expiry handling."]
+  },
+  {
+    id: "render-n8n",
+    title: "Render n8n Cloud Deployment",
+    tagline: "Declarative Render Blueprint for n8n & PostgreSQL",
+    description: "Infrastructure-as-code blueprint deploying a production-grade n8n workflow engine connected to managed PostgreSQL on Render cloud with persistent disks.",
+    category: "cloud",
+    categoryLabel: "Cloud & Cyber",
+    tab: "main",
+    subgroup: "cloud",
+    language: "YAML",
+    tags: ["Render","n8n","DevOps","PostgreSQL","Docker","Cloud"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/Render_n8n",
+    highlights: ["Zero-config render.yaml blueprint setting up multi-service orchestration with health checks."]
+  },
+  {
+    id: "pocket-dev-server",
+    title: "PocketDevServer",
+    tagline: "Lightweight Portable Local HTTP & API Testing Daemon",
+    description: "Minimalist standalone development server for rapid API mock prototyping, local asset hosting, and network diagnostics across local development environments.",
+    category: "cloud",
+    categoryLabel: "Cloud & Cyber",
+    tab: "main",
+    subgroup: "cloud",
+    language: "Shell",
+    tags: ["DevOps","Server","Networking","Developer Tools"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/PocketDevServer",
+    highlights: ["Instant zero-dependency HTTP file server and test proxy with CORS support."]
+  },
+  {
+    id: "pirates",
+    title: "Pirates: High Seas Battle",
+    tagline: "Real-Time Naval Strategy & Combat Engine",
+    description: "Interactive TypeScript strategy game featuring physics-based cannonball ballistics, fleet management, and real-time ship maneuvers on canvas.",
+    category: "games3d",
+    categoryLabel: "3D, Games & AR",
+    tab: "exploring",
+    subgroup: "games",
+    language: "TypeScript",
+    tags: ["GameDev","TypeScript","Canvas","Physics Engine"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/Pirates",
+    highlights: ["Particle physics for cannon fire and collision detection with island obstacles."]
+  },
+  {
+    id: "lastevidence-demo",
+    title: "Last Evidence 3D Demo",
+    tagline: "Atmospheric Detective Mystery & Spatial Engine",
+    description: "Interactive 3D crime investigation game demo with dynamic scene illumination, clue inspection systems, and cinematic narrative scripting.",
+    category: "games3d",
+    categoryLabel: "3D, Games & AR",
+    tab: "exploring",
+    subgroup: "3d",
+    language: "C++",
+    tags: ["GameDev","3D Graphics","Interactive Demo","Spatial"],
+    stars: 16,
+    featured: true,
+    githubUrl: "https://github.com/ChinmayaGit/LastEvidence_Demo",
+    highlights: ["16 GitHub Stars: Highly rated interactive narrative detective experience","Realistic 3D scene lighting, raytraced shadows, and camera movement"]
+  },
+  {
+    id: "owcp",
+    title: "OWCp Core Engine",
+    tagline: "Low-Level C++ Graphic & Windowing Pipeline",
+    description: "Custom C++ graphics experiments and windowing pipeline testing low-level buffer management, frame pacing, and shader compilation.",
+    category: "games3d",
+    categoryLabel: "3D, Games & AR",
+    tab: "exploring",
+    subgroup: "3d",
+    language: "C++",
+    tags: ["C++","OpenGL","Graphics Engine","Windowing"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/OWCp",
+    highlights: ["Direct GPU vertex buffer streaming and low-latency input event pump."]
+  },
+  {
+    id: "dice",
+    title: "Dice 3D Simulation",
+    tagline: "Randomized Physical Dice Roller App",
+    description: "Interactive mobile dice simulator with realistic physics rolling, haptic and audio cues, and multi-dice tallying.",
+    category: "games3d",
+    categoryLabel: "3D, Games & AR",
+    tab: "exploring",
+    subgroup: "3d",
+    language: "Dart",
+    tags: ["Flutter","Dart","Casual Game","Physics"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/dice",
+    highlights: ["Gyroscope-driven motion roll detection and smooth 3D rotation interpolation."]
+  },
+  {
+    id: "infinite-storage-glitch",
+    title: "Infinite Storage Glitch (ISG)",
+    tagline: "Encoding Arbitrary Files into YouTube Video Streams",
+    description: "High-performance Rust utility utilizing video compression frames as an unbounded decentralized storage layer by encoding files into YouTube video streams.",
+    category: "systems",
+    categoryLabel: "Systems & IoT",
+    tab: "exploring",
+    subgroup: "iot",
+    language: "Rust",
+    tags: ["Rust","Systems","Video Encoding","Data Storage","Steganography"],
+    stars: 0,
+    featured: true,
+    githubUrl: "https://github.com/ChinmayaGit/Infinite-Storage-Glitch",
+    highlights: ["Binary-to-visual RGB block mapping with Reed-Solomon error correction","High-throughput video rendering pipeline tolerating lossy codec compression"]
+  },
+  {
+    id: "folderikon",
+    title: "FolderIkon Utility",
+    tagline: "Automated Windows Directory Customization Engine",
+    description: "Python-based utility automating Windows shell directory .ico assignment, desktop.ini attributes, thumbnail caching, and batch directory styling.",
+    category: "systems",
+    categoryLabel: "Systems & IoT",
+    tab: "exploring",
+    subgroup: "hardware",
+    language: "Python",
+    tags: ["Python","Windows Automation","CLI","Productivity"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/FolderIkon",
+    highlights: ["Direct Windows Shell API calls with attribute bitmask enforcement."]
+  },
+  {
+    id: "idm",
+    title: "IDM Lifecycle Automation Tool",
+    tagline: "Scripted Downloader Lifecycle Automation",
+    description: "Batch automation and registry configuration recipes optimizing network socket limits, multi-threaded connection concurrency, and transfer performance.",
+    category: "systems",
+    categoryLabel: "Systems & IoT",
+    tab: "exploring",
+    subgroup: "iot",
+    language: "Batchfile",
+    tags: ["Batch","Windows Automation","Download Engine"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/idm",
+    highlights: ["Automated registry patching and socket connection tuning scripts."]
+  },
+  {
+    id: "collage-ecom-project",
+    title: "Campus E-Commerce Portal",
+    tagline: "Full-Featured Online Retail Store Demo",
+    description: "College engineering e-commerce demo with cart checkout, product catalogue categorization, payment gateway integration, and order placement.",
+    category: "fullstack",
+    categoryLabel: "Full-Stack Web",
+    tab: "exploring",
+    subgroup: "academic",
+    language: "Dart",
+    tags: ["Flutter","E-Commerce","Mobile","College Project"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/Collage-Ecom_Project",
+    highlights: ["End-to-end shopping workflow with mock payment validation and cart state."]
+  },
+  {
+    id: "ecom-servicesandshop",
+    title: "Services & Shop Commerce App",
+    tagline: "Service Booking & Retail Marketplace Mobile Application",
+    description: "Service booking and retail product marketplace application developed in Flutter with schedule management and order tracking.",
+    category: "mobile",
+    categoryLabel: "Mobile & Flutter",
+    tab: "exploring",
+    subgroup: "academic",
+    language: "Dart",
+    tags: ["Flutter","Dart","Service Marketplace","Mobile"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/Ecom_Servicesandshop",
+    highlights: ["Dual service appointment scheduler and item catalogue interface."]
+  },
+  {
+    id: "college-erp-tact",
+    title: "College ERP Tact Portal",
+    tagline: "Institutional Student Information System",
+    description: "Academic ERP mobile client managing student records, course attendance, semester timetables, fee statuses, and examination notifications.",
+    category: "mobile",
+    categoryLabel: "Mobile & Flutter",
+    tab: "exploring",
+    subgroup: "academic",
+    language: "Dart",
+    tags: ["Flutter","ERP","Education","Mobile App"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/College-ERP_Tact",
+    highlights: ["Centralized dashboard for academic metrics and timetable alerts."]
+  },
+  {
+    id: "collage-mit-inventory",
+    title: "MIT Campus Inventory Manager",
+    tagline: "Laboratory Equipment & Departmental Asset Tracking",
+    description: "Inventory auditing application tracking college lab hardware, serial number records, equipment checkouts, and asset condition statuses.",
+    category: "mobile",
+    categoryLabel: "Mobile & Flutter",
+    tab: "exploring",
+    subgroup: "hardware",
+    language: "Dart",
+    tags: ["Flutter","Inventory Management","Assets","Mobile"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/Collage-mit_inventory",
+    highlights: ["Barcode asset check-in/check-out workflow with audit history."]
+  },
+  {
+    id: "collage-bookstore",
+    title: "Java Bookstore System",
+    tagline: "Enterprise Java MVC Bookstore Catalog & Billing",
+    description: "Enterprise Java application featuring MVC architecture, book catalog management, customer invoicing, and transactional stock adjustments.",
+    category: "cloud",
+    categoryLabel: "Cloud & Cyber",
+    tab: "exploring",
+    subgroup: "academic",
+    language: "Java",
+    tags: ["Java","MVC","SQL","Academic Project"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/Collage-bookstore",
+    highlights: ["Relational schema for inventory stock and invoice generation."]
+  },
+  {
+    id: "collage-advance-java",
+    title: "Advanced Java Enterprise Labs",
+    tagline: "Servlets, JSP & Enterprise Beans Lab Suite",
+    description: "Practical repository demonstrating Servlet lifecycle, JavaServer Pages (JSP), custom tags, session cookies, and database connectivity.",
+    category: "cloud",
+    categoryLabel: "Cloud & Cyber",
+    tab: "exploring",
+    subgroup: "academic",
+    language: "Java",
+    tags: ["Java","Servlets","JSP","Enterprise Java"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/Collage-Advance_Java",
+    highlights: ["Stateful session tracking and server-side view rendering examples."]
+  },
+  {
+    id: "collage-angular-work",
+    title: "College Angular Workspace",
+    tagline: "Early Frontend Single-Page Application Labs",
+    description: "Early collegiate single-page application labs exploring Angular CLI, reactive forms, RxJS observables, and client-side routing.",
+    category: "fullstack",
+    categoryLabel: "Full-Stack Web",
+    tab: "exploring",
+    subgroup: "academic",
+    language: "TypeScript",
+    tags: ["Angular","TypeScript","Frontend","SPA"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/collage_angular_work",
+    highlights: ["Component hierarchical communication and custom service dependency injection."]
+  },
+  {
+    id: "deloitte-java-docs",
+    title: "Enterprise Java Reference Docs",
+    tagline: "Curated Documentation on Java Concurrency & ORM Patterns",
+    description: "Curated enterprise documentation covering modern Java 17/21 features, multithreading, concurrency locks, Spring Boot practices, and Hibernate query optimization.",
+    category: "cloud",
+    categoryLabel: "Cloud & Cyber",
+    tab: "exploring",
+    subgroup: "archives",
+    language: "Markdown",
+    tags: ["Java","Documentation","Spring Boot","Best Practices"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/deloitte_Java_Docs",
+    highlights: ["Comprehensive cheat sheets on concurrency models and entity relationship lifecycle."]
+  },
+  {
+    id: "jdbc",
+    title: "JDBC Connector Labs",
+    tagline: "Low-Level JDBC Connection Pools & Statement Optimization",
+    description: "Hands-on Java database connectivity exercises testing connection pooling, batch statement execution, SQL injection prevention, and metadata introspection.",
+    category: "cloud",
+    categoryLabel: "Cloud & Cyber",
+    tab: "exploring",
+    subgroup: "academic",
+    language: "Java",
+    tags: ["Java","JDBC","SQL","Databases"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/JDBC",
+    highlights: ["Benchmarking PreparedStatement vs Statement execution overhead with batching."]
+  },
+  {
+    id: "java-assignment-3-div-b",
+    title: "Java Academic Assignment Suite",
+    tagline: "Data Structures, Polymorphism & File I/O Labs",
+    description: "Collection of collegiate programming assignments covering OOP inheritance hierarchies, custom exception classes, and robust binary/text file I/O.",
+    category: "cloud",
+    categoryLabel: "Cloud & Cyber",
+    tab: "exploring",
+    subgroup: "academic",
+    language: "Java",
+    tags: ["Java","OOP","Data Structures","Academic"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/java-assignment-3-div-B",
+    highlights: ["Demonstrations of polymorphic dispatch and recursive collection operations."]
+  },
+  {
+    id: "gmap",
+    title: "GMap Location Navigator",
+    tagline: "Native Android Google Maps SDK Integration",
+    description: "Native Java Android app utilizing Google Play Services and Maps SDK to plot markers, query reverse geocoding, and render interactive polylines.",
+    category: "mobile",
+    categoryLabel: "Mobile & Flutter",
+    tab: "exploring",
+    subgroup: "academic",
+    language: "Java",
+    tags: ["Android","Java","Google Maps API","Geolocation"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/Gmap",
+    highlights: ["Custom map overlays and real-time GPS coordinate listeners."]
+  },
+  {
+    id: "mcq-web-test",
+    title: "MCQ Evaluation Engine Prototype",
+    tagline: "Automated Examination Runner & Scoring Tests",
+    description: "JavaScript test harness verifying randomized question ordering, anti-cheat tab-blur detection, and instant timer-based submission routines.",
+    category: "fullstack",
+    categoryLabel: "Full-Stack Web",
+    tab: "exploring",
+    subgroup: "academic",
+    language: "JavaScript",
+    tags: ["JavaScript","Testing","MCQ","Web"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/mcq_web_test",
+    highlights: ["Test suite validating question scoring formulas and edge condition handling."]
+  },
+  {
+    id: "exercises",
+    title: "Frontend Web Exercises",
+    tagline: "HTML5 & CSS3 Layout Mastery Experiments",
+    description: "Curated set of responsive web design drills exploring CSS Grid, Flexbox alignment, CSS custom variables, and DOM event listeners.",
+    category: "fullstack",
+    categoryLabel: "Full-Stack Web",
+    tab: "exploring",
+    subgroup: "academic",
+    language: "HTML",
+    tags: ["HTML5","CSS3","Web Design","Exercises"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/exercises",
+    highlights: ["Practical responsive layouts built with semantic HTML elements."]
+  },
+  {
+    id: "docs-flutter",
+    title: "Flutter Developer Compendium",
+    tagline: "Architecture & State Management Reference Guide",
+    description: "Personal reference notes on Flutter rendering mechanics, RenderObjects, InheritedWidget data flow, Riverpod/Bloc architectures, and native MethodChannels.",
+    category: "mobile",
+    categoryLabel: "Mobile & Flutter",
+    tab: "exploring",
+    subgroup: "archives",
+    language: "Markdown",
+    tags: ["Flutter","Documentation","Architecture","Dart"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/Docs-Flutter",
+    highlights: ["Deep dive notes on Flutter widget lifecycle and render tree pipeline."]
+  },
+  {
+    id: "docs-git",
+    title: "Git & Version Control Guide",
+    tagline: "Advanced Git Workflows & Rebase Strategies",
+    description: "Comprehensive guide covering trunk-based development, interactive git rebasing, cherry-picking, bisect debugging, and clean commit hygiene.",
+    category: "systems",
+    categoryLabel: "Systems & IoT",
+    tab: "exploring",
+    subgroup: "archives",
+    language: "Markdown",
+    tags: ["Git","DevOps","Documentation","CLI"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/Docs-Git",
+    highlights: ["Interactive rebase recipes and resolving complicated merge conflicts."]
+  },
+  {
+    id: "nodejs-docs",
+    title: "Node.js Backend Notes",
+    tagline: "Event Loop Internals & Asynchronous Architecture",
+    description: "Technical notes explaining libuv event loop phases, microtask queuing, stream pipelines, worker threads, and memory heap monitoring.",
+    category: "fullstack",
+    categoryLabel: "Full-Stack Web",
+    tab: "exploring",
+    subgroup: "archives",
+    language: "Markdown",
+    tags: ["Node.js","JavaScript","Backend","Documentation"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/NodeJS-Docs",
+    highlights: ["Analysis of libuv event loop stages and non-blocking asynchronous I/O."]
+  },
+  {
+    id: "terminal-oh-my-posh",
+    title: "Terminal Oh-My-Posh Config",
+    tagline: "Modern Terminal Styling & Segment Customization",
+    description: "Shell configuration suite featuring Oh-My-Posh prompts, dynamic git branch status indicators, execution time metrics, and custom glyph themes.",
+    category: "systems",
+    categoryLabel: "Systems & IoT",
+    tab: "exploring",
+    subgroup: "archives",
+    language: "PowerShell",
+    tags: ["Terminal","PowerShell","DevOps","CLI Customization"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/Terminal-oh-my-posh-",
+    highlights: ["Optimized terminal shell configuration with prompt latency reduction."]
+  },
+  {
+    id: "chinmayagit",
+    title: "ChinmayaGit Profile Matrix",
+    tagline: "GitHub Dynamic README & Metrics Dashboard",
+    description: "GitHub profile repository featuring automated statistics workflows, tech stack shields, verified certification badges, and dynamic telemetry.",
+    category: "systems",
+    categoryLabel: "Systems & IoT",
+    tab: "exploring",
+    subgroup: "archives",
+    language: "Markdown",
+    tags: ["GitHub","Profile","Automation","CI/CD"],
+    stars: 0,
+    featured: false,
+    githubUrl: "https://github.com/ChinmayaGit/ChinmayaGit",
+    highlights: ["Automated GitHub Actions workflows updating commit statistics and profile activity."]
+  }
+];

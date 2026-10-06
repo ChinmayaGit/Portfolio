@@ -284,22 +284,22 @@ export const Phase3Network: React.FC = () => {
             </h2>
 
             <p className="text-zinc-300 text-xs md:text-sm leading-relaxed">
-              Enterprise Cyber Risk &amp; IAM at Deloitte, specializing in Zero Trust network governance, SailPoint Identity Security Cloud (ISC), privileged access, and Active Directory federation.
+              Enterprise Cyber Risk &amp; IAM engineering, specializing in Zero Trust network governance, SailPoint Identity Security Cloud (ISC), privileged access, and Active Directory federation.
             </p>
 
             <div className="space-y-2 pt-2 border-t border-white/10 font-mono text-xs">
-              <div className="flex items-center justify-between text-zinc-400">
-                <span>Enterprise Role</span>
-                <span className="text-white font-medium flex items-center gap-1">
-                  <CheckCircle2 size={12} className="text-[#d4a22f]" />
-                  Analyst @ Deloitte
-                </span>
-              </div>
               <div className="flex items-center justify-between text-zinc-400">
                 <span>Identity Governance</span>
                 <span className="text-white font-medium flex items-center gap-1">
                   <CheckCircle2 size={12} className="text-[#d4a22f]" />
                   SailPoint ISC Certified
+                </span>
+              </div>
+              <div className="flex items-center justify-between text-zinc-400">
+                <span>Cyber Defense</span>
+                <span className="text-white font-medium flex items-center gap-1">
+                  <CheckCircle2 size={12} className="text-[#d4a22f]" />
+                  Cisco CyberOps Associate
                 </span>
               </div>
               <div className="flex items-center justify-between text-zinc-400">

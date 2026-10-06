@@ -9,11 +9,12 @@ interface SystemsNominalProps {
 }
 
 const telemetry = [
+  { label: "Enterprise Experience", value: "Deloitte", note: "Analyst · AI Systems, Multi-Cloud Architecture & Cyber/IAM" },
   { label: "Core Specialization", value: "Full Stack", note: "React · TypeScript · Node.js · Next.js" },
   { label: "Cloud & DevOps", value: "Multi-Cloud", note: "AWS · OCI · Docker · Kubernetes · CI/CD" },
-  { label: "Security & IAM", value: "Zero Trust", note: "Deloitte Analyst · SailPoint ISC · Governance" },
+  { label: "Security & IAM", value: "Zero Trust", note: "SailPoint ISC · RBAC · Identity Governance & Defense" },
   { label: "Projects Shipped", value: "71+", note: "Full stack platforms, cloud tools, and APIs" },
-  { label: "Verified Credentials", value: "15+", note: "Oracle AI, Anthropic Claude, AWS, SailPoint" },
+  { label: "Verified Credentials", value: "41", note: "AWS, Azure, Oracle, Anthropic Claude, SailPoint & Google" },
   { label: "Availability Status", value: "Available", note: "Hyderabad, India · Open for full-time & high-impact roles" },
 ];
 
@@ -141,7 +142,7 @@ export const SystemsNominal: React.FC<SystemsNominalProps> = ({
           <Award size={15} className="text-[#d4a22f] group-hover:text-black transition-colors" />
           <span className="font-semibold tracking-wider uppercase">Certifications</span>
           <span className="rounded-full bg-white/10 px-1.5 py-0.2 text-[10px] group-hover:bg-black/20">
-            15+
+            40+
           </span>
         </button>
 

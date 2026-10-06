@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import { HudFrame } from "../ui/HudFrame";
-import { Sparkles, Bot } from "lucide-react";
+import { Sparkles, Bot, CheckCircle2 } from "lucide-react";
 
 import { FRAME_COUNT } from "../../constants/frameManifest";
 import { frameCache, loadSingleFrame } from "../../utils/frameLoader";
@@ -287,24 +287,31 @@ export const Phase2AI: React.FC = () => {
               Building intelligent systems including AI-powered log monitoring and alerting, RAG pipelines, budget intelligence, and recommendation systems for enterprise workflows.
             </p>
 
-            <div className="space-y-2.5 pt-2.5 border-t border-white/10 font-mono text-xs">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-                <span className="text-zinc-400 font-semibold text-[11px] uppercase tracking-wider">AI Systems</span>
-                <span className="text-white font-medium text-[11px] sm:text-right">
-                  RAG &bull; LLMs &bull; AI Agents
+            <div className="space-y-2 pt-2 border-t border-white/10 font-mono text-xs">
+              <div className="flex items-center justify-between text-zinc-400">
+                <span>AI Engineering</span>
+                <span className="text-white font-medium flex items-center gap-1">
+                  <CheckCircle2 size={12} className="text-[#d4a22f]" />
+                  Claude Certified Developer
                 </span>
               </div>
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-                <span className="text-zinc-400 font-semibold text-[11px] uppercase tracking-wider">Intelligent Automation</span>
-                <span className="text-[#d4a22f] font-medium text-[11px] sm:text-right">
-                  Log Monitoring &bull; AI Alerting &bull; Anomaly Detection
+              <div className="flex items-center justify-between text-zinc-400">
+                <span>Autonomous Agents</span>
+                <span className="text-white font-medium flex items-center gap-1">
+                  <CheckCircle2 size={12} className="text-[#d4a22f]" />
+                  Oracle AI Agent Studio
                 </span>
               </div>
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-                <span className="text-zinc-400 font-semibold text-[11px] uppercase tracking-wider">Enterprise AI</span>
-                <span className="text-white font-medium text-[11px] sm:text-right">
-                  Budget Intelligence &bull; Recommendations &bull; Automation
+              <div className="flex items-center justify-between text-zinc-400">
+                <span>Cloud AI</span>
+                <span className="text-white font-medium flex items-center gap-1">
+                  <CheckCircle2 size={12} className="text-[#d4a22f]" />
+                  AWS Certified AI Practitioner
                 </span>
+              </div>
+              <div className="flex items-center justify-between text-zinc-400">
+                <span>AI Systems</span>
+                <span className="text-[#d4a22f] font-semibold">RAG &bull; LLMs &bull; AI Agents</span>
               </div>
             </div>
 

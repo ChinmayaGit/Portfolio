@@ -141,9 +141,12 @@ export const Phase1Intro: React.FC = () => {
           drawFrame(frameIndex);
         }
 
-        // Hero initial text fade (0.00 to 0.40)
+        // Hero initial text fade (stays 100% solid through SEQ 40+, fades out smoothly towards SEQ 75-84)
         if (heroTextRef.current) {
-          const opacity = Math.max(0, Math.min(1, 1 - progress / 0.35));
+          let opacity = 1;
+          if (progress > 0.40) {
+            opacity = Math.max(0, Math.min(1, 1 - (progress - 0.40) / 0.30));
+          }
           heroTextRef.current.style.opacity = String(opacity);
           heroTextRef.current.style.transform = `translateY(${(1 - opacity) * 16}px)`;
           heroTextRef.current.style.pointerEvents = opacity > 0.05 ? "auto" : "none";
