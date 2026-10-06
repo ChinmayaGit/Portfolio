@@ -230,47 +230,47 @@ export const Phase1Intro: React.FC = () => {
         {/* Hero Initial State Content */}
         <div
           ref={heroTextRef}
-          className="absolute inset-x-0 bottom-0 z-10 flex flex-col items-start gap-4 px-6 pb-24 md:px-12 md:pb-28"
+          className="absolute inset-x-0 bottom-0 z-10 flex flex-col items-start gap-3 sm:gap-4 px-4 sm:px-6 md:px-12 pb-20 sm:pb-24 md:pb-28"
           style={{ transition: "opacity 80ms linear, transform 80ms linear" }}
         >
           <EyebrowBadge>PORTFOLIO // CHINMAYA.DEV // PHASE 01</EyebrowBadge>
 
-          <h1 className="max-w-[14ch] text-5xl font-semibold leading-[0.95] tracking-tight text-white md:text-7xl lg:text-8xl">
+          <h1 className="max-w-[14ch] text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-semibold leading-[0.98] tracking-tight text-white">
             I am{" "}
-            <span className="font-telma font-bold text-[#d4a22f] tracking-normal capitalize">
+            <span className="font-telma font-bold text-[#d4a22f] tracking-normal capitalize block sm:inline">
               Chinmaya Garnaik.
             </span>
           </h1>
 
-          <div className="flex items-center gap-3">
-            <span className="px-3 py-1 rounded-full bg-white/[0.06] border border-white/10 text-white font-mono text-xs uppercase tracking-wider">
+          <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+            <span className="px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-white/[0.06] border border-white/10 text-white font-mono text-[11px] sm:text-xs uppercase tracking-wider">
               FULL-STACK DEVELOPER
             </span>
-            <span className="text-zinc-500 font-mono text-xs">/ Web &amp; Cloud</span>
+            <span className="text-zinc-500 font-mono text-[11px] sm:text-xs">/ Web &amp; Cloud</span>
           </div>
 
-          <p className="max-w-[44ch] font-sans text-sm leading-relaxed text-zinc-400 md:text-base">
+          <p className="max-w-[44ch] font-sans text-xs leading-relaxed text-zinc-400 sm:text-sm md:text-base">
             Engineering scalable web applications, robust APIs, and modern cloud architectures &mdash; front to back.
           </p>
 
-          <div className="flex items-center gap-2 pt-1 font-mono text-[11px] uppercase tracking-[0.22em] text-zinc-500">
-            <ArrowDown size={14} className="animate-bounce text-[#d4a22f]" />
+          <div className="flex items-center gap-2 pt-0.5 sm:pt-1 font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.22em] text-zinc-500">
+            <ArrowDown size={13} className="animate-bounce text-[#d4a22f] shrink-0 sm:w-3.5 sm:h-3.5" />
             <span>Scroll down to engage Phase 02</span>
           </div>
         </div>
 
         {/* Bottom Sequence Scrubber */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10">
-          <div className="mx-6 mb-3 h-px bg-white/10 md:mx-10">
+          <div className="mx-4 mb-2.5 sm:mb-3 h-px bg-white/10 sm:mx-6 md:mx-10">
             <div
               ref={progressFillRef}
               className="h-full origin-left bg-[#d4a22f]"
               style={{ transform: "scaleX(0)", transition: "transform 80ms linear" }}
             />
           </div>
-          <div className="mx-6 flex items-center justify-between pb-4 font-mono text-[10px] uppercase tracking-[0.28em] text-zinc-500 md:mx-10">
+          <div className="mx-4 flex items-center justify-between pb-3 sm:pb-4 font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.28em] text-zinc-500 sm:mx-6 md:mx-10">
             <span ref={seqReadoutRef}>SEQ 001 / {FRAME_COUNT}</span>
-            <span>PHASE 01 // INTRO SEQUENCE</span>
+            <span className="hidden xs:inline">PHASE 01 // INTRO SEQUENCE</span>
             <span>Scroll &darr;</span>
           </div>
         </div>

@@ -16,7 +16,7 @@ echo "========================================================"
 
 # Step 1: Push latest commits to GitHub
 echo "🐙 Step 1: Pushing latest commits to GitHub..."
-git push origin main || echo "Git push skipped or already up to date"
+GIT_TERMINAL_PROMPT=0 git push origin main 2>/dev/null || echo "Git push skipped or already up to date"
 
 # Step 2: Compile optimized production build locally
 echo "📦 Step 2: Compiling production build on Mac..."

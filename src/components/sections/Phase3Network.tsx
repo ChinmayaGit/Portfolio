@@ -264,10 +264,10 @@ export const Phase3Network: React.FC = () => {
         {/* Right Side: Elevated Glassmorphic Network Card */}
         <div
           ref={cardRef}
-          className="pointer-events-none absolute right-6 top-[12%] sm:top-[14%] md:top-[16%] lg:top-[18%] z-20 w-[420px] max-w-[92vw] md:right-14"
+          className="pointer-events-none absolute left-3 right-3 sm:left-auto sm:right-6 md:right-14 top-[10%] sm:top-[14%] md:top-[16%] lg:top-[18%] z-20 w-auto sm:w-[420px] max-w-full sm:max-w-[92vw]"
           style={{ opacity: 0, transition: "opacity 80ms linear, transform 80ms linear" }}
         >
-          <div className="card-surface pointer-events-auto p-5 md:p-6 space-y-3.5 border border-[#d4a22f]/30 shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
+          <div className="card-surface pointer-events-auto p-4 sm:p-5 md:p-6 space-y-3 sm:space-y-3.5 border border-[#d4a22f]/30 shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
             <div className="flex items-center justify-between">
               <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#d4a22f] flex items-center gap-1.5">
                 <Shield size={14} />
@@ -278,8 +278,8 @@ export const Phase3Network: React.FC = () => {
               </span>
             </div>
 
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white flex items-center gap-2.5">
-              <Lock size={26} className="text-[#d4a22f]" />
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white flex items-center gap-2 sm:gap-2.5">
+              <Lock size={24} className="text-[#d4a22f] sm:w-[26px] sm:h-[26px]" />
               Network Engineer
             </h2>
 

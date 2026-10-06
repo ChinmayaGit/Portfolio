@@ -158,7 +158,7 @@ export const CertificationsTabModal: React.FC<CertificationsTabModalProps> = ({
     <AnimatePresence>
       <div
         className={`fixed inset-0 z-50 flex items-center justify-center ${
-          isFullscreen ? "p-0" : "p-2.5 sm:p-6"
+          isFullscreen ? "p-0" : "p-2 sm:p-6"
         } overflow-y-auto`}
       >
         {/* Backdrop */}
@@ -178,18 +178,18 @@ export const CertificationsTabModal: React.FC<CertificationsTabModalProps> = ({
           transition={{ duration: 0.2 }}
           className={`relative w-full ${
             isFullscreen
-              ? "h-screen w-screen max-w-none max-h-none rounded-none border-0 p-4 sm:p-8"
-              : "max-w-5xl max-h-[92vh] rounded-2xl sm:rounded-3xl border border-white/10 p-3.5 sm:p-7 shadow-[0_25px_70px_rgba(0,0,0,0.95)]"
+              ? "h-screen w-screen max-w-none max-h-none rounded-none border-0 p-3 sm:p-8"
+              : "max-w-5xl h-[94dvh] sm:h-[88vh] max-h-[96dvh] rounded-2xl sm:rounded-3xl border border-white/10 p-3 sm:p-6 md:p-7 shadow-[0_25px_70px_rgba(0,0,0,0.95)]"
           } bg-[#101013] z-10 flex flex-col overflow-hidden will-change-transform`}
         >
           {/* Header Bar */}
-          <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-white/10 shrink-0 gap-2">
+          <div className="flex items-center justify-between pb-2.5 sm:pb-4 border-b border-white/10 shrink-0 gap-2">
             <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-              <div className="p-2 sm:p-2.5 rounded-xl bg-[#d4a22f]/10 border border-[#d4a22f]/25 text-[#d4a22f] shrink-0">
-                <Award size={20} className="sm:w-[22px] sm:h-[22px]" />
+              <div className="p-1.5 sm:p-2.5 rounded-xl bg-[#d4a22f]/10 border border-[#d4a22f]/25 text-[#d4a22f] shrink-0">
+                <Award size={18} className="sm:w-[22px] sm:h-[22px]" />
               </div>
               <div className="min-w-0">
-                <h3 className="text-base sm:text-xl font-bold text-white flex items-center gap-1.5 sm:gap-2 truncate">
+                <h3 className="text-sm sm:text-xl font-bold text-white flex items-center gap-1.5 sm:gap-2 truncate">
                   <span>Verified Credentials</span>
                   <span className="text-[10px] sm:text-xs font-mono font-normal text-zinc-400">
                     ({ALL_CERTIFICATIONS.length})
@@ -202,12 +202,12 @@ export const CertificationsTabModal: React.FC<CertificationsTabModalProps> = ({
             </div>
 
             {/* Action Buttons: Grid/List + Fullscreen + Close */}
-            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            <div className="flex items-center gap-1 sm:gap-2 shrink-0">
               {/* Grid / List View Toggle */}
               <div className="flex items-center bg-white/[0.04] p-0.5 sm:p-1 rounded-xl border border-white/10">
                 <button
                   onClick={() => setViewMode("grid")}
-                  className={`p-1.5 rounded-lg transition-all ${
+                  className={`p-1.5 rounded-lg transition-all active:scale-95 ${
                     viewMode === "grid"
                       ? "bg-[#d4a22f] text-black shadow-sm"
                       : "text-zinc-400 hover:text-white"
@@ -215,11 +215,11 @@ export const CertificationsTabModal: React.FC<CertificationsTabModalProps> = ({
                   title="Grid View"
                   aria-label="Grid View"
                 >
-                  <LayoutGrid size={14} className="sm:w-[15px] sm:h-[15px]" />
+                  <LayoutGrid size={13} className="sm:w-[15px] sm:h-[15px]" />
                 </button>
                 <button
                   onClick={() => setViewMode("list")}
-                  className={`p-1.5 rounded-lg transition-all ${
+                  className={`p-1.5 rounded-lg transition-all active:scale-95 ${
                     viewMode === "list"
                       ? "bg-[#d4a22f] text-black shadow-sm"
                       : "text-zinc-400 hover:text-white"
@@ -227,46 +227,46 @@ export const CertificationsTabModal: React.FC<CertificationsTabModalProps> = ({
                   title="List View"
                   aria-label="List View"
                 >
-                  <List size={14} className="sm:w-[15px] sm:h-[15px]" />
+                  <List size={13} className="sm:w-[15px] sm:h-[15px]" />
                 </button>
               </div>
 
               {/* Fullscreen Expand Button */}
               <button
                 onClick={() => setIsFullscreen(!isFullscreen)}
-                className="p-1.5 sm:p-2 rounded-xl bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 text-zinc-400 hover:text-white transition-colors"
+                className="p-1.5 sm:p-2 rounded-xl bg-white/[0.05] hover:bg-white/[0.12] active:scale-95 border border-white/10 text-zinc-400 hover:text-white transition-colors"
                 title={isFullscreen ? "Exit Fullscreen" : "Fullscreen View"}
                 aria-label="Toggle Fullscreen"
               >
-                {isFullscreen ? <Minimize2 size={15} className="sm:w-4 sm:h-4" /> : <Maximize2 size={15} className="sm:w-4 sm:h-4" />}
+                {isFullscreen ? <Minimize2 size={14} className="sm:w-4 sm:h-4" /> : <Maximize2 size={14} className="sm:w-4 sm:h-4" />}
               </button>
 
               {/* Close Button */}
               <button
                 onClick={onClose}
-                className="p-1.5 sm:p-2 rounded-full bg-white/[0.06] hover:bg-white/[0.12] text-zinc-400 hover:text-white transition-colors"
+                className="p-1.5 sm:p-2 rounded-full bg-white/[0.06] hover:bg-white/[0.12] active:scale-95 text-zinc-400 hover:text-white transition-colors"
                 aria-label="Close modal"
               >
-                <X size={17} className="sm:w-[18px] sm:h-[18px]" />
+                <X size={16} className="sm:w-[18px] sm:h-[18px]" />
               </button>
             </div>
           </div>
 
           {/* Main 2-Tab Navigation: Licenses vs Normal */}
-          <div className="pt-3 sm:pt-4 pb-2 flex items-center justify-between gap-2 border-b border-white/5 shrink-0">
+          <div className="pt-2 sm:pt-4 pb-2 flex items-center justify-between gap-2 border-b border-white/5 shrink-0">
             <div className="flex items-center gap-1.5 sm:gap-2 w-full sm:w-auto">
               <button
                 onClick={() => {
                   setActiveTab("licenses");
                   setSelectedSubcat("all");
                 }}
-                className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-xl font-mono text-[11px] sm:text-xs font-semibold uppercase tracking-wider transition-all duration-200 ${
+                className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-xl font-mono text-[11px] sm:text-xs font-semibold uppercase tracking-wider transition-all duration-200 active:scale-95 ${
                   activeTab === "licenses"
                     ? "bg-[#d4a22f] text-black shadow-[0_0_20px_rgba(212,162,47,0.35)]"
                     : "bg-white/[0.04] text-zinc-400 hover:text-white hover:bg-white/[0.08] border border-white/10"
                 }`}
               >
-                <BadgeCheck size={14} className="shrink-0" />
+                <BadgeCheck size={13} className="shrink-0" />
                 <span className="truncate">Licenses ({licensesList.length})</span>
               </button>
 
@@ -275,13 +275,13 @@ export const CertificationsTabModal: React.FC<CertificationsTabModalProps> = ({
                   setActiveTab("normal");
                   setSelectedSubcat("all");
                 }}
-                className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-xl font-mono text-[11px] sm:text-xs font-semibold uppercase tracking-wider transition-all duration-200 ${
+                className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-xl font-mono text-[11px] sm:text-xs font-semibold uppercase tracking-wider transition-all duration-200 active:scale-95 ${
                   activeTab === "normal"
                     ? "bg-[#d4a22f] text-black shadow-[0_0_20px_rgba(212,162,47,0.35)]"
                     : "bg-white/[0.04] text-zinc-400 hover:text-white hover:bg-white/[0.08] border border-white/10"
                 }`}
               >
-                <BookOpen size={14} className="shrink-0" />
+                <BookOpen size={13} className="shrink-0" />
                 <span className="truncate">Coursework ({normalList.length})</span>
               </button>
             </div>
@@ -299,12 +299,12 @@ export const CertificationsTabModal: React.FC<CertificationsTabModalProps> = ({
           </div>
 
           {/* Search Bar & Normal Subcategories */}
-          <div className="py-3.5 space-y-3 shrink-0">
-            <div className="flex items-center gap-2.5">
+          <div className="py-2 sm:py-3.5 space-y-2 sm:space-y-3 shrink-0">
+            <div className="flex items-center gap-1.5 sm:gap-2.5">
               <div className="relative flex-1">
                 <Search
-                  size={16}
-                  className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500"
+                  size={14}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500"
                 />
                 <input
                   type="text"
@@ -312,10 +312,10 @@ export const CertificationsTabModal: React.FC<CertificationsTabModalProps> = ({
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder={
                     activeTab === "licenses"
-                      ? "Search licenses by name, issuer, or credential..."
+                      ? "Search licenses by name, issuer, ID..."
                       : "Search courses by title, topic, or vendor..."
                   }
-                  className="w-full pl-10 pr-4 py-2 rounded-full bg-white/[0.04] border border-white/10 text-white placeholder-zinc-500 text-xs font-mono focus:outline-none focus:border-[#d4a22f]/60"
+                  className="w-full pl-8 sm:pl-9 pr-3 sm:pr-4 py-1.5 sm:py-2 rounded-full bg-white/[0.04] border border-white/10 text-white placeholder-zinc-500 text-[11px] sm:text-xs font-mono focus:outline-none focus:border-[#d4a22f]/60"
                 />
               </div>
 
@@ -324,7 +324,7 @@ export const CertificationsTabModal: React.FC<CertificationsTabModalProps> = ({
                 <button
                   type="button"
                   onClick={() => setShowSortMenu(!showSortMenu)}
-                  className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-2 rounded-full border text-xs font-mono transition-all duration-200 shadow-sm ${
+                  className={`flex items-center gap-1 sm:gap-2 px-2 sm:px-3.5 py-1.5 sm:py-2 rounded-full border text-[11px] sm:text-xs font-mono transition-all duration-200 shadow-sm active:scale-95 ${
                     showSortMenu
                       ? "bg-white/[0.08] border-[#d4a22f]/60 text-white shadow-[0_0_15px_rgba(212,162,47,0.2)]"
                       : "bg-white/[0.04] hover:bg-white/[0.08] border-white/10 hover:border-white/20 text-zinc-300 hover:text-white"
@@ -332,13 +332,13 @@ export const CertificationsTabModal: React.FC<CertificationsTabModalProps> = ({
                   title="Sort credentials by name, date, issuer"
                   aria-label="Sort credentials"
                 >
-                  <ArrowUpDown size={13} className="text-[#d4a22f] shrink-0" />
-                  <span className="hidden sm:inline text-zinc-400">Sort:</span>
-                  <span className="font-semibold text-white truncate max-w-[85px] sm:max-w-none">
+                  <ArrowUpDown size={12} className="text-[#d4a22f] shrink-0" />
+                  <span className="hidden md:inline text-zinc-400">Sort:</span>
+                  <span className="font-semibold text-white truncate max-w-[70px] sm:max-w-none">
                     {SORT_OPTIONS.find((o) => o.id === sortBy)?.shortLabel}
                   </span>
                   <ChevronDown
-                    size={12}
+                    size={11}
                     className={`text-zinc-400 transition-transform duration-200 shrink-0 ${
                       showSortMenu ? "rotate-180 text-[#d4a22f]" : ""
                     }`}
@@ -384,7 +384,7 @@ export const CertificationsTabModal: React.FC<CertificationsTabModalProps> = ({
 
             {/* Subcategory Pills: Only displayed in the "Normal" tab */}
             {activeTab === "normal" && (
-              <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+              <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-1 scrollbar-none -mx-1 px-1">
                 {NORMAL_SUBCATEGORIES.map((sub) => {
                   const subCount =
                     sub.id === "all"
@@ -395,7 +395,7 @@ export const CertificationsTabModal: React.FC<CertificationsTabModalProps> = ({
                     <button
                       key={sub.id}
                       onClick={() => setSelectedSubcat(sub.id)}
-                      className={`px-3 py-1.5 rounded-full text-xs font-mono whitespace-nowrap transition-all duration-200 ${
+                      className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-mono whitespace-nowrap transition-all duration-200 shrink-0 active:scale-95 ${
                         selectedSubcat === sub.id
                           ? "bg-white/20 text-white font-semibold border border-white/30"
                           : "bg-white/[0.03] border border-white/10 text-zinc-400 hover:text-white hover:bg-white/[0.07]"
@@ -417,11 +417,15 @@ export const CertificationsTabModal: React.FC<CertificationsTabModalProps> = ({
               </div>
             ) : viewMode === "grid" ? (
               /* GRID VIEW */
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 pb-2">
+              <div
+                className={`grid grid-cols-1 ${
+                  isFullscreen ? "md:grid-cols-2 lg:grid-cols-3" : "md:grid-cols-2"
+                } gap-3 sm:gap-3.5 pb-2`}
+              >
                 {displayedCerts.map((cert) => (
                   <div
                     key={cert.id}
-                    className="p-4 sm:p-5 rounded-2xl bg-white/[0.02] hover:bg-white/[0.05] border border-white/10 hover:border-[#d4a22f]/40 transition-all duration-200 group flex flex-col justify-between"
+                    className="p-3.5 sm:p-5 rounded-xl sm:rounded-2xl bg-white/[0.02] hover:bg-white/[0.05] border border-white/10 hover:border-[#d4a22f]/40 transition-all duration-200 group flex flex-col justify-between"
                   >
                     <div className="space-y-2.5">
                       {/* Title & Featured Badge */}

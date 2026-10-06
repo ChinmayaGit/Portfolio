@@ -52,7 +52,7 @@ export const ContactTabModal: React.FC<ContactTabModalProps> = ({ isOpen, onClos
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-6 overflow-y-auto">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -65,19 +65,19 @@ export const ContactTabModal: React.FC<ContactTabModalProps> = ({ isOpen, onClos
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="relative w-full max-w-2xl bg-[#101013] border border-white/10 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.9)] p-6 sm:p-8 z-10 max-h-[90vh] flex flex-col overflow-hidden"
+          className="relative w-full max-w-2xl bg-[#101013] border border-white/10 rounded-2xl sm:rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.9)] p-4 sm:p-7 md:p-8 z-10 h-[92dvh] sm:h-auto max-h-[94dvh] flex flex-col overflow-hidden"
         >
           {/* Header */}
-          <div className="flex items-center justify-between pb-4 border-b border-white/10">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-xl bg-[#d4a22f]/10 border border-[#d4a22f]/20 text-[#d4a22f]">
-                <Radio size={20} className="animate-pulse" />
+          <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-white/10 shrink-0">
+            <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+              <div className="p-1.5 sm:p-2 rounded-xl bg-[#d4a22f]/10 border border-[#d4a22f]/20 text-[#d4a22f] shrink-0">
+                <Radio size={18} className="animate-pulse sm:w-5 sm:h-5" />
               </div>
-              <div>
-                <h3 className="text-xl font-bold text-white flex items-center gap-2">
+              <div className="min-w-0">
+                <h3 className="text-base sm:text-xl font-bold text-white flex items-center gap-2 truncate">
                   Direct Recruiter Frequency
                 </h3>
-                <p className="text-xs font-mono text-zinc-400">
+                <p className="text-[10px] sm:text-xs font-mono text-zinc-400 truncate">
                   Direct channels to connect with Chinmaya Garnaik
                 </p>
               </div>
@@ -85,14 +85,14 @@ export const ContactTabModal: React.FC<ContactTabModalProps> = ({ isOpen, onClos
 
             <button
               onClick={onClose}
-              className="p-2 rounded-full bg-white/[0.06] hover:bg-white/[0.12] text-zinc-400 hover:text-white transition-colors"
+              className="p-1.5 sm:p-2 rounded-full bg-white/[0.06] hover:bg-white/[0.12] active:scale-95 text-zinc-400 hover:text-white transition-colors shrink-0"
               aria-label="Close modal"
             >
-              <X size={18} />
+              <X size={16} className="sm:w-[18px] sm:h-[18px]" />
             </button>
           </div>
 
-          <div className="flex-1 overflow-y-auto pr-1 py-5 space-y-5 custom-scrollbar">
+          <div className="flex-1 overflow-y-auto pr-1 py-3.5 sm:py-5 space-y-4 sm:space-y-5 custom-scrollbar">
             {/* Primary Action: Direct Email Card */}
             <div className="p-5 rounded-2xl bg-gradient-to-br from-white/[0.05] to-white/[0.02] border border-[#d4a22f]/30 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-[#d4a22f]/10 rounded-full blur-3xl pointer-events-none" />

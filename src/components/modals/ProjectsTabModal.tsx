@@ -279,7 +279,7 @@ export const ProjectsTabModal: React.FC<ProjectsTabModalProps> = ({
     <AnimatePresence>
       <div
         className={`fixed inset-0 z-50 flex items-center justify-center ${
-          isFullscreen ? "p-0" : "p-2.5 sm:p-6"
+          isFullscreen ? "p-0" : "p-2 sm:p-6"
         } overflow-y-auto`}
       >
         {/* Backdrop */}
@@ -299,18 +299,18 @@ export const ProjectsTabModal: React.FC<ProjectsTabModalProps> = ({
           transition={{ duration: 0.2 }}
           className={`relative w-full ${
             isFullscreen
-              ? "h-screen w-screen max-w-none max-h-none rounded-none border-0 p-4 sm:p-8"
-              : "max-w-5xl max-h-[92vh] rounded-2xl sm:rounded-3xl border border-white/10 p-3.5 sm:p-7 shadow-[0_25px_70px_rgba(0,0,0,0.95)]"
+              ? "h-screen w-screen max-w-none max-h-none rounded-none border-0 p-3.5 sm:p-8"
+              : "max-w-5xl h-[94dvh] sm:h-[88vh] max-h-[96dvh] rounded-2xl sm:rounded-3xl border border-white/10 p-3 sm:p-6 shadow-[0_25px_70px_rgba(0,0,0,0.95)]"
           } bg-[#101013] z-10 flex flex-col overflow-hidden will-change-transform`}
         >
           {/* Header Bar */}
-          <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-white/10 shrink-0 gap-2">
+          <div className="flex items-center justify-between pb-2.5 sm:pb-4 border-b border-white/10 shrink-0 gap-2">
             <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-              <div className="p-2 sm:p-2.5 rounded-xl bg-[#d4a22f]/10 border border-[#d4a22f]/25 text-[#d4a22f] shrink-0">
-                <Layers size={20} className="sm:w-[22px] sm:h-[22px]" />
+              <div className="p-1.5 sm:p-2.5 rounded-xl bg-[#d4a22f]/10 border border-[#d4a22f]/25 text-[#d4a22f] shrink-0">
+                <Layers size={18} className="sm:w-[22px] sm:h-[22px]" />
               </div>
               <div className="min-w-0">
-                <h3 className="text-base sm:text-xl font-bold text-white flex items-center gap-1.5 sm:gap-2 truncate">
+                <h3 className="text-sm sm:text-xl font-bold text-white flex items-center gap-1.5 sm:gap-2 truncate">
                   <span>Projects Archive</span>
                   <span className="text-[10px] sm:text-xs font-mono font-normal text-zinc-400">
                     ({PROJECTS.length})
@@ -328,7 +328,7 @@ export const ProjectsTabModal: React.FC<ProjectsTabModalProps> = ({
               <div className="flex items-center bg-white/[0.04] p-0.5 sm:p-1 rounded-xl border border-white/10">
                 <button
                   onClick={() => setViewMode("grid")}
-                  className={`p-1.5 rounded-lg transition-all ${
+                  className={`p-1 sm:p-1.5 rounded-lg transition-all ${
                     viewMode === "grid"
                       ? "bg-[#d4a22f] text-black shadow-sm"
                       : "text-zinc-400 hover:text-white"
@@ -336,11 +336,11 @@ export const ProjectsTabModal: React.FC<ProjectsTabModalProps> = ({
                   title="Grid View"
                   aria-label="Grid View"
                 >
-                  <LayoutGrid size={14} className="sm:w-[15px] sm:h-[15px]" />
+                  <LayoutGrid size={13} className="sm:w-[15px] sm:h-[15px]" />
                 </button>
                 <button
                   onClick={() => setViewMode("list")}
-                  className={`p-1.5 rounded-lg transition-all ${
+                  className={`p-1 sm:p-1.5 rounded-lg transition-all ${
                     viewMode === "list"
                       ? "bg-[#d4a22f] text-black shadow-sm"
                       : "text-zinc-400 hover:text-white"
@@ -348,14 +348,14 @@ export const ProjectsTabModal: React.FC<ProjectsTabModalProps> = ({
                   title="List View"
                   aria-label="List View"
                 >
-                  <List size={14} className="sm:w-[15px] sm:h-[15px]" />
+                  <List size={13} className="sm:w-[15px] sm:h-[15px]" />
                 </button>
               </div>
 
-              {/* Fullscreen Expand Button */}
+              {/* Fullscreen Expand Button (desktop/tablet) */}
               <button
                 onClick={() => setIsFullscreen(!isFullscreen)}
-                className="p-1.5 sm:p-2 rounded-xl bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 text-zinc-400 hover:text-white transition-colors"
+                className="hidden sm:inline-flex p-1.5 sm:p-2 rounded-xl bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 text-zinc-400 hover:text-white transition-colors"
                 title={isFullscreen ? "Exit Fullscreen" : "Fullscreen View"}
                 aria-label="Toggle Fullscreen"
               >
@@ -372,41 +372,41 @@ export const ProjectsTabModal: React.FC<ProjectsTabModalProps> = ({
                 className="p-1.5 sm:p-2 rounded-full bg-white/[0.06] hover:bg-white/[0.12] text-zinc-400 hover:text-white transition-colors"
                 aria-label="Close modal"
               >
-                <X size={17} className="sm:w-[18px] sm:h-[18px]" />
+                <X size={16} className="sm:w-[18px] sm:h-[18px]" />
               </button>
             </div>
           </div>
 
           {/* Main 2-Tab Navigation: Main Projects vs Exploring */}
-          <div className="pt-3 sm:pt-4 pb-2 flex items-center justify-between gap-2 border-b border-white/5 shrink-0">
+          <div className="pt-2.5 sm:pt-4 pb-2 flex items-center justify-between gap-2 border-b border-white/5 shrink-0">
             <div className="flex items-center gap-1.5 sm:gap-2 w-full sm:w-auto">
               <button
                 onClick={() => handleTabChange("main")}
-                className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-xl font-mono text-[11px] sm:text-xs font-semibold uppercase tracking-wider transition-all duration-200 ${
+                className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-xl font-mono text-[10px] sm:text-xs font-semibold uppercase tracking-wider transition-all duration-200 ${
                   activeTab === "main"
                     ? "bg-[#d4a22f] text-black shadow-[0_0_20px_rgba(212,162,47,0.35)]"
                     : "bg-white/[0.04] text-zinc-400 hover:text-white hover:bg-white/[0.08] border border-white/10"
                 }`}
               >
-                <Laptop size={14} className="shrink-0" />
-                <span className="truncate">Main Projects ({mainList.length})</span>
+                <Laptop size={13} className="shrink-0 sm:w-3.5 sm:h-3.5" />
+                <span className="truncate">Main ({mainList.length})</span>
               </button>
 
               <button
                 onClick={() => handleTabChange("exploring")}
-                className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-xl font-mono text-[11px] sm:text-xs font-semibold uppercase tracking-wider transition-all duration-200 ${
+                className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-xl font-mono text-[10px] sm:text-xs font-semibold uppercase tracking-wider transition-all duration-200 ${
                   activeTab === "exploring"
                     ? "bg-[#d4a22f] text-black shadow-[0_0_20px_rgba(212,162,47,0.35)]"
                     : "bg-white/[0.04] text-zinc-400 hover:text-white hover:bg-white/[0.08] border border-white/10"
                 }`}
               >
-                <Compass size={14} className="shrink-0" />
+                <Compass size={13} className="shrink-0 sm:w-3.5 sm:h-3.5" />
                 <span className="truncate">Exploring ({exploringList.length})</span>
               </button>
             </div>
 
             {/* Quick Context Summary Tag */}
-            <div className="font-mono text-[11px] text-zinc-400 hidden sm:block">
+            <div className="font-mono text-[11px] text-zinc-400 hidden md:block">
               {activeTab === "main" ? (
                 <span className="text-[#d4a22f]">
                   Core Production Platforms &bull; Web, Mobile, AI, Cloud &amp; Networking
@@ -418,11 +418,11 @@ export const ProjectsTabModal: React.FC<ProjectsTabModalProps> = ({
           </div>
 
           {/* Search Bar & Subcategory Pills */}
-          <div className="py-2.5 sm:py-3.5 space-y-2.5 sm:space-y-3 shrink-0">
-            <div className="flex items-center gap-2">
+          <div className="py-2 sm:py-3.5 space-y-2 sm:space-y-3 shrink-0">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               <div className="relative flex-1">
                 <Search
-                  size={15}
+                  size={14}
                   className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500"
                 />
                 <input
@@ -431,10 +431,10 @@ export const ProjectsTabModal: React.FC<ProjectsTabModalProps> = ({
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder={
                     activeTab === "main"
-                      ? "Search main projects by title, tech stack, tag..."
-                      : "Search exploring projects (Games, 3D, IoT, Hardware...)..."
+                      ? "Search main projects by title, stack..."
+                      : "Search exploring (Games, 3D, IoT...)..."
                   }
-                  className="w-full pl-9 pr-3 py-2 rounded-full bg-white/[0.04] border border-white/10 text-white placeholder-zinc-500 text-xs font-mono focus:outline-none focus:border-[#d4a22f]/60"
+                  className="w-full pl-8 sm:pl-9 pr-3 py-1.5 sm:py-2 rounded-full bg-white/[0.04] border border-white/10 text-white placeholder-zinc-500 text-[11px] sm:text-xs font-mono focus:outline-none focus:border-[#d4a22f]/60"
                 />
               </div>
 
@@ -443,7 +443,7 @@ export const ProjectsTabModal: React.FC<ProjectsTabModalProps> = ({
                 <button
                   type="button"
                   onClick={() => setShowSortMenu(!showSortMenu)}
-                  className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-2 rounded-full border text-xs font-mono transition-all duration-200 shadow-sm ${
+                  className={`flex items-center gap-1 sm:gap-2 px-2 sm:px-3.5 py-1.5 sm:py-2 rounded-full border text-[11px] sm:text-xs font-mono transition-all duration-200 shadow-sm ${
                     showSortMenu
                       ? "bg-white/[0.08] border-[#d4a22f]/60 text-white shadow-[0_0_15px_rgba(212,162,47,0.2)]"
                       : "bg-white/[0.04] hover:bg-white/[0.08] border-white/10 hover:border-white/20 text-zinc-300 hover:text-white"
@@ -451,13 +451,13 @@ export const ProjectsTabModal: React.FC<ProjectsTabModalProps> = ({
                   title="Sort projects"
                   aria-label="Sort projects"
                 >
-                  <ArrowUpDown size={13} className="text-[#d4a22f] shrink-0" />
-                  <span className="hidden sm:inline text-zinc-400">Sort:</span>
-                  <span className="font-semibold text-white truncate max-w-[85px] sm:max-w-none">
+                  <ArrowUpDown size={12} className="text-[#d4a22f] shrink-0" />
+                  <span className="hidden md:inline text-zinc-400">Sort:</span>
+                  <span className="font-semibold text-white truncate max-w-[70px] sm:max-w-none">
                     {SORT_OPTIONS.find((o) => o.id === sortBy)?.shortLabel}
                   </span>
                   <ChevronDown
-                    size={12}
+                    size={11}
                     className={`text-zinc-400 transition-transform duration-200 shrink-0 ${
                       showSortMenu ? "rotate-180 text-[#d4a22f]" : ""
                     }`}

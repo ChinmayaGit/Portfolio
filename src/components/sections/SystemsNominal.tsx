@@ -98,16 +98,16 @@ export const SystemsNominal: React.FC<SystemsNominalProps> = ({
         <AnimatedSection className="flex flex-col divide-y divide-white/10 border-t border-white/10 font-mono md:mt-3">
           {telemetry.map((row) => (
             <AnimatedItem key={row.label}>
-              <div className="flex items-baseline justify-between gap-6 py-5">
-                <div className="flex flex-col gap-1">
+              <div className="flex items-baseline justify-between gap-4 sm:gap-6 py-3.5 sm:py-5">
+                <div className="flex flex-col gap-1 min-w-0 pr-2">
                   <span className="text-[10px] uppercase tracking-[0.28em] text-zinc-500">
                     {row.label}
                   </span>
-                  <span className="font-sans text-[13px] text-zinc-400">
+                  <span className="font-sans text-[12px] sm:text-[13px] text-zinc-400 leading-snug">
                     {row.note}
                   </span>
                 </div>
-                <span className="text-xl font-semibold tracking-tight text-white md:text-2xl group-hover:text-[#d4a22f]">
+                <span className="text-lg sm:text-xl md:text-2xl font-semibold tracking-tight text-white shrink-0 group-hover:text-[#d4a22f]">
                   {row.value}
                 </span>
               </div>
@@ -117,45 +117,46 @@ export const SystemsNominal: React.FC<SystemsNominalProps> = ({
       </div>
 
       {/* ============================================================== */}
-      {/* BOTTOM RIGHT FLOATING DOCK TABS: Projects, Certifications, Contact */}
+      {/* BOTTOM FLOATING DOCK TABS: Projects, Certifications, Contact */}
       {/* ============================================================== */}
-      <div className="fixed bottom-6 right-6 z-40 flex items-center gap-2 rounded-2xl border border-[#d4a22f]/30 bg-[#101013]/90 p-2 shadow-[0_10px_35px_rgba(0,0,0,0.8),0_0_20px_rgba(212,162,47,0.15)] backdrop-blur-xl">
+      <div className="fixed bottom-4 sm:bottom-6 left-3 right-3 sm:left-auto sm:right-6 z-40 flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 rounded-2xl border border-[#d4a22f]/30 bg-[#101013]/95 p-1.5 sm:p-2 shadow-[0_10px_35px_rgba(0,0,0,0.85),0_0_20px_rgba(212,162,47,0.15)] backdrop-blur-xl max-w-fit mx-auto sm:mx-0">
         <button
           onClick={onOpenProjects}
-          className="group flex items-center gap-2 rounded-xl px-3.5 py-2 font-mono text-xs text-zinc-300 transition-all duration-200 hover:bg-[#d4a22f] hover:text-black"
+          className="group flex items-center gap-1.5 sm:gap-2 rounded-xl px-2.5 sm:px-3.5 py-1.5 sm:py-2 font-mono text-[11px] sm:text-xs text-zinc-300 transition-all duration-200 hover:bg-[#d4a22f] hover:text-black active:scale-95"
           title="Browse 71+ Shipped Projects"
         >
-          <FolderGit2 size={15} className="text-[#d4a22f] group-hover:text-black transition-colors" />
+          <FolderGit2 size={14} className="text-[#d4a22f] group-hover:text-black transition-colors shrink-0" />
           <span className="font-semibold tracking-wider uppercase">Projects</span>
-          <span className="rounded-full bg-white/10 px-1.5 py-0.2 text-[10px] group-hover:bg-black/20">
+          <span className="rounded-full bg-white/10 px-1.5 py-0.2 text-[9px] sm:text-[10px] group-hover:bg-black/20">
             71+
           </span>
         </button>
 
-        <div className="h-4 w-px bg-white/15" />
+        <div className="h-3.5 sm:h-4 w-px bg-white/15" />
 
         <button
           onClick={onOpenCertifications}
-          className="group flex items-center gap-2 rounded-xl px-3.5 py-2 font-mono text-xs text-zinc-300 transition-all duration-200 hover:bg-[#d4a22f] hover:text-black"
+          className="group flex items-center gap-1.5 sm:gap-2 rounded-xl px-2.5 sm:px-3.5 py-1.5 sm:py-2 font-mono text-[11px] sm:text-xs text-zinc-300 transition-all duration-200 hover:bg-[#d4a22f] hover:text-black active:scale-95"
           title="Verified Industry Credentials"
         >
-          <Award size={15} className="text-[#d4a22f] group-hover:text-black transition-colors" />
-          <span className="font-semibold tracking-wider uppercase">Certifications</span>
-          <span className="rounded-full bg-white/10 px-1.5 py-0.2 text-[10px] group-hover:bg-black/20">
+          <Award size={14} className="text-[#d4a22f] group-hover:text-black transition-colors shrink-0" />
+          <span className="font-semibold tracking-wider uppercase hidden sm:inline">Certifications</span>
+          <span className="font-semibold tracking-wider uppercase sm:hidden">Certs</span>
+          <span className="rounded-full bg-white/10 px-1.5 py-0.2 text-[9px] sm:text-[10px] group-hover:bg-black/20">
             40+
           </span>
         </button>
 
-        <div className="h-4 w-px bg-white/15" />
+        <div className="h-3.5 sm:h-4 w-px bg-white/15" />
 
         <button
           onClick={onOpenContact}
-          className="group flex items-center gap-2 rounded-xl px-3.5 py-2 font-mono text-xs text-zinc-300 transition-all duration-200 hover:bg-[#d4a22f] hover:text-black"
+          className="group flex items-center gap-1.5 sm:gap-2 rounded-xl px-2.5 sm:px-3.5 py-1.5 sm:py-2 font-mono text-[11px] sm:text-xs text-zinc-300 transition-all duration-200 hover:bg-[#d4a22f] hover:text-black active:scale-95"
           title="Get in Touch / Contact"
         >
-          <Mail size={15} className="text-[#d4a22f] group-hover:text-black transition-colors" />
+          <Mail size={14} className="text-[#d4a22f] group-hover:text-black transition-colors shrink-0" />
           <span className="font-semibold tracking-wider uppercase">Contact</span>
-          <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-emerald-400 animate-pulse" />
         </button>
       </div>
     </section>
