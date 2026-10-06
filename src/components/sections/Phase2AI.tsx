@@ -57,8 +57,8 @@ export const Phase2AI: React.FC = () => {
     const canvasRatio = cw / ch;
 
     const isMobile = window.innerWidth <= 768;
-    // Zoom out so 1280x720 frames stay crisp without pixelation or stretching
-    const zoomFactor = isMobile ? 0.90 : 0.80;
+    // Zoom factor: keep crisp and appropriately sized
+    const zoomFactor = isMobile ? 0.95 : 0.80;
 
     let drawW: number;
     let drawH: number;
@@ -76,8 +76,33 @@ export const Phase2AI: React.FC = () => {
       drawH = drawW / imgRatio;
     }
 
-    const drawX = (cw - drawW) / 2;
-    const drawY = (ch - drawH) / 2;
+    let drawX: number;
+    let drawY: number;
+
+    if (isMobile) {
+      // In mobile portrait, the detail card is displayed in the upper region.
+      // Position the animation in the lower half so it is completely visible and not covered by the card.
+      drawX = (cw - drawW) / 2;
+
+      const dpr = window.devicePixelRatio || 1;
+      const cardHeightCss = cardRef.current?.offsetHeight || 330;
+      const cardTopCss = 56; // top-14 in CSS px
+      const cardBottomPx = (cardTopCss + cardHeightCss) * dpr;
+      const bottomReservedPx = 68 * dpr; // reserved space for bottom dock & controls
+      const availableBottomPx = ch - bottomReservedPx;
+
+      if (availableBottomPx > cardBottomPx + drawH) {
+        // Center the animation in the lower area between the card and the bottom dock
+        const lowerCenterPx = cardBottomPx + (availableBottomPx - cardBottomPx) / 2;
+        drawY = lowerCenterPx - drawH / 2;
+      } else {
+        // Fallback for compact viewports: anchor near the bottom above the dock
+        drawY = Math.max(cardBottomPx + 6 * dpr, ch - drawH - (20 * dpr));
+      }
+    } else {
+      drawX = (cw - drawW) / 2;
+      drawY = (ch - drawH) / 2;
+    }
 
     ctx.fillStyle = "#000000";
     ctx.fillRect(0, 0, cw, ch);
@@ -199,7 +224,7 @@ export const Phase2AI: React.FC = () => {
         />
 
         <div
-          className="pointer-events-none absolute inset-0"
+          className="pointer-events-none absolute inset-0 hidden sm:block"
           style={{
             background:
               "radial-gradient(120% 85% at 50% 45%, transparent 35%, rgba(0,0,0,0.35) 65%, #000000 100%)",
@@ -207,28 +232,28 @@ export const Phase2AI: React.FC = () => {
         />
 
         {/* Corner HUD Framing Elements */}
-        <div className="pointer-events-none absolute left-6 top-24 text-[#d4a22f] md:left-10 md:top-28">
+        <div className="pointer-events-none absolute left-6 top-24 text-[#d4a22f] md:left-10 md:top-28 hidden sm:block">
           <HudFrame corner="tl" size={26} />
         </div>
-        <div className="pointer-events-none absolute right-6 top-24 text-[#d4a22f] md:right-10 md:top-28">
+        <div className="pointer-events-none absolute right-6 top-24 text-[#d4a22f] md:right-10 md:top-28 hidden sm:block">
           <HudFrame corner="tr" size={26} />
         </div>
-        <div className="pointer-events-none absolute bottom-14 left-6 text-[#d4a22f] md:bottom-16 md:left-10">
+        <div className="pointer-events-none absolute bottom-14 left-6 text-[#d4a22f] md:bottom-16 md:left-10 hidden sm:block">
           <HudFrame corner="bl" size={26} />
         </div>
-        <div className="pointer-events-none absolute bottom-14 right-6 text-[#d4a22f] md:bottom-16 md:right-10">
+        <div className="pointer-events-none absolute bottom-14 right-6 text-[#d4a22f] md:bottom-16 md:right-10 hidden sm:block">
           <HudFrame corner="br" size={26} />
         </div>
 
         {/* Top Status Indicators */}
-        <div className="pointer-events-none absolute left-6 top-20 z-10 flex items-center gap-2 md:left-10 md:top-24">
+        <div className="pointer-events-none absolute left-6 top-20 z-10 hidden sm:flex items-center gap-2 md:left-10 md:top-24">
           <div className="h-px w-8 bg-[#d4a22f]/60" />
           <span className="font-mono text-[10px] uppercase tracking-[0.32em] text-zinc-400">
             Phase 02 // Applied AI Systems &mdash; Live
           </span>
         </div>
 
-        <div className="pointer-events-none absolute right-6 top-20 z-10 flex items-center gap-3 md:right-10 md:top-24">
+        <div className="pointer-events-none absolute right-6 top-20 z-10 hidden sm:flex items-center gap-3 md:right-10 md:top-24">
           <span className="font-mono text-[10px] uppercase tracking-[0.32em] text-zinc-400">
             Neural Sync
           </span>
@@ -264,10 +289,10 @@ export const Phase2AI: React.FC = () => {
         {/* Left Side: Elevated Glassmorphic AI Card */}
         <div
           ref={cardRef}
-          className="pointer-events-none absolute left-3 right-3 sm:left-6 md:left-14 sm:right-auto top-[10%] sm:top-[14%] md:top-[16%] lg:top-[18%] z-20 w-auto sm:w-[420px] max-w-full sm:max-w-[92vw]"
+          className="pointer-events-none absolute left-3 right-3 sm:left-6 md:left-14 sm:right-auto top-14 sm:top-[14%] md:top-[16%] lg:top-[18%] z-20 w-auto sm:w-[420px] max-w-full sm:max-w-[92vw]"
           style={{ opacity: 0, transition: "opacity 80ms linear, transform 80ms linear" }}
         >
-          <div className="card-surface pointer-events-auto p-4 sm:p-5 md:p-6 space-y-3 sm:space-y-3.5 border border-[#d4a22f]/30 shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
+          <div className="card-surface pointer-events-auto p-3.5 sm:p-5 md:p-6 space-y-2.5 sm:space-y-3.5 border border-[#d4a22f]/30 shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
             <div className="flex items-center justify-between">
               <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#d4a22f] flex items-center gap-1.5">
                 <Sparkles size={14} />
