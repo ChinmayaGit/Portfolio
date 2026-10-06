@@ -1,179 +1,96 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { EyebrowBadge } from "../ui/EyebrowBadge";
 import { HudFrame } from "../ui/HudFrame";
 import { ArrowDown } from "lucide-react";
 
-export const FRAME_COUNT = 100;
-export const framePath = (n: number) =>
-  `/frames/ezgif-frame-${String(n).padStart(3, "0")}.jpg`;
-
 export const Phase1Intro: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const heroTextRef = useRef<HTMLDivElement | null>(null);
   const progressFillRef = useRef<HTMLDivElement | null>(null);
   const powerReadoutRef = useRef<HTMLSpanElement | null>(null);
   const seqReadoutRef = useRef<HTMLSpanElement | null>(null);
 
-  const framesRef = useRef<HTMLImageElement[]>([]);
   const tickingRef = useRef(false);
-  const lastFrameRef = useRef(-1);
-
-  const [loadProgress, setLoadProgress] = useState(0);
   const [loaded, setLoaded] = useState(false);
 
-  // Fast-start frame loader with keyframe prioritization
+  // Initialize and prime video for responsive scrubbing
   useEffect(() => {
-    let cancelled = false;
-    const imgs: HTMLImageElement[] = new Array(FRAME_COUNT);
-    let loadedCount = 0;
+    const video = videoRef.current;
+    if (!video) return;
 
-    const registerLoaded = () => {
-      if (cancelled) return;
-      loadedCount++;
-      setLoadProgress(loadedCount / FRAME_COUNT);
-      if (loadedCount >= 10 && !loaded) {
-        setLoaded(true);
+    video.muted = true;
+
+    const onReady = () => {
+      setLoaded(true);
+      if (video.duration && !isNaN(video.duration)) {
+        video.currentTime = 0;
       }
     };
 
-    const loadSingleFrame = (idx: number, isCritical = false) => {
-      const img = new Image();
-      img.src = framePath(idx + 1);
-      img.onload = () => {
-        if (cancelled) return;
-        imgs[idx] = img;
-        registerLoaded();
-        if (isCritical && idx === 0) {
-          drawFrame(0);
-        } else if (lastFrameRef.current === idx) {
-          drawFrame(idx);
-        }
-      };
-      img.onerror = () => {
-        if (cancelled) return;
-        imgs[idx] = img;
-        registerLoaded();
-      };
-    };
+    video.addEventListener("loadeddata", onReady);
+    video.addEventListener("canplay", onReady);
 
-    // 1. Immediately request the 1st frame
-    loadSingleFrame(0, true);
-
-    // 2. Request keyframes every 4th frame for instant scrub response
-    for (let i = 4; i < FRAME_COUNT; i += 4) {
-      loadSingleFrame(i);
+    if (video.readyState >= 2) {
+      onReady();
     }
 
-    // 3. Load all remaining frames
-    for (let i = 1; i < FRAME_COUNT; i++) {
-      if (i % 4 !== 0) {
-        loadSingleFrame(i);
-      }
+    // Prime hardware decoder session
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          video.pause();
+          video.currentTime = 0;
+        })
+        .catch(() => {});
     }
-
-    framesRef.current = imgs;
 
     return () => {
-      cancelled = true;
+      video.removeEventListener("loadeddata", onReady);
+      video.removeEventListener("canplay", onReady);
     };
   }, []);
 
-  const drawFrame = useCallback((index: number) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+  // Butter-smooth scroll-linked video scrubbing
+  useEffect(() => {
+    let animationFrameId: number;
+    let isSeeking = false;
+    let pendingTargetTime = 0;
 
-    let img = framesRef.current[index];
-    if (!img || !img.complete || !img.naturalWidth) {
-      for (let offset = 1; offset < FRAME_COUNT; offset++) {
-        if (index - offset >= 0) {
-          const prev = framesRef.current[index - offset];
-          if (prev && prev.complete && prev.naturalWidth) {
-            img = prev;
-            break;
-          }
-        }
-        if (index + offset < FRAME_COUNT) {
-          const next = framesRef.current[index + offset];
-          if (next && next.complete && next.naturalWidth) {
-            img = next;
-            break;
-          }
+    const requestVideoSeek = (targetTime: number) => {
+      const video = videoRef.current;
+      if (!video || !video.duration || isNaN(video.duration)) return;
+
+      pendingTargetTime = targetTime;
+
+      if (!isSeeking && Math.abs(video.currentTime - targetTime) > 0.02) {
+        isSeeking = true;
+        if ("fastSeek" in video && typeof (video as any).fastSeek === "function") {
+          (video as any).fastSeek(targetTime);
+        } else {
+          video.currentTime = targetTime;
         }
       }
-    }
+    };
 
-    if (!img || !img.complete || !img.naturalWidth) return;
+    const onSeeked = () => {
+      isSeeking = false;
+      const video = videoRef.current;
+      if (video && Math.abs(video.currentTime - pendingTargetTime) > 0.03) {
+        requestVideoSeek(pendingTargetTime);
+      }
+    };
 
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = "high";
-
-    const cw = canvas.width;
-    const ch = canvas.height;
-    const imgRatio = img.naturalWidth / img.naturalHeight;
-    const canvasRatio = cw / ch;
-
-    const isMobile = window.innerWidth <= 768;
-    // Zoom out so 1280x720 frames stay crisp without pixelation or stretching
-    const zoomFactor = isMobile ? 0.90 : 0.80;
-
-    let drawW: number;
-    let drawH: number;
-    if (canvasRatio > imgRatio) {
-      drawH = ch * zoomFactor;
-      drawW = drawH * imgRatio;
-    } else {
-      drawW = cw * zoomFactor;
-      drawH = drawW / imgRatio;
-    }
-
-    const maxDrawW = img.naturalWidth * (window.devicePixelRatio || 1) * 1.2;
-    if (drawW > maxDrawW && !isMobile) {
-      drawW = maxDrawW;
-      drawH = drawW / imgRatio;
-    }
-
-    const drawX = (cw - drawW) / 2;
-    const drawY = (ch - drawH) / 2;
-
-    ctx.fillStyle = "#000000";
-    ctx.fillRect(0, 0, cw, ch);
-    ctx.drawImage(img, drawX, drawY, drawW, drawH);
-  }, []);
-
-  const resizeCanvas = useCallback(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = window.innerWidth * dpr;
-    canvas.height = window.innerHeight * dpr;
-    canvas.style.width = window.innerWidth + "px";
-    canvas.style.height = window.innerHeight + "px";
-    drawFrame(lastFrameRef.current >= 0 ? lastFrameRef.current : 0);
-  }, [drawFrame]);
-
-  useEffect(() => {
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
-    return () => window.removeEventListener("resize", resizeCanvas);
-  }, [resizeCanvas]);
-
-  useEffect(() => {
-    drawFrame(0);
-    lastFrameRef.current = 0;
-  }, [drawFrame]);
-
-  useEffect(() => {
     const handleScroll = () => {
       if (tickingRef.current) return;
       tickingRef.current = true;
 
-      requestAnimationFrame(() => {
+      animationFrameId = requestAnimationFrame(() => {
         tickingRef.current = false;
         const section = sectionRef.current;
-        if (!section) return;
+        const video = videoRef.current;
+        if (!section || !video) return;
 
         const rect = section.getBoundingClientRect();
         const scrollable = section.offsetHeight - window.innerHeight;
@@ -182,17 +99,15 @@ export const Phase1Intro: React.FC = () => {
             ? 0
             : Math.min(1, Math.max(0, -rect.top / scrollable));
 
-        const frameIndex = Math.min(
-          FRAME_COUNT - 1,
-          Math.floor(progress * FRAME_COUNT)
-        );
-
-        if (frameIndex !== lastFrameRef.current) {
-          lastFrameRef.current = frameIndex;
-          drawFrame(frameIndex);
+        if (video.duration && !isNaN(video.duration)) {
+          const targetTime = Math.min(
+            video.duration - 0.05,
+            Math.max(0, progress * video.duration)
+          );
+          requestVideoSeek(targetTime);
         }
 
-        // Hero initial text fade (0.00 to 0.40)
+        // Hero initial text fade (0.00 to 0.35)
         if (heroTextRef.current) {
           const opacity = Math.max(0, Math.min(1, 1 - progress / 0.35));
           heroTextRef.current.style.opacity = String(opacity);
@@ -210,28 +125,46 @@ export const Phase1Intro: React.FC = () => {
         }
 
         if (seqReadoutRef.current) {
-          seqReadoutRef.current.textContent = `SEQ ${String(frameIndex + 1).padStart(3, "0")} / ${FRAME_COUNT}`;
+          const frameNum = Math.min(100, Math.floor(progress * 100) + 1);
+          seqReadoutRef.current.textContent = `SEQ ${String(frameNum).padStart(3, "0")} / 100`;
         }
       });
     };
 
+    const video = videoRef.current;
+    if (video) {
+      video.addEventListener("seeked", onSeeked);
+    }
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [drawFrame]);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener("scroll", handleScroll);
+      if (video) {
+        video.removeEventListener("seeked", onSeeked);
+      }
+    };
+  }, []);
 
   return (
     <section id="intro" ref={sectionRef} className="phase-scroll relative">
       <div
-        className="sticky top-0 h-[100dvh] w-full overflow-hidden bg-black"
+        className="sticky top-0 h-[100dvh] w-full overflow-hidden bg-black flex items-center justify-center"
         style={{ willChange: "transform", transform: "translateZ(0)" }}
       >
-        <canvas
-          ref={canvasRef}
-          className="absolute inset-0 h-full w-full"
-          style={{ willChange: "contents", transform: "translateZ(0)" }}
+        <video
+          ref={videoRef}
+          src="/1st.mp4"
+          muted
+          playsInline
+          preload="auto"
+          className="h-full w-full object-contain pointer-events-none select-none scale-[0.90] md:scale-[0.82]"
+          style={{ willChange: "transform" }}
         />
 
+        {/* Seamless edge blend vignette */}
         <div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -258,24 +191,27 @@ export const Phase1Intro: React.FC = () => {
         <div className="pointer-events-none absolute left-6 top-20 z-10 flex items-center gap-2 md:left-10 md:top-24">
           <div className="h-px w-8 bg-[#d4a22f]/60" />
           <span className="font-mono text-[10px] uppercase tracking-[0.32em] text-zinc-400">
-            Phase 01 // System Core &mdash; Live
+            Phase 01 // Systems Initialization &mdash; Ready
           </span>
         </div>
 
         <div className="pointer-events-none absolute right-6 top-20 z-10 flex items-center gap-3 md:right-10 md:top-24">
           <span className="font-mono text-[10px] uppercase tracking-[0.32em] text-zinc-400">
-            Arc Reactor
+            Optic Matrix
           </span>
           <span
             ref={powerReadoutRef}
             className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#d4a22f]"
           >
-            88.5%
+            98.5%
           </span>
-          <span aria-hidden className="inline-block h-1.5 w-1.5 rounded-full bg-[#d4a22f] shadow-[0_0_10px_rgba(212,162,47,0.85)] animate-pulse" />
+          <span
+            aria-hidden
+            className="inline-block h-1.5 w-1.5 rounded-full bg-[#d4a22f] shadow-[0_0_10px_rgba(212,162,47,0.85)] animate-pulse"
+          />
         </div>
 
-        {/* Hero Initial State Content */}
+        {/* Center / Bottom Cinematic Hero Content */}
         <div
           ref={heroTextRef}
           className="absolute inset-x-0 bottom-0 z-10 flex flex-col items-start gap-4 px-6 pb-24 md:px-12 md:pb-28"
@@ -317,7 +253,7 @@ export const Phase1Intro: React.FC = () => {
             />
           </div>
           <div className="mx-6 flex items-center justify-between pb-4 font-mono text-[10px] uppercase tracking-[0.28em] text-zinc-500 md:mx-10">
-            <span ref={seqReadoutRef}>SEQ 001 / {FRAME_COUNT}</span>
+            <span ref={seqReadoutRef}>SEQ 001 / 100</span>
             <span>PHASE 01 // INTRO SEQUENCE</span>
             <span>Scroll &darr;</span>
           </div>
@@ -325,16 +261,13 @@ export const Phase1Intro: React.FC = () => {
 
         {/* Loading Overlay */}
         {!loaded && (
-          <div className="absolute inset-0 z-30 flex flex-col items-center justify-center gap-5 bg-[#0a0a0b] px-6">
+          <div className="absolute inset-0 z-30 flex flex-col items-center justify-center gap-5 bg-black px-6">
             <EyebrowBadge>CHINMAYA.DEV // BOOTING</EyebrowBadge>
             <div className="h-px w-60 bg-white/10 md:w-80">
-              <div
-                className="h-full bg-[#d4a22f] transition-[width] duration-150 ease-out"
-                style={{ width: `${Math.round(loadProgress * 100)}%` }}
-              />
+              <div className="h-full w-full bg-[#d4a22f] animate-pulse" />
             </div>
             <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-zinc-500">
-              Loading Diagnostics &nbsp;&middot;&nbsp; {Math.round(loadProgress * 100)}%
+              Streaming Optical Sequence
             </p>
           </div>
         )}

@@ -1,175 +1,97 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { EyebrowBadge } from "../ui/EyebrowBadge";
 import { HudFrame } from "../ui/HudFrame";
 import { Shield, Lock, CheckCircle2 } from "lucide-react";
 
-export const FRAME_COUNT = 150;
-export const framePath = (n: number) =>
-  `/Network/ezgif-frame-${String(n).padStart(3, "0")}.jpg`;
-
 export const Phase3Network: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const leftTextRef = useRef<HTMLDivElement | null>(null);
   const cardRef = useRef<HTMLDivElement | null>(null);
   const progressFillRef = useRef<HTMLDivElement | null>(null);
   const powerReadoutRef = useRef<HTMLSpanElement | null>(null);
   const seqReadoutRef = useRef<HTMLSpanElement | null>(null);
 
-  const framesRef = useRef<HTMLImageElement[]>([]);
   const tickingRef = useRef(false);
-  const lastFrameRef = useRef(-1);
-
-  const [loadProgress, setLoadProgress] = useState(0);
   const [loaded, setLoaded] = useState(false);
 
+  // Initialize and prime video for responsive scrubbing
   useEffect(() => {
-    let cancelled = false;
-    const imgs: HTMLImageElement[] = new Array(FRAME_COUNT);
-    let loadedCount = 0;
+    const video = videoRef.current;
+    if (!video) return;
 
-    const registerLoaded = () => {
-      if (cancelled) return;
-      loadedCount++;
-      setLoadProgress(loadedCount / FRAME_COUNT);
-      if (loadedCount >= 8 && !loaded) {
-        setLoaded(true);
+    video.muted = true;
+
+    const onReady = () => {
+      setLoaded(true);
+      if (video.duration && !isNaN(video.duration)) {
+        video.currentTime = 0;
       }
     };
 
-    const loadSingleFrame = (idx: number, isCritical = false) => {
-      const img = new Image();
-      img.src = framePath(idx + 1);
-      img.onload = () => {
-        if (cancelled) return;
-        imgs[idx] = img;
-        registerLoaded();
-        if (isCritical && idx === 0) {
-          drawFrame(0);
-        } else if (lastFrameRef.current === idx) {
-          drawFrame(idx);
-        }
-      };
-      img.onerror = () => {
-        if (cancelled) return;
-        imgs[idx] = img;
-        registerLoaded();
-      };
-    };
+    video.addEventListener("loadeddata", onReady);
+    video.addEventListener("canplay", onReady);
 
-    loadSingleFrame(0, true);
-
-    for (let i = 4; i < FRAME_COUNT; i += 4) {
-      loadSingleFrame(i);
+    if (video.readyState >= 2) {
+      onReady();
     }
 
-    for (let i = 1; i < FRAME_COUNT; i++) {
-      if (i % 4 !== 0) {
-        loadSingleFrame(i);
-      }
+    // Prime hardware decoder session
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          video.pause();
+          video.currentTime = 0;
+        })
+        .catch(() => {});
     }
 
-    framesRef.current = imgs;
     return () => {
-      cancelled = true;
+      video.removeEventListener("loadeddata", onReady);
+      video.removeEventListener("canplay", onReady);
     };
   }, []);
 
-  const drawFrame = useCallback((index: number) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+  // Butter-smooth scroll-linked video scrubbing
+  useEffect(() => {
+    let animationFrameId: number;
+    let isSeeking = false;
+    let pendingTargetTime = 0;
 
-    let img = framesRef.current[index];
-    if (!img || !img.complete || !img.naturalWidth) {
-      for (let offset = 1; offset < FRAME_COUNT; offset++) {
-        if (index - offset >= 0) {
-          const prev = framesRef.current[index - offset];
-          if (prev && prev.complete && prev.naturalWidth) {
-            img = prev;
-            break;
-          }
-        }
-        if (index + offset < FRAME_COUNT) {
-          const next = framesRef.current[index + offset];
-          if (next && next.complete && next.naturalWidth) {
-            img = next;
-            break;
-          }
+    const requestVideoSeek = (targetTime: number) => {
+      const video = videoRef.current;
+      if (!video || !video.duration || isNaN(video.duration)) return;
+
+      pendingTargetTime = targetTime;
+
+      if (!isSeeking && Math.abs(video.currentTime - targetTime) > 0.02) {
+        isSeeking = true;
+        if ("fastSeek" in video && typeof (video as any).fastSeek === "function") {
+          (video as any).fastSeek(targetTime);
+        } else {
+          video.currentTime = targetTime;
         }
       }
-    }
+    };
 
-    if (!img || !img.complete || !img.naturalWidth) return;
+    const onSeeked = () => {
+      isSeeking = false;
+      const video = videoRef.current;
+      if (video && Math.abs(video.currentTime - pendingTargetTime) > 0.03) {
+        requestVideoSeek(pendingTargetTime);
+      }
+    };
 
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = "high";
-
-    const cw = canvas.width;
-    const ch = canvas.height;
-    const imgRatio = img.naturalWidth / img.naturalHeight;
-    const canvasRatio = cw / ch;
-
-    const isMobile = window.innerWidth <= 768;
-    // Zoom out so 1280x720 frames stay crisp without pixelation or stretching
-    const zoomFactor = isMobile ? 0.90 : 0.80;
-
-    let drawW: number;
-    let drawH: number;
-    if (canvasRatio > imgRatio) {
-      drawH = ch * zoomFactor;
-      drawW = drawH * imgRatio;
-    } else {
-      drawW = cw * zoomFactor;
-      drawH = drawW / imgRatio;
-    }
-
-    const maxDrawW = img.naturalWidth * (window.devicePixelRatio || 1) * 1.2;
-    if (drawW > maxDrawW && !isMobile) {
-      drawW = maxDrawW;
-      drawH = drawW / imgRatio;
-    }
-
-    const drawX = (cw - drawW) / 2;
-    const drawY = (ch - drawH) / 2;
-
-    ctx.fillStyle = "#000000";
-    ctx.fillRect(0, 0, cw, ch);
-    ctx.drawImage(img, drawX, drawY, drawW, drawH);
-  }, []);
-
-  const resizeCanvas = useCallback(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = window.innerWidth * dpr;
-    canvas.height = window.innerHeight * dpr;
-    canvas.style.width = window.innerWidth + "px";
-    canvas.style.height = window.innerHeight + "px";
-    drawFrame(lastFrameRef.current >= 0 ? lastFrameRef.current : 0);
-  }, [drawFrame]);
-
-  useEffect(() => {
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
-    return () => window.removeEventListener("resize", resizeCanvas);
-  }, [resizeCanvas]);
-
-  useEffect(() => {
-    drawFrame(0);
-    lastFrameRef.current = 0;
-  }, [drawFrame]);
-
-  useEffect(() => {
     const handleScroll = () => {
       if (tickingRef.current) return;
       tickingRef.current = true;
 
-      requestAnimationFrame(() => {
+      animationFrameId = requestAnimationFrame(() => {
         tickingRef.current = false;
         const section = sectionRef.current;
-        if (!section) return;
+        const video = videoRef.current;
+        if (!section || !video) return;
 
         const rect = section.getBoundingClientRect();
         const scrollable = section.offsetHeight - window.innerHeight;
@@ -178,17 +100,15 @@ export const Phase3Network: React.FC = () => {
             ? 0
             : Math.min(1, Math.max(0, -rect.top / scrollable));
 
-        const frameIndex = Math.min(
-          FRAME_COUNT - 1,
-          Math.floor(progress * FRAME_COUNT)
-        );
-
-        if (frameIndex !== lastFrameRef.current) {
-          lastFrameRef.current = frameIndex;
-          drawFrame(frameIndex);
+        if (video.duration && !isNaN(video.duration)) {
+          const targetTime = Math.min(
+            video.duration - 0.05,
+            Math.max(0, progress * video.duration)
+          );
+          requestVideoSeek(targetTime);
         }
 
-        // Left text animation (0.04 to 0.96)
+        // Left branding animation (fades in 0.04-0.18, fades out 0.82-0.96)
         if (leftTextRef.current) {
           let op = 0;
           if (progress >= 0.04 && progress <= 0.96) {
@@ -200,7 +120,7 @@ export const Phase3Network: React.FC = () => {
           leftTextRef.current.style.transform = `translateY(${(1 - op) * 14}px)`;
         }
 
-        // Right network card animation
+        // Right Network card animation (fades in 0.06-0.20, fades out 0.80-0.94)
         if (cardRef.current) {
           let op = 0;
           if (progress >= 0.06 && progress <= 0.94) {
@@ -223,28 +143,46 @@ export const Phase3Network: React.FC = () => {
         }
 
         if (seqReadoutRef.current) {
-          seqReadoutRef.current.textContent = `SEQ ${String(frameIndex + 1).padStart(3, "0")} / ${FRAME_COUNT}`;
+          const frameNum = Math.min(100, Math.floor(progress * 100) + 1);
+          seqReadoutRef.current.textContent = `SEQ ${String(frameNum).padStart(3, "0")} / 100`;
         }
       });
     };
 
+    const video = videoRef.current;
+    if (video) {
+      video.addEventListener("seeked", onSeeked);
+    }
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [drawFrame]);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener("scroll", handleScroll);
+      if (video) {
+        video.removeEventListener("seeked", onSeeked);
+      }
+    };
+  }, []);
 
   return (
     <section id="network" ref={sectionRef} className="phase-scroll relative">
       <div
-        className="sticky top-0 h-[100dvh] w-full overflow-hidden bg-black"
+        className="sticky top-0 h-[100dvh] w-full overflow-hidden bg-black flex items-center justify-center"
         style={{ willChange: "transform", transform: "translateZ(0)" }}
       >
-        <canvas
-          ref={canvasRef}
-          className="absolute inset-0 h-full w-full"
-          style={{ willChange: "contents", transform: "translateZ(0)" }}
+        <video
+          ref={videoRef}
+          src="/Security.mp4"
+          muted
+          playsInline
+          preload="auto"
+          className="h-full w-full object-contain pointer-events-none select-none scale-[0.90] md:scale-[0.82]"
+          style={{ willChange: "transform" }}
         />
 
+        {/* Seamless edge blend vignette */}
         <div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -285,7 +223,10 @@ export const Phase3Network: React.FC = () => {
           >
             95.8%
           </span>
-          <span aria-hidden className="inline-block h-1.5 w-1.5 rounded-full bg-[#d4a22f] shadow-[0_0_10px_rgba(212,162,47,0.85)] animate-pulse" />
+          <span
+            aria-hidden
+            className="inline-block h-1.5 w-1.5 rounded-full bg-[#d4a22f] shadow-[0_0_10px_rgba(212,162,47,0.85)] animate-pulse"
+          />
         </div>
 
         {/* Left Side: Network Engineer Heading */}
@@ -295,7 +236,10 @@ export const Phase3Network: React.FC = () => {
           style={{ opacity: 0, transition: "opacity 80ms linear, transform 80ms linear" }}
         >
           <span className="inline-flex items-center gap-2.5 font-mono text-[10px] uppercase tracking-[0.3em] text-[#d4a22f]">
-            <span aria-hidden className="inline-block h-1.5 w-1.5 rounded-full bg-[#d4a22f] shadow-[0_0_10px_rgba(212,162,47,0.85)]" />
+            <span
+              aria-hidden
+              className="inline-block h-1.5 w-1.5 rounded-full bg-[#d4a22f] shadow-[0_0_10px_rgba(212,162,47,0.85)]"
+            />
             Phase 03 &mdash; Enterprise Cyber
           </span>
           <h2 className="font-sans font-semibold leading-[0.88] tracking-tighter text-white text-[clamp(3.5rem,7.5vw,7.5rem)]">
@@ -372,25 +316,19 @@ export const Phase3Network: React.FC = () => {
             />
           </div>
           <div className="mx-6 flex items-center justify-between pb-4 font-mono text-[10px] uppercase tracking-[0.28em] text-zinc-500 md:mx-10">
-            <span ref={seqReadoutRef}>SEQ 001 / {FRAME_COUNT}</span>
+            <span ref={seqReadoutRef}>SEQ 001 / 100</span>
             <span>PHASE 03 // CYBER DEFENSE SEQUENCE</span>
             <span>Scroll &darr;</span>
           </div>
         </div>
 
-        {/* Loading Overlay */}
+        {/* Sleek Loading Overlay */}
         {!loaded && (
-          <div className="absolute inset-0 z-30 flex flex-col items-center justify-center gap-5 bg-[#0a0a0b] px-6">
+          <div className="absolute inset-0 z-30 flex flex-col items-center justify-center gap-4 bg-black/90 px-6 backdrop-blur-sm">
             <EyebrowBadge>CYBER CORE // VERIFYING</EyebrowBadge>
-            <div className="h-px w-60 bg-white/10 md:w-80">
-              <div
-                className="h-full bg-[#d4a22f] transition-[width] duration-150 ease-out"
-                style={{ width: `${Math.round(loadProgress * 100)}%` }}
-              />
+            <div className="h-1 w-48 overflow-hidden rounded-full bg-white/10">
+              <div className="h-full w-full bg-[#d4a22f] animate-pulse" />
             </div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-zinc-500">
-              Loading Network Sequence &nbsp;&middot;&nbsp; {Math.round(loadProgress * 100)}%
-            </p>
           </div>
         )}
       </div>
