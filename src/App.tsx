@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { SystemLoadingScreen } from "./components/SystemLoadingScreen";
 import { Navbar } from "./components/ui/Navbar";
 import { Phase1Intro } from "./components/sections/Phase1Intro";
 import { Phase2AI } from "./components/sections/Phase2AI";
@@ -11,6 +12,7 @@ import { CertificationsTabModal } from "./components/modals/CertificationsTabMod
 import { ContactTabModal } from "./components/modals/ContactTabModal";
 
 export const App: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [activeModal, setActiveModal] = useState<
     "projects" | "certifications" | "contact" | null
   >(null);
@@ -22,6 +24,11 @@ export const App: React.FC = () => {
 
   return (
     <div className="relative min-h-screen bg-[#0a0a0b] text-[#e4e4e7] selection:bg-[#d4a22f] selection:text-black">
+      {/* Global Phase Preloader */}
+      {isLoading && (
+        <SystemLoadingScreen onComplete={() => setIsLoading(false)} />
+      )}
+
       {/* Sleek Top Navigation Bar */}
       <Navbar
         onOpenProjects={handleOpenProjects}
@@ -43,7 +50,7 @@ export const App: React.FC = () => {
         {/* Phase 4: Cloud (Cloud Developer / AWS Solutions Architect / OCI & Azure) */}
         <Phase4Cloud />
 
-        {/* Phase 5: Systems Nominal ("And I... am... Systems Architect" + bottom-right tabs) */}
+        {/* Phase 5: Systems Nominal (Full-Stack & Systems Architect + bottom-right tabs) */}
         <SystemsNominal
           onOpenProjects={handleOpenProjects}
           onOpenCertifications={handleOpenCertifications}

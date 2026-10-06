@@ -1,74 +1,63 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Cpu, Terminal } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Cpu, Terminal, ArrowRight } from "lucide-react";
+import { preloadInitialPhases } from "../utils/frameLoader";
 
 interface SystemLoadingScreenProps {
   onComplete: () => void;
 }
 
-const DIAGNOSTIC_STEPS = [
-  { threshold: 0, text: 'INITIALIZING QUANTUM RUNTIME // CORE v2.6' },
-  { threshold: 22, text: 'CONFIGURING 6 TECH DOMAINS (AI, CLOUD, WEB, MOBILE, 3D, SYSTEMS)...' },
-  { threshold: 48, text: 'INDEXING 71+ OPEN-SOURCE REPOSITORIES...' },
-  { threshold: 72, text: 'AUTHENTICATING 30+ CERTIFICATIONS (ORACLE, CLAUDE, AWS, DELOITTE)...' },
-  { threshold: 92, text: 'SYSTEM OPTIMAL // DISPATCHING DEV MATRIX...' },
-];
-
-export const SystemLoadingScreen: React.FC<SystemLoadingScreenProps> = ({ onComplete }) => {
+export const SystemLoadingScreen: React.FC<SystemLoadingScreenProps> = ({
+  onComplete,
+}) => {
   const [progress, setProgress] = useState(0);
-  const [statusText, setStatusText] = useState(DIAGNOSTIC_STEPS[0].text);
+  const [statusText, setStatusText] = useState("INITIALIZING SYSTEM RUNTIME...");
   const [isFinished, setIsFinished] = useState(false);
 
   useEffect(() => {
-    // Escape key instantly completes loader
+    let cancelled = false;
+
+    // Allow user to instantly skip via Escape key
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         setProgress(100);
         setIsFinished(true);
-        setTimeout(onComplete, 300);
+        setTimeout(onComplete, 250);
       }
     };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [onComplete]);
+    window.addEventListener("keydown", handleKeyDown);
 
-  useEffect(() => {
-    let current = 0;
-    const interval = setInterval(() => {
-      // Nonlinear progression: faster start, brief pause around 70%, then finishes
-      let increment = 1;
-      if (current < 30) increment = Math.random() * 4 + 2;
-      else if (current < 70) increment = Math.random() * 3 + 1.5;
-      else if (current < 90) increment = Math.random() * 2 + 1;
-      else increment = Math.random() * 3 + 2;
-
-      current = Math.min(100, Math.round(current + increment));
-      setProgress(current);
-
-      // Update diagnostic text according to threshold
-      for (let i = DIAGNOSTIC_STEPS.length - 1; i >= 0; i--) {
-        if (current >= DIAGNOSTIC_STEPS[i].threshold) {
-          setStatusText(DIAGNOSTIC_STEPS[i].text);
-          break;
-        }
-      }
-
-      if (current >= 100) {
-        clearInterval(interval);
+    // Start real preloading of Phase 1 and Phase 2
+    preloadInitialPhases((pct, status) => {
+      if (cancelled) return;
+      setProgress(pct);
+      setStatusText(status);
+    })
+      .then(() => {
+        if (cancelled) return;
+        setProgress(100);
         setTimeout(() => {
           setIsFinished(true);
-          setTimeout(onComplete, 450);
-        }, 250);
-      }
-    }, 28);
+          setTimeout(onComplete, 350);
+        }, 200);
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setProgress(100);
+        setIsFinished(true);
+        setTimeout(onComplete, 200);
+      });
 
-    return () => clearInterval(interval);
+    return () => {
+      cancelled = true;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, [onComplete]);
 
   const handleSkip = () => {
     setProgress(100);
     setIsFinished(true);
-    setTimeout(onComplete, 250);
+    setTimeout(onComplete, 200);
   };
 
   return (
@@ -77,19 +66,19 @@ export const SystemLoadingScreen: React.FC<SystemLoadingScreenProps> = ({ onComp
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.3, ease: 'easeOut' }}
-          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#101214] text-white px-4 overflow-hidden select-none will-change-[opacity]"
+          transition={{ duration: 0.4, ease: "easeInOut" }}
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#0a0a0b] text-white px-4 overflow-hidden select-none will-change-[opacity]"
         >
-          {/* Ambient Background Radial Glows */}
-          <div className="absolute w-[500px] h-[500px] bg-[#ff4f36]/12 rounded-full blur-[120px] pointer-events-none" />
-          <div className="absolute w-[360px] h-[360px] bg-[#3687ff]/12 rounded-full blur-[100px] pointer-events-none" />
+          {/* Subtle Ambient Radial Glows in Gold */}
+          <div className="absolute w-[500px] h-[500px] bg-[#d4a22f]/10 rounded-full blur-[140px] pointer-events-none" />
+          <div className="absolute w-[360px] h-[360px] bg-white/[0.04] rounded-full blur-[100px] pointer-events-none" />
 
           {/* Background Grid Accent Lines */}
           <div
             className="absolute inset-0 opacity-[0.03] pointer-events-none"
             style={{
-              backgroundImage: 'radial-gradient(#ff4f36 1px, transparent 1px)',
-              backgroundSize: '32px 32px',
+              backgroundImage: "radial-gradient(#d4a22f 1px, transparent 1px)",
+              backgroundSize: "32px 32px",
             }}
           />
 
@@ -99,24 +88,24 @@ export const SystemLoadingScreen: React.FC<SystemLoadingScreenProps> = ({ onComp
               {/* Outer Counter-Rotating Dashed Orbit Ring */}
               <motion.div
                 animate={{ rotate: 360 }}
-                transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-                className="absolute inset-0 rounded-full border border-dashed border-[#ff4f36]/40"
+                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                className="absolute inset-0 rounded-full border border-dashed border-[#d4a22f]/40"
               />
 
               {/* Inner Pulsing Gyro Ring */}
               <motion.div
                 animate={{ rotate: -360 }}
-                transition={{ duration: 12, repeat: Infinity, ease: 'linear' }}
-                className="absolute inset-2 rounded-full border border-[#3687ff]/40"
+                transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
+                className="absolute inset-2 rounded-full border border-[#d4a22f]/25"
               />
 
               {/* Central Core Emblem */}
               <motion.div
                 animate={{ scale: [0.96, 1.04, 0.96] }}
-                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl bg-[#14171c] border border-white/[0.12] flex flex-col items-center justify-center shadow-lg shadow-[0_0_20px_rgba(255,79,54,0.3)] backdrop-blur-xl"
+                transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+                className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl bg-[#141417] border border-[#d4a22f]/30 flex flex-col items-center justify-center shadow-lg shadow-[0_0_25px_rgba(212,162,47,0.25)] backdrop-blur-xl"
               >
-                <span className="font-mono font-black text-xl sm:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-[#ff4f36] via-[#ffffff] to-[#3687ff]">
+                <span className="font-mono font-black text-xl sm:text-2xl text-[#d4a22f] tracking-tight">
                   CG
                 </span>
               </motion.div>
@@ -124,12 +113,14 @@ export const SystemLoadingScreen: React.FC<SystemLoadingScreenProps> = ({ onComp
 
             {/* Brand Title */}
             <div className="space-y-1 mb-6">
-              <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-[#ff4f36]/15 border border-[#ff4f36]/30 text-[#ff4f36] text-[11px] font-mono tracking-wider shadow-[0_0_10px_rgba(255,79,54,0.2)]">
+              <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-[#d4a22f]/10 border border-[#d4a22f]/30 text-[#d4a22f] text-[11px] font-mono tracking-wider shadow-[0_0_12px_rgba(212,162,47,0.15)]">
                 <Cpu className="w-3 h-3" />
-                <span className="font-telma font-bold text-xs tracking-normal">Chinmaya Garnaik</span>
+                <span className="font-telma font-bold text-xs tracking-normal">
+                  Chinmaya Garnaik
+                </span>
               </div>
-              <h2 className="text-xl sm:text-2xl font-black tracking-tight text-white font-mono">
-                DEVELOPER MATRIX
+              <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white font-mono uppercase">
+                Full-Stack Systems
               </h2>
             </div>
 
@@ -137,44 +128,45 @@ export const SystemLoadingScreen: React.FC<SystemLoadingScreenProps> = ({ onComp
             <div className="w-full space-y-2">
               {/* Percentage & Progress Header */}
               <div className="flex items-center justify-between text-xs font-mono px-1">
-                <span className="text-slate-400 flex items-center gap-1.5">
-                  <Terminal className="w-3.5 h-3.5 text-[#ff4f36] animate-pulse" />
-                  <span>INITIALIZING</span>
+                <span className="text-zinc-400 flex items-center gap-1.5">
+                  <Terminal className="w-3.5 h-3.5 text-[#d4a22f] animate-pulse" />
+                  <span>PRELOADING PHASE 01 &bull; 02</span>
                 </span>
-                <span className="font-bold text-[#ff4f36] font-mono tracking-wider text-sm">
+                <span className="font-bold text-[#d4a22f] font-mono tracking-wider text-sm">
                   {progress}%
                 </span>
               </div>
 
               {/* The Glowing Progress Bar Track */}
-              <div className="relative w-full h-2.5 sm:h-3 rounded-full bg-[#16191d] border border-white/[0.08] p-[2px] overflow-hidden shadow-inner">
+              <div className="relative w-full h-2 rounded-full bg-[#18181b] border border-white/[0.08] p-[2px] overflow-hidden shadow-inner">
                 {/* Fill Bar */}
                 <motion.div
-                  className="h-full rounded-full bg-gradient-to-r from-[#ff4f36] via-[#ffffff] to-[#3687ff] relative"
+                  className="h-full rounded-full bg-gradient-to-r from-[#d4a22f] via-[#f59e0b] to-[#ffffff] relative"
                   style={{ width: `${progress}%` }}
-                  transition={{ ease: 'linear' }}
+                  transition={{ ease: "linear", duration: 0.15 }}
                 >
-                  {/* Leading Laser Glow / Sparkle */}
-                  <div className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-[#ff4f36] rounded-full blur-[2px] shadow-[0_0_12px_#ff4f36]" />
+                  {/* Leading Laser Glow */}
+                  <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#d4a22f] rounded-full blur-[2px] shadow-[0_0_10px_#d4a22f]" />
                 </motion.div>
               </div>
 
               {/* Live Diagnostic Status Stream */}
               <div className="h-6 flex items-center justify-center">
-                <p className="text-[11px] sm:text-xs font-mono text-slate-400 tracking-wide truncate">
-                  <span className="text-[#ff4f36] mr-1.5">&gt;</span>
-                  {statusText}
+                <p className="text-[11px] sm:text-xs font-mono text-zinc-400 tracking-wide truncate">
+                  <span className="text-[#d4a22f] mr-1.5">&gt;</span>
+                  <span dangerouslySetInnerHTML={{ __html: statusText }} />
                 </p>
               </div>
             </div>
 
             {/* Skip Option */}
-            <div className="mt-8 flex items-center gap-2">
+            <div className="mt-7 flex items-center gap-2">
               <button
                 onClick={handleSkip}
-                className="text-[11px] font-mono text-slate-500 hover:text-[#ff4f36] transition-colors px-2 py-1 rounded border border-transparent hover:border-white/[0.08]"
+                className="inline-flex items-center gap-1.5 text-[11px] font-mono text-zinc-500 hover:text-[#d4a22f] transition-colors px-3 py-1 rounded-full border border-white/5 hover:border-[#d4a22f]/30"
               >
-                Press <span className="text-slate-300 underline">Esc</span> or click to skip intro
+                <span>Skip loader</span>
+                <ArrowRight size={11} />
               </button>
             </div>
           </div>

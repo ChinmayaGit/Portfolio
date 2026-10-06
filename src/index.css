@@ -51,10 +51,6 @@
   color-scheme: dark;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 html,
 body {
   margin: 0;
@@ -124,4 +120,35 @@ body {
     0 20px 40px -20px rgba(0, 0, 0, 0.6);
 }
 
+.scroll-animation {
+  height: 400vh;
+}
+
+@media (max-width: 1024px) {
+  .scroll-animation {
+    height: 350vh;
+  }
+}
+
+@media (max-width: 768px) {
+  .scroll-animation {
+    height: 300vh;
+  }
+}
+
+.phase-scroll {
+  height: 220vh;
+}
+
+@media (max-width: 1024px) {
+  .phase-scroll {
+    height: 190vh;
+  }
+}
+
+@media (max-width: 768px) {
+  .phase-scroll {
+    height: 170vh;
+  }
+}
 

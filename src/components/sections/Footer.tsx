@@ -138,7 +138,7 @@ export const Footer: React.FC<FooterProps> = ({
         </div>
 
         <div className="flex flex-col gap-2 border-t border-white/5 pt-6 font-mono text-[10px] uppercase tracking-[0.28em] text-zinc-500 md:flex-row md:items-center md:justify-between">
-          <span>MARK LXXXV &nbsp;&middot;&nbsp; Chinmaya Garnaik &nbsp;&middot;&nbsp; Full Stack Dev</span>
+          <span>PORTFOLIO &nbsp;&middot;&nbsp; Chinmaya Garnaik &nbsp;&middot;&nbsp; Full Stack Developer</span>
           <span>Crafted with React, TypeScript &amp; Tailwind CSS</span>
         </div>
       </div>
