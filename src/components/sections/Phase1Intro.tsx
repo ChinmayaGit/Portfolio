@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import { EyebrowBadge } from "../ui/EyebrowBadge";
 import { HudFrame } from "../ui/HudFrame";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, ChevronDown } from "lucide-react";
 
 import { FRAME_COUNT } from "../../constants/frameManifest";
 import { frameCache, loadSingleFrame } from "../../utils/frameLoader";
@@ -15,6 +15,7 @@ export const Phase1Intro: React.FC = () => {
   const progressFillRef = useRef<HTMLDivElement | null>(null);
   const powerReadoutRef = useRef<HTMLSpanElement | null>(null);
   const seqReadoutRef = useRef<HTMLSpanElement | null>(null);
+  const scrollIndicatorRef = useRef<HTMLDivElement | null>(null);
 
   const tickingRef = useRef(false);
   const lastFrameRef = useRef(-1);
@@ -164,6 +165,10 @@ export const Phase1Intro: React.FC = () => {
         if (seqReadoutRef.current) {
           seqReadoutRef.current.textContent = `SEQ ${String(frameIndex + 1).padStart(3, "0")} / ${FRAME_COUNT}`;
         }
+
+        if (scrollIndicatorRef.current) {
+          scrollIndicatorRef.current.style.opacity = progress < 0.92 ? "1" : "0";
+        }
       });
     };
 
@@ -257,6 +262,18 @@ export const Phase1Intro: React.FC = () => {
             <ArrowDown size={13} className="animate-bounce text-[#d4a22f] shrink-0 sm:w-3.5 sm:h-3.5" />
             <span>Scroll down to engage Phase 02</span>
           </div>
+        </div>
+
+        {/* Scroll Arrow Indicator: Below Center, Blinking while scroll is left */}
+        <div
+          ref={scrollIndicatorRef}
+          className="pointer-events-none absolute bottom-14 sm:bottom-7 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-0.5 transition-opacity duration-300 animate-pulse"
+          style={{ opacity: 1 }}
+        >
+          <span className="font-mono text-[8px] sm:text-[9px] uppercase tracking-[0.28em] text-zinc-400/60 hidden sm:inline">
+            Scroll
+          </span>
+          <ChevronDown size={18} className="text-[#d4a22f]/80 animate-bounce" />
         </div>
 
         {/* Bottom Sequence Scrubber */}

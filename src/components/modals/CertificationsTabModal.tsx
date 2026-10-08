@@ -62,7 +62,7 @@ export const CertificationsTabModal: React.FC<CertificationsTabModalProps> = ({
   const [activeTab, setActiveTab] = useState<MainTab>("licenses");
   const [selectedSubcat, setSelectedSubcat] = useState<NormalSubcategory>("all");
   const [search, setSearch] = useState("");
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [viewMode, setViewMode] = useState<"grid" | "list">("list");
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [sortBy, setSortBy] = useState<SortOption>("name-asc");
   const [showSortMenu, setShowSortMenu] = useState(false);
@@ -87,7 +87,7 @@ export const CertificationsTabModal: React.FC<CertificationsTabModalProps> = ({
 
   if (!isOpen) return null;
 
-  // Separate data into Licenses vs Normal (Course & Learning Certificates)
+  // Separate data into Licensed vs Normal (Course & Learning Certificates)
   const licensesList = ALL_CERTIFICATIONS.filter((c) => c.kind === "license");
   const normalList = ALL_CERTIFICATIONS.filter((c) => c.kind === "normal");
 
@@ -196,7 +196,7 @@ export const CertificationsTabModal: React.FC<CertificationsTabModalProps> = ({
                   </span>
                 </h3>
                 <p className="text-[10px] sm:text-xs font-mono text-zinc-400 truncate">
-                  Licenses &amp; Industry Coursework
+                  Licensed &amp; Industry Coursework
                 </p>
               </div>
             </div>
@@ -252,22 +252,22 @@ export const CertificationsTabModal: React.FC<CertificationsTabModalProps> = ({
             </div>
           </div>
 
-          {/* Main 2-Tab Navigation: Licenses vs Normal */}
-          <div className="pt-2 sm:pt-4 pb-2 flex items-center justify-between gap-2 border-b border-white/5 shrink-0">
-            <div className="flex items-center gap-1.5 sm:gap-2 w-full sm:w-auto">
+          {/* Main 2-Tab Navigation: Full-Width Expanded */}
+          <div className="pt-2 sm:pt-4 pb-2 border-b border-white/5 shrink-0">
+            <div className="grid grid-cols-2 gap-2 sm:gap-3 w-full">
               <button
                 onClick={() => {
                   setActiveTab("licenses");
                   setSelectedSubcat("all");
                 }}
-                className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-xl font-mono text-[11px] sm:text-xs font-semibold uppercase tracking-wider transition-all duration-200 active:scale-95 ${
+                className={`w-full flex items-center justify-center gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl font-mono text-xs sm:text-sm font-semibold uppercase tracking-wider transition-all duration-200 active:scale-[0.99] ${
                   activeTab === "licenses"
-                    ? "bg-[#d4a22f] text-black shadow-[0_0_20px_rgba(212,162,47,0.35)]"
+                    ? "bg-[#d4a22f] text-black shadow-[0_0_22px_rgba(212,162,47,0.4)]"
                     : "bg-white/[0.04] text-zinc-400 hover:text-white hover:bg-white/[0.08] border border-white/10"
                 }`}
               >
-                <BadgeCheck size={13} className="shrink-0" />
-                <span className="truncate">Licenses ({licensesList.length})</span>
+                <BadgeCheck size={14} className="shrink-0 sm:w-4 sm:h-4" />
+                <span className="truncate">Licensed ({licensesList.length})</span>
               </button>
 
               <button
@@ -275,26 +275,15 @@ export const CertificationsTabModal: React.FC<CertificationsTabModalProps> = ({
                   setActiveTab("normal");
                   setSelectedSubcat("all");
                 }}
-                className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-xl font-mono text-[11px] sm:text-xs font-semibold uppercase tracking-wider transition-all duration-200 active:scale-95 ${
+                className={`w-full flex items-center justify-center gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl font-mono text-xs sm:text-sm font-semibold uppercase tracking-wider transition-all duration-200 active:scale-[0.99] ${
                   activeTab === "normal"
-                    ? "bg-[#d4a22f] text-black shadow-[0_0_20px_rgba(212,162,47,0.35)]"
+                    ? "bg-[#d4a22f] text-black shadow-[0_0_22px_rgba(212,162,47,0.4)]"
                     : "bg-white/[0.04] text-zinc-400 hover:text-white hover:bg-white/[0.08] border border-white/10"
                 }`}
               >
-                <BookOpen size={13} className="shrink-0" />
+                <BookOpen size={14} className="shrink-0 sm:w-4 sm:h-4" />
                 <span className="truncate">Coursework ({normalList.length})</span>
               </button>
-            </div>
-
-            {/* Quick Context Summary Tag */}
-            <div className="font-mono text-[11px] text-zinc-400 hidden sm:block">
-              {activeTab === "licenses" ? (
-                <span className="text-[#d4a22f]">
-                  Official Industry Credentials &bull; AWS, Oracle, SailPoint &amp; Anthropic
-                </span>
-              ) : (
-                <span>Specialized Domain Coursework &bull; Filterable by Vendor</span>
-              )}
             </div>
           </div>
 
@@ -312,7 +301,7 @@ export const CertificationsTabModal: React.FC<CertificationsTabModalProps> = ({
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder={
                     activeTab === "licenses"
-                      ? "Search licenses by name, issuer, ID..."
+                      ? "Search licensed credentials by name, issuer, ID..."
                       : "Search courses by title, topic, or vendor..."
                   }
                   className="w-full pl-8 sm:pl-9 pr-3 sm:pr-4 py-1.5 sm:py-2 rounded-full bg-white/[0.04] border border-white/10 text-white placeholder-zinc-500 text-[11px] sm:text-xs font-mono focus:outline-none focus:border-[#d4a22f]/60"
@@ -455,7 +444,7 @@ export const CertificationsTabModal: React.FC<CertificationsTabModalProps> = ({
                         </span>
                         {cert.kind === "license" && (
                           <span className="px-1.5 py-0.5 rounded text-[9px] font-mono bg-[#d4a22f]/10 text-[#d4a22f] border border-[#d4a22f]/20 uppercase">
-                            Official License
+                            Licensed Credential
                           </span>
                         )}
                       </div>
@@ -540,7 +529,7 @@ export const CertificationsTabModal: React.FC<CertificationsTabModalProps> = ({
                         </span>
                         {cert.kind === "license" && (
                           <span className="px-1.5 py-0.2 rounded text-[9px] font-mono bg-[#d4a22f]/10 text-[#d4a22f] border border-[#d4a22f]/20 uppercase">
-                            Official License
+                            Licensed Credential
                           </span>
                         )}
                         <span className="text-zinc-500 font-mono text-[11px]">

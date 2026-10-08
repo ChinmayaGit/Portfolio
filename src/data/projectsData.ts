@@ -29,6 +29,10 @@ export interface Project {
   fork?: boolean;
   githubUrl: string;
   demoUrl?: string;
+  secondaryUrl?: { label: string; url: string };
+  role?: string;
+  companionId?: string;
+  companionName?: string;
   featured?: boolean;
   stats?: string;
   highlights: string[];
@@ -170,7 +174,7 @@ export const PROJECTS: Project[] = [
     language: 'JavaScript',
     tags: ['AI Agents', 'LLM Tool Calling', 'Workflow Engine', 'Node.js', 'Automation'],
     stars: 0,
-    featured: true,
+    featured: false,
     githubUrl: 'https://github.com/ChinmayaGit/AI_Mini_Agent_Builder',
     highlights: [
       'Visual directed acyclic graph (DAG) execution pipeline for multi-step AI reasoning',
@@ -195,7 +199,8 @@ export const PROJECTS: Project[] = [
       'Cross-platform desktop companion running across macOS, Linux, and Windows',
       'Local system task execution via authorized shell hooks',
       'Fast natural-language intent recognition and dynamic response generation'
-    ]
+    ],
+    architecture: 'Local Node.js daemon architecture interfacing with OS APIs and LLM inference endpoints.'
   },
   {
     id: 'openclaw-skills',
@@ -240,7 +245,7 @@ export const PROJECTS: Project[] = [
     language: 'Java',
     tags: ['Java', 'Spring Boot', 'JPA', 'Hibernate', 'Enterprise Architecture', 'PostgreSQL'],
     stars: 0,
-    featured: true,
+    featured: false,
     githubUrl: 'https://github.com/ChinmayaGit/deloitte-jpa-demo',
     highlights: [
       'Enterprise database entity mappings with cascading rules and lazy fetching',
@@ -273,7 +278,7 @@ export const PROJECTS: Project[] = [
     language: 'Java',
     tags: ['Java', 'RBAC', 'IAM', 'Enterprise Security', 'Spring', 'MySQL'],
     stars: 0,
-    featured: true,
+    featured: false,
     githubUrl: 'https://github.com/ChinmayaGit/Employee-Management-System',
     highlights: [
       'Role-based access authorization distinguishing employees, managers, and system admins',
@@ -284,37 +289,48 @@ export const PROJECTS: Project[] = [
   {
     id: 'podroid',
     title: 'Podroid Container Runtime',
-    tagline: 'Rootless Alpine Linux Container Engine on Android',
-    description: 'An advanced rootless Android application booting Alpine Linux inside userland, allowing developers to execute containers (Podman/Docker/LXC) and GUI desktop environments directly on mobile hardware.',
+    tagline: 'Rootless Alpine Container Engine on Android · Contributor',
+    description: 'An advanced rootless Android application booting Alpine Linux inside userland, allowing developers to execute containers (Podman/Docker/LXC) and GUI desktop environments directly on mobile hardware. Contributed to open-source core by implementing the load-balancer.',
     category: 'cloud',
     categoryLabel: 'Cloud & Cyber',
     language: 'Kotlin',
     fork: true,
-    tags: ['Android', 'Containers', 'Docker', 'Podman', 'Linux', 'Alpine'],
+    tags: ['Android', 'Containers', 'Docker', 'Podman', 'Linux', 'Alpine', 'Contributor', 'Load Balancer'],
     stars: 0,
-    featured: false,
+    featured: true,
+    role: 'Contributor (Implemented Load-Balancer)',
     githubUrl: 'https://github.com/ChinmayaGit/Podroid',
-    highlights: ['Rootless container virtualization and terminal shell orchestration on Android.']
+    highlights: [
+      'Contributor: Implemented load-balancer logic for container process distribution and network traffic routing on Android userland',
+      'Rootless container virtualization and terminal shell orchestration on Android',
+      'Socket multiplexing and multi-service process balancing within Alpine chroot/proot'
+    ],
+    architecture: 'Android NDK + Alpine Linux userland with custom socket-level load-balancer and container runtime daemon.'
   },
 
   // FULL-STACK WEB
   {
     id: 'reclaim-web',
     title: 'Reclaim Web Portal',
-    tagline: 'High-Performance Productivity Dashboard & Companion',
-    description: 'The modern web companion for the Reclaim productivity ecosystem. Offers deep time-auditing charts, weekly focus heatmaps, habit goal setting, and real-time cloud sync.',
+    tagline: 'Productivity & Focus Dashboard · Live at refitclam.duckdns.org',
+    description: 'The modern web companion for the Reclaim productivity ecosystem. Offers deep time-auditing charts, weekly focus heatmaps, habit goal setting, and real-time cloud sync with the Reclaim mobile app. Live dashboard accessible at refitclam.duckdns.org.',
     category: 'fullstack',
     categoryLabel: 'Full-Stack Web',
     language: 'TypeScript',
-    tags: ['React', 'TypeScript', 'Tailwind CSS', 'Data Visualization', 'REST APIs'],
+    tags: ['React', 'TypeScript', 'Tailwind CSS', 'Data Visualization', 'REST APIs', 'Live Dashboard'],
     stars: 0,
     featured: true,
+    demoUrl: 'https://refitclam.duckdns.org/dashboard',
+    companionId: 'reclaim',
+    companionName: 'Reclaim Mobile (Flutter App)',
     githubUrl: 'https://github.com/ChinmayaGit/Reclaim_Web',
     highlights: [
-      'Interactive time-block analysis with interactive charting',
-      'Fluid responsive dashboard designed for desktop and tablet screens',
-      'Optimistic state updates for instant user interactions'
-    ]
+      'Live production dashboard deployed at refitclam.duckdns.org/dashboard',
+      'Companion web portal designed to synchronize seamlessly with Reclaim Mobile',
+      'Interactive time-block analysis with interactive charting and focus heatmaps',
+      'Optimistic state updates for instant user interactions across devices'
+    ],
+    architecture: 'React + TypeScript SPA with Vite, Tailwind CSS, real-time sync adapters, and Dockerized host deployment.'
   },
   {
     id: 'cards-apps-offertracker',
@@ -326,7 +342,7 @@ export const PROJECTS: Project[] = [
     language: 'TypeScript',
     tags: ['TypeScript', 'Fintech', 'Next.js', 'React', 'Tailwind CSS'],
     stars: 0,
-    featured: true,
+    featured: false,
     githubUrl: 'https://github.com/ChinmayaGit/Cards-Apps_OfferTracker',
     highlights: [
       'Automated calculation of effective reward percentage and expiry dates',
@@ -409,19 +425,19 @@ export const PROJECTS: Project[] = [
   {
     id: 'odia-bhagabata',
     title: 'Odia Bhagabata',
-    tagline: 'Published Devotional & Cultural Android App',
-    description: 'A production Flutter application published on Google Play Store featuring the sacred Jagannatha Dasa Odia Bhagabata. Engineered with offline chapter caching, audio playback, night reading mode, and Odia typography rendering.',
+    tagline: 'Devotional Android App · 10,000+ Downloads (Built for Mom)',
+    description: 'A production Flutter application originally built with love for my mother, now scaled organically to over 10,000+ active devotional readers worldwide on Google Play Store. Features the sacred Jagannatha Dasa Odia Bhagabata with offline chapter caching, synchronized audio playback, night reading mode, and custom Odia typography rendering.',
     category: 'mobile',
     categoryLabel: 'Mobile & Flutter',
     language: 'Dart',
-    tags: ['Flutter', 'Dart', 'Google Play', 'Offline SQLite', 'Audio Player', 'Localization'],
+    tags: ['Flutter', 'Dart', 'Google Play', 'Offline SQLite', 'Audio Player', 'Localization', '10K+ Downloads'],
     stars: 1,
     featured: true,
-    stats: '1,000+ Downloads on Play Store',
+    stats: '10,000+ Downloads on Google Play',
     githubUrl: 'https://github.com/ChinmayaGit/odia_bhagabata',
     highlights: [
-      'Published on Google Play Store with thousands of active devotional readers',
-      'Custom Odia font engine with smooth responsive text scaling',
+      'Originally built for my mom — scaled organically to over 10,000+ active readers on Google Play Store',
+      'Custom Odia font engine with smooth responsive text scaling and zero-latency offline reading',
       'Background audio player service for synchronized shloka chanting',
       'Zero-latency offline reader with indexed SQLite chapter caching'
     ],
@@ -437,7 +453,7 @@ export const PROJECTS: Project[] = [
     language: 'Dart',
     tags: ['Flutter', 'Dart', 'Game Dev', 'Animation Controller', 'State Management'],
     stars: 0,
-    featured: true,
+    featured: false,
     githubUrl: 'https://github.com/ChinmayaGit/findwho',
     highlights: [
       'Custom canvas rendering for interactive hidden object zones',
@@ -456,7 +472,7 @@ export const PROJECTS: Project[] = [
     language: 'Dart',
     tags: ['Flutter', 'Dart', 'Cybersecurity', 'AES-256', 'Biometrics', 'Local Auth'],
     stars: 0,
-    featured: true,
+    featured: false,
     githubUrl: 'https://github.com/ChinmayaGit/P_Manager',
     highlights: [
       'AES-256 GCM cryptographic key derivation using PBKDF2',
@@ -468,20 +484,24 @@ export const PROJECTS: Project[] = [
   {
     id: 'reclaim',
     title: 'Reclaim Mobile',
-    tagline: 'Digital Wellbeing & Focus Habit Tracker',
-    description: 'A cross-platform productivity and digital minimalism application designed to help users track focus blocks, minimize app addiction, and reclaim productive daily hours.',
+    tagline: 'Digital Wellbeing & Focus Habit Tracker · Companion to Reclaim Web',
+    description: 'A cross-platform productivity and digital minimalism application designed to help users track focus blocks, minimize app addiction, and reclaim productive daily hours. Works in tandem with the Reclaim Web Portal.',
     category: 'mobile',
     categoryLabel: 'Mobile & Flutter',
     language: 'Dart',
     tags: ['Flutter', 'Dart', 'Productivity', 'Habit Tracking', 'Analytics UI'],
     stars: 0,
-    featured: false,
+    featured: true,
+    companionId: 'reclaim-web',
+    companionName: 'Reclaim Web Portal (Live Dashboard)',
     githubUrl: 'https://github.com/ChinmayaGit/reclaim',
     highlights: [
-      'Visual focus streaks and intuitive timeline graphs',
+      'Mobile companion to Reclaim Web Portal (refitclam.duckdns.org/dashboard)',
+      'Visual focus streaks and intuitive timeline graphs with local SQLite storage',
       'Custom daily goal setting with smart reminder notifications',
-      'Offline-first synchronization'
-    ]
+      'Offline-first synchronization with cross-platform data export'
+    ],
+    architecture: 'Flutter reactive state management with local SQLite persistence and cloud sync API layer.'
   },
   {
     id: 'pixel-reducer',
@@ -528,29 +548,33 @@ export const PROJECTS: Project[] = [
     language: 'Swift',
     tags: ['Swift', 'iOS', 'macOS', 'File Manager', 'Compression', 'SwiftUI'],
     stars: 0,
-    featured: false,
+    featured: true,
     githubUrl: 'https://github.com/ChinmayaGit/UnZip',
     highlights: [
       'Native Swift compression streams with background extraction',
-      'Deep iOS Files app integration and Share Sheet extensions'
-    ]
+      'Deep iOS Files app integration and Share Sheet extensions',
+      'Supports zip, tar, gzip, and 7z decompression with low memory overhead'
+    ],
+    architecture: 'Native Swift & SwiftUI application utilizing Apple Compression framework, libarchive bindings, and background DispatchQueues.'
   },
   {
     id: 'jhoom',
     title: 'Jhoom Stream',
-    tagline: 'Fluid Video & Music Streaming Experience',
+    tagline: 'Fluid Video & Music Streaming Experience · Adaptive Player',
     description: 'High-performance audio and video player app featuring custom buffer controls, background playlist queuing, and smooth adaptive bitrate playback.',
     category: 'mobile',
     categoryLabel: 'Mobile & Flutter',
     language: 'Dart',
-    tags: ['Flutter', 'Dart', 'Streaming', 'Video Player', 'ExoPlayer'],
+    tags: ['Flutter', 'Dart', 'Streaming', 'Video Player', 'ExoPlayer', 'Audio Streaming', 'HLS'],
     stars: 1,
-    featured: false,
+    featured: true,
     githubUrl: 'https://github.com/ChinmayaGit/jhoom',
     highlights: [
-      'Low-latency HLS & MP4 video streaming integration',
-      'Custom gesture-based volume, brightness, and seeking controls'
-    ]
+      'Low-latency HLS & MP4 video streaming integration with adaptive bitrates',
+      'Custom gesture-based volume, brightness, and seeking controls',
+      'Background audio player service with persistent media notification controls'
+    ],
+    architecture: 'Flutter MediaKit + ExoPlayer integration with Provider state management.'
   },
   {
     id: 'quicknest',
@@ -594,7 +618,7 @@ export const PROJECTS: Project[] = [
     language: 'TypeScript',
     tags: ['TypeScript', 'Canvas API', 'WebSockets', 'Multiplayer', 'Physics Engine', 'Game Dev'],
     stars: 0,
-    featured: true,
+    featured: false,
     githubUrl: 'https://github.com/ChinmayaGit/Bloodline',
     highlights: [
       'Low-latency WebSocket multiplayer networking with state interpolation',
@@ -615,7 +639,7 @@ export const PROJECTS: Project[] = [
     language: 'C++',
     tags: ['C++', 'Augmented Reality', 'OpenGL', 'Computer Vision', '3D Graphics'],
     stars: 0,
-    featured: true,
+    featured: false,
     githubUrl: 'https://github.com/ChinmayaGit/AR_View',
     highlights: [
       'Hardware-accelerated C++ graphics pipeline for 3D asset rendering',
@@ -651,7 +675,7 @@ export const PROJECTS: Project[] = [
     language: 'JavaScript',
     tags: ['JavaScript', 'WebGL', 'Three.js', 'Panoramic 360', 'Virtual Tour'],
     stars: 0,
-    featured: true,
+    featured: false,
     githubUrl: 'https://github.com/ChinmayaGit/360_Tour',
     highlights: [
       'Equirectangular texture mapping onto 3D inner spheres',
@@ -678,18 +702,29 @@ export const PROJECTS: Project[] = [
   {
     id: 'dead-mans-wake',
     title: 'Dead-Man-s-Wake',
-    tagline: 'Atmospheric Narrative & Survival Experience',
-    description: 'An interactive survival story game with atmospheric soundscapes, dynamic decision trees, inventory management, and suspense-driven progression.',
+    tagline: 'Atmospheric Narrative Survival Experience · Playable Online & Itch.io',
+    description: 'An interactive survival story game with atmospheric soundscapes, dynamic decision trees, inventory management, and suspense-driven progression. Live playable web deployment on Netlify and official release on itch.io.',
     category: 'games3d',
     categoryLabel: '3D, Games & AR',
     tab: 'exploring',
     subgroup: 'games',
     language: 'JavaScript',
-    tags: ['JavaScript', 'Story Engine', 'State Tree', 'Audio Design'],
+    tags: ['JavaScript', 'Story Engine', 'State Tree', 'Audio Design', 'Playable Demo', 'Itch.io'],
     stars: 0,
-    featured: false,
+    featured: true,
+    demoUrl: 'https://deadmanwalk.netlify.app/',
+    secondaryUrl: {
+      label: 'Play on Itch.io',
+      url: 'https://cgarnik.itch.io/dead-mans-wake'
+    },
     githubUrl: 'https://github.com/ChinmayaGit/Dead-Man-s-Wake',
-    highlights: ['Branching narrative engine with persistent local game saves.']
+    highlights: [
+      'Live playable deployment on Netlify (deadmanwalk.netlify.app)',
+      'Official release published on itch.io (cgarnik.itch.io/dead-mans-wake)',
+      'Branching narrative engine with persistent local game saves',
+      'Atmospheric soundscapes and suspense-driven decision trees'
+    ],
+    architecture: 'Custom JavaScript state engine with HTML5 Web Audio and local storage game state serialization.'
   },
   {
     id: 'minigames',
@@ -721,7 +756,7 @@ export const PROJECTS: Project[] = [
     language: 'C++',
     tags: ['C++', 'ESP32', 'IoT', 'Embedded Systems', 'SPI Protocol', 'Hardware'],
     stars: 0,
-    featured: true,
+    featured: false,
     githubUrl: 'https://github.com/ChinmayaGit/ESP32SDReader',
     highlights: [
       'Low-overhead hardware SPI bus initialization and block read/write operations',
@@ -795,7 +830,7 @@ export const PROJECTS: Project[] = [
     language: "TypeScript",
     tags: ["AI Assistant","Autonomous Agents","LLM","Cross-Platform","TypeScript"],
     stars: 0,
-    featured: true,
+    featured: false,
     githubUrl: "https://github.com/ChinmayaGit/openclaw",
     highlights: ["Multi-platform daemon architecture executing local and cloud tool requests","Extensible skill extension engine with sandboxed execution"]
   },
@@ -811,9 +846,8 @@ export const PROJECTS: Project[] = [
     language: "TypeScript",
     tags: ["React","TypeScript","Tailwind CSS","Vite","Framer Motion"],
     stars: 0,
-    featured: true,
+    featured: false,
     githubUrl: "https://github.com/ChinmayaGit/Portfolio",
-    demoUrl: "https://chinmayagit.github.io/Portfolio",
     highlights: ["Pre-rendered frame sequence scrubbing with zero scroll jitter","Dual-modal architecture with real-time multi-criteria filtering and sorting"]
   },
   {
@@ -972,7 +1006,7 @@ export const PROJECTS: Project[] = [
     language: "C++",
     tags: ["GameDev","3D Graphics","Interactive Demo","Spatial"],
     stars: 16,
-    featured: true,
+    featured: false,
     githubUrl: "https://github.com/ChinmayaGit/LastEvidence_Demo",
     highlights: ["16 GitHub Stars: Highly rated interactive narrative detective experience","Realistic 3D scene lighting, raytraced shadows, and camera movement"]
   },
@@ -1020,7 +1054,7 @@ export const PROJECTS: Project[] = [
     language: "Rust",
     tags: ["Rust","Systems","Video Encoding","Data Storage","Steganography"],
     stars: 0,
-    featured: true,
+    featured: false,
     githubUrl: "https://github.com/ChinmayaGit/Infinite-Storage-Glitch",
     highlights: ["Binary-to-visual RGB block mapping with Reed-Solomon error correction","High-throughput video rendering pipeline tolerating lossy codec compression"]
   },
